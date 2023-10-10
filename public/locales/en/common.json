@@ -108,53 +108,56 @@
   "dashboard": {
     "title": "Dashboard"
   },
-  "blog_posts": {
-    "blog_posts": "Blog Posts",
-    "fields": {
-      "id": "Id",
-      "title": "Title",
-      "content": "Content",
-      "status": "Status",
-      "createdAt": "Created At",
-      "category": "Category"
-    },
-    "titles": {
-      "create": "Create Blog Post",
-      "edit": "Edit Blog Post",
-      "list": "Blog Posts",
-      "show": "Show Blog Post"
-    }
-  },
-  "categories": {
-    "categories": "Categories",
-    "fields": {
-      "id": "Id",
-      "title": "Title",
-      "createdAt": "Created At"
-    },
-    "titles": {
-      "create": "Create Category",
-      "edit": "Edit Category",
-      "list": "Categories",
-      "show": "Show Category"
-    }
-  },
   "documentTitle": {
     "default": "refine",
     "suffix": " | refine",
-    "blog_posts": {
-      "list": "Blog Posts | refine",
-      "show": "#{{id}} Show Blog Post | refine",
-      "edit": "#{{id}} Edit Blog Post | refine",
-      "create": "Create new Blog Post | refine",
-      "clone": "#{{id}} Clone Blog Post | refine"
+    "companies": {
+      "list": "Company | Magnet",
+      "show": "#{{id}} Show Company | Magnet",
+      "edit": "#{{id}} Edit Company | Magnet",
+      "create": "Create new Company | Magnet",
+      "clone": "#{{id}} Clone Company | Magnet"
     },
-    "categories": {
-      "list": "Categories | refine",
-      "show": "#{{id}} Show Category | refine",
-      "edit": "#{{id}} Edit Category | refine",
-      "create": "Create new Category | refine",
-      "clone": "#{{id}} Clone Category | refine"
+    "jobs": {
+      "list": "Job | Magnet",
+      "show": "#{{id}} Show Job | Magnet",
+      "edit": "#{{id}} Edit Job | Magnet",
+      "create": "Create new Job | Magnet",
+      "clone": "#{{id}} Clone Job | Magnet"
+    },
+    "resumes": {
+      "list": "Resume | Magnet",
+      "show": "#{{id}} Show Resume | Magnet",
+      "edit": "#{{id}} Edit Resume | Magnet",
+      "create": "Create new Resume | Magnet",
+      "clone": "#{{id}} Clone Resume | Magnet"
+    },
+    "applications": {
+      "list": "Job Applications | Magnet",
+      "show": "#{{id}} Show Job Applications | Magnet",
+      "edit": "#{{id}} Edit Job Applications | Magnet",
+      "create": "Create new Job Applications | Magnet",
+      "clone": "#{{id}} Clone Job Applications | Magnet"
+    },
+    "papers": {
+      "list": "Test Paper | Magnet",
+      "show": "#{{id}} Show Test Paper | Magnet",
+      "edit": "#{{id}} Edit Test Paper | Magnet",
+      "create": "Create new Test Paper | Magnet",
+      "clone": "#{{id}} Clone Test Paper | Magnet"
+    },
+    "answers": {
+      "list": "Answer Sheet | Magnet",
+      "show": "#{{id}} Show Answer Sheet | Magnet"
+    }
+    ,
+    "matches": {
+      "list": "Match Index | Magnet",
+      "show": "#{{id}} Show Match Index | Magnet"
+    },
+    "dashboard": {
+      "list": "Match Index | Magnet",
+      "show": "#{{id}} Show Match Index | Magnet"
     }
   },
   "table": {

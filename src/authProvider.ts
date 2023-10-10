@@ -1,17 +1,25 @@
 import { AuthBindings } from "@refinedev/core";
 
-export const TOKEN_KEY = "refine-auth";
+import axiosInstance from "./services/axios-instance";
+
+export const TOKEN_KEY = "auth";
+export const LOGIN_USER = "LOGIN_USER";
+import {API_URL} from "./services/axios-instance";
+import { User } from "./interfaces";
 
 export const authProvider: AuthBindings = {
-  login: async ({ username, email, password }) => {
-    if ((username || email) && password) {
-      localStorage.setItem(TOKEN_KEY, username);
+  login: async ({email, password}) => {
+    const response = await axiosInstance.post(`${API_URL}/users/login`, {email, password});
+    if(response.data){
+      localStorage.setItem(TOKEN_KEY, response.data.token);
+      const jsonUser = JSON.stringify(response.data);
+      localStorage.setItem(LOGIN_USER, jsonUser);
       return {
         success: true,
         redirectTo: "/",
       };
-    }
-
+    }      
+    
     return {
       success: false,
       error: {
@@ -19,9 +27,11 @@ export const authProvider: AuthBindings = {
         message: "Invalid username or password",
       },
     };
+  
   },
   logout: async () => {
     localStorage.removeItem(TOKEN_KEY);
+    localStorage.removeItem(LOGIN_USER);
     return {
       success: true,
       redirectTo: "/login",
@@ -43,11 +53,15 @@ export const authProvider: AuthBindings = {
   getPermissions: async () => null,
   getIdentity: async () => {
     const token = localStorage.getItem(TOKEN_KEY);
-    if (token) {
+    const userString = localStorage.getItem(LOGIN_USER);
+    if (token && userString) {
+      const user: User = JSON.parse(userString);
       return {
-        id: 1,
-        name: "John Doe",
+        id: user?.id,
+        name: user?.email,
         avatar: "https://i.pravatar.cc/300",
+        email: user?.email,
+        profile: user?.profile
       };
     }
     return null;

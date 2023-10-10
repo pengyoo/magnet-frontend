@@ -6,6 +6,12 @@ import {
 } from "@refinedev/core";
 import { Show, NumberField, TextField } from "@refinedev/mantine";
 import { Flex, Stack, Table, Title } from "@mantine/core";
+import {
+  IconNotebook,
+  IconQuestionCircle,
+  IconQuestionMark,
+} from "@tabler/icons";
+import { IconFlagQuestion, IconPencilQuestion } from "@tabler/icons-react";
 
 export const TestPaperShow: React.FC<IResourceComponentsProps> = () => {
   const translate = useTranslate();
@@ -40,11 +46,18 @@ export const TestPaperShow: React.FC<IResourceComponentsProps> = () => {
             return (
               <>
                 <tr key={question.id}>
-                  <td>Q: </td>
-                  <td>{question.question}</td>
+                  <td>
+                    <IconPencilQuestion color="#F06418" size={20} />{" "}
+                  </td>
+                  <td>
+                    <TextField
+                      style={{ fontWeight: "bold" }}
+                      value={question.question}
+                    ></TextField>
+                  </td>
                 </tr>
                 <tr>
-                  <td>A: </td>
+                  <td></td>
                   <td>{question.standardAnswer}</td>
                 </tr>
               </>

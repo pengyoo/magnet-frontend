@@ -140,22 +140,9 @@
     }
   },
   "documentTitle": {
-    "default": "refine",
-    "suffix": " | refine",
-    "blog_posts": {
-      "list": "Blogbeiträge | refine",
-      "show": "#{{id}} Show Blogeintrag | refine",
-      "edit": "#{{id}} Edit Blogeintrag | refine",
-      "create": "Create new Blogeintrag | refine",
-      "clone": "#{{id}} Clone Blogeintrag | refine"
-    },
-    "categories": {
-      "list": "Kategorien | refine",
-      "show": "#{{id}} Zeigen Kategorien | refine",
-      "edit": "#{{id}} Bearbeiten Kategorien | refine",
-      "create": "Neue Kategorie Erstellen | refine",
-      "clone": "#{{id}} Klon Kategorie | refine"
-    }
+    "default": "Magnet",
+    "suffix": " | Magnet"
+  
   },
   "table": {
     "actions": "Aktionen"

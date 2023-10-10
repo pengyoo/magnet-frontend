@@ -5,8 +5,9 @@ import {
   useOne,
   useMany,
 } from "@refinedev/core";
-import { Show, NumberField, TagField, TextField } from "@refinedev/mantine";
-import { Title, Group, Flex, Table } from "@mantine/core";
+import { Show, NumberField, TextField } from "@refinedev/mantine";
+import { Title, Flex, Table } from "@mantine/core";
+import { IconNotebook } from "@tabler/icons";
 
 export const AnswerSheetShow: React.FC<IResourceComponentsProps> = () => {
   const translate = useTranslate();
@@ -68,8 +69,15 @@ export const AnswerSheetShow: React.FC<IResourceComponentsProps> = () => {
                   <td>{answer.questionText}</td>
                 </tr>
                 <tr>
-                  <td>A: </td>
-                  <td>{answer.answer}</td>
+                  <td>
+                    <IconNotebook color="#F06418" size={20} />{" "}
+                  </td>
+                  <td>
+                    <TextField
+                      style={{ fontWeight: "bold" }}
+                      value={answer.answer}
+                    ></TextField>
+                  </td>
                 </tr>
               </>
             );
