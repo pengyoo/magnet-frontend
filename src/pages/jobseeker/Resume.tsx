@@ -10,6 +10,7 @@ import {
   Flex,
   Space,
   Textarea,
+  Title,
 } from "@mantine/core";
 import { DatePicker } from "@mantine/dates";
 import { useForm } from "@mantine/form";
@@ -257,6 +258,7 @@ const Resume = () => {
 
   return (
     <Card p="md">
+      <Title>My Resume</Title>
       <form
         onSubmit={form.onSubmit((values) => {
           console.log(values);
