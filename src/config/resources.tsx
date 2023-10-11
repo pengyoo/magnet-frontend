@@ -9,6 +9,7 @@ import {
   IconPaperBag,
   IconSmartHome,
   IconTestPipe,
+  IconUser,
 } from "@tabler/icons";
 import getLoginUser from "../utils/login-user";
 
@@ -17,10 +18,22 @@ const user = getLoginUser();
 export const resources: IResourceItem[] = [
   {
     name: "dashboard",
-    list: "/",
+    list: "/dashboard",
     meta: {
       label: "Dashboard",
       icon: <IconDashboard />,
+      hide: user?.role === "COMPANY" || user?.role === "JOB_SEEKER",
+    },
+  },
+  {
+    name: "users",
+    list: "/users",
+    edit: "/users/edit/:id",
+    show: "/users/show/:id",
+    create: "/users/create",
+    meta: {
+      label: "User",
+      icon: <IconUser size={20} />,
       hide: user?.role === "COMPANY" || user?.role === "JOB_SEEKER",
     },
   },

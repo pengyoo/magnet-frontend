@@ -16,7 +16,7 @@ export const authProvider: AuthBindings = {
       localStorage.setItem(LOGIN_USER, jsonUser);
       return {
         success: true,
-        redirectTo: "/",
+        redirectTo: "/dashboard",
       };
     }      
     

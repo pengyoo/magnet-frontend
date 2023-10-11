@@ -109,8 +109,8 @@
     "title": "Dashboard"
   },
   "documentTitle": {
-    "default": "refine",
-    "suffix": " | refine",
+    "default": "Magnet",
+    "suffix": " | Magnet",
     "companies": {
       "list": "Company | Magnet",
       "show": "#{{id}} Show Company | Magnet",
@@ -156,8 +156,11 @@
       "show": "#{{id}} Show Match Index | Magnet"
     },
     "dashboard": {
-      "list": "Match Index | Magnet",
-      "show": "#{{id}} Show Match Index | Magnet"
+      "list": "Dashboard | Magnet",
+      "show": "#{{id}} Dashboard | Magnet"
+    },
+    "register": {
+      "list": "Register | Magnet"
     }
   },
   "table": {

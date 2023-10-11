@@ -33,7 +33,12 @@ import { Header } from "./components/header";
 import { ForgotPassword } from "./pages/forgotPassword";
 import { Login } from "./pages/login";
 import { Register } from "./pages/register";
-import { MantineListInferencer } from "@refinedev/inferencer/mantine";
+import {
+  MantineCreateInferencer,
+  MantineEditInferencer,
+  MantineListInferencer,
+  MantineShowInferencer,
+} from "@refinedev/inferencer/mantine";
 
 import { CompanyEdit, CompanyList, CompanyShow } from "./pages/companies";
 import { JobEdit, JobList, JobShow } from "./pages/jobs";
@@ -52,6 +57,7 @@ import { resources } from "./config/resources";
 import { DashboardContent } from "./pages/dashboard/DashboardContent";
 import Resume from "./pages/jobseeker/Resume";
 import getLoginUser from "./utils/login-user";
+import { UserCreate, UserEdit, UserList, UserShow } from "./pages/users";
 
 const user = getLoginUser();
 
@@ -129,11 +135,21 @@ function App() {
                       {/* <Route
                         element={<NavigateToResource resource="dashboard" />}
                       /> */}
-                      <Route path="/">
-                        {/* Check User Role */}
-                        {user?.role == "ADMIN" && (
-                          <Route index element={<DashboardContent />} />
-                        )}
+                      {/* Check User Role */}
+
+                      {user?.role == "ADMIN" && (
+                        <Route
+                          path="/dashboard"
+                          index
+                          element={<DashboardContent />}
+                        />
+                      )}
+
+                      <Route path="/users">
+                        <Route index element={<UserList />} />
+                        <Route path="edit/:id" element={<UserEdit />} />
+                        <Route path="show/:id" element={<UserShow />} />
+                        <Route path="create" element={<UserCreate />} />
                       </Route>
 
                       <Route path="/companies">
@@ -190,7 +206,7 @@ function App() {
                       }
                     >
                       <Route path="/login" element={<Login />} />
-                      <Route path="/jobseeker" element={<Resume />} />
+                      <Route path="/" index element={<Resume />} />
                       <Route path="/register" element={<Register />} />
                       <Route
                         path="/forgot-password"

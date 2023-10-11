@@ -17,7 +17,10 @@ export interface Resume {
 export interface User {
     id: string;
     email: string;
+    password:string;
     createdAt: Date;
     profile: string;
     role: string;
+    terms: boolean;
+
   }
