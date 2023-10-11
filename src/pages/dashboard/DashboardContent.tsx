@@ -1,6 +1,6 @@
 "use client";
 
-import { Flex, Grid } from "@mantine/core";
+import { Flex, Grid, Text } from "@mantine/core";
 import { StatsGroup } from "./StatsGroup";
 import { mockData } from "./mock";
 import { BalanceCard } from "./BalanceCard";
@@ -10,6 +10,7 @@ import { WelcomeCard } from "./WelcomeCard";
 
 import axiosInstance, { API_URL } from "../../services/axios-instance";
 import { useEffect, useState } from "react";
+import getLoginUser from "../../utils/login-user";
 
 export function DashboardContent() {
   const [data, setData] = useState([]);
@@ -23,7 +24,10 @@ export function DashboardContent() {
     //     console.log(err);
     //   });
   }, []);
-  return (
+
+  const user = getLoginUser();
+
+  const adminDashboard = (
     <Grid>
       <Grid.Col sm={12} md={12} lg={4}>
         <ProfileCard />
@@ -43,4 +47,18 @@ export function DashboardContent() {
       </Grid.Col>
     </Grid>
   );
+
+  const jobSeekerDashboard = <Text>JobSeeker</Text>;
+
+  const companyDashboard = <Text>Company</Text>;
+
+  if (user?.role === "ADMIN") {
+    return adminDashboard;
+  }
+
+  if (user?.role === "JOB_SEEKER") {
+    return jobSeekerDashboard;
+  }
+
+  return companyDashboard;
 }

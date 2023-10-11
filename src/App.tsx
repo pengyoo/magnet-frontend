@@ -33,33 +33,31 @@ import { Header } from "./components/header";
 import { ForgotPassword } from "./pages/forgotPassword";
 import { Login } from "./pages/login";
 import { Register } from "./pages/register";
-import {
-  MantineCreateInferencer,
-  MantineEditInferencer,
-  MantineListInferencer,
-  MantineShowInferencer,
-} from "@refinedev/inferencer/mantine";
+// import {
+//   MantineCreateInferencer,
+//   MantineEditInferencer,
+//   MantineListInferencer,
+//   MantineShowInferencer,
+// } from "@refinedev/inferencer/mantine";
 
-import { CompanyEdit, CompanyList, CompanyShow } from "./pages/companies";
-import { JobEdit, JobList, JobShow } from "./pages/jobs";
-import { ResumeEdit, ResumeList, ResumeShow } from "./pages/resumes";
+import { CompanyEdit, CompanyList, CompanyShow } from "./pages/admin/companies";
+import { JobEdit, JobList, JobShow } from "./pages/admin/jobs";
+import { ResumeEdit, ResumeList, ResumeShow } from "./pages/admin/resumes";
 import {
   JobApplicationList,
   JobApplicationShow,
-} from "./pages/job-applications";
-import { TestPaperList } from "./pages/test-paper/list";
-import { TestPaperShow } from "./pages/test-paper/show";
-import { AnswerSheetList, AnswerSheetShow } from "./pages/answers";
+} from "./pages/admin/job-applications";
+import { TestPaperList } from "./pages/admin/test-paper/list";
+import { TestPaperShow } from "./pages/admin/test-paper/show";
+import { AnswerSheetList, AnswerSheetShow } from "./pages/admin/answers";
 
 import axiosInstance, { API_URL } from "./services/axios-instance";
-import { MatchingIndexList } from "./pages/matches";
+import { MatchingIndexList } from "./pages/admin/matches";
 import { resources } from "./config/resources";
 import { DashboardContent } from "./pages/dashboard/DashboardContent";
 import Resume from "./pages/jobseeker/Resume";
 import getLoginUser from "./utils/login-user";
-import { UserCreate, UserEdit, UserList, UserShow } from "./pages/users";
-
-const user = getLoginUser();
+import { UserCreate, UserEdit, UserList, UserShow } from "./pages/admin/users";
 
 function App() {
   const [colorScheme, setColorScheme] = useLocalStorage<ColorScheme>({
@@ -79,6 +77,7 @@ function App() {
   };
 
   const simpleRestProvider = dataProvider(API_URL, axiosInstance);
+  const user = getLoginUser();
 
   return (
     <BrowserRouter>
@@ -111,6 +110,7 @@ function App() {
                   }}
                 >
                   <Routes>
+                    {/* Pages need to login first */}
                     <Route
                       element={
                         <Authenticated
@@ -137,12 +137,14 @@ function App() {
                       /> */}
                       {/* Check User Role */}
 
-                      {user?.role == "ADMIN" && (
-                        <Route
-                          path="/dashboard"
-                          index
-                          element={<DashboardContent />}
-                        />
+                      <Route
+                        path="/home"
+                        index
+                        element={<DashboardContent />}
+                      />
+
+                      {user?.role == "JOB_SEEKER" && (
+                        <Route path="/my_resume" index element={<Resume />} />
                       )}
 
                       <Route path="/users">
@@ -195,6 +197,8 @@ function App() {
                       </Route>
                       <Route path="*" element={<ErrorComponent />} />
                     </Route>
+
+                    {/* Pages don't need to login */}
                     <Route
                       element={
                         <Authenticated
@@ -206,12 +210,17 @@ function App() {
                       }
                     >
                       <Route path="/login" element={<Login />} />
-                      <Route path="/" index element={<Resume />} />
                       <Route path="/register" element={<Register />} />
                       <Route
                         path="/forgot-password"
                         element={<ForgotPassword />}
                       />
+                    </Route>
+
+                    {/* External pages independent of the Refine management system */}
+                    <Route>
+                      <Route path="/" index element={<Resume />} />
+                      <Route path="/landing" element={<Resume />} />
                     </Route>
                   </Routes>
 

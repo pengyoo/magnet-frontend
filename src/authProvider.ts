@@ -14,10 +14,15 @@ export const authProvider: AuthBindings = {
       localStorage.setItem(TOKEN_KEY, response.data.token);
       const jsonUser = JSON.stringify(response.data);
       localStorage.setItem(LOGIN_USER, jsonUser);
+
+      window.location.reload();
+
       return {
         success: true,
-        redirectTo: "/dashboard",
+        redirectTo: "/home",
       };
+
+     
     }      
     
     return {

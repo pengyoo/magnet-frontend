@@ -7,93 +7,83 @@ import {
   List,
   EditButton,
   ShowButton,
-  MarkdownField,
-  DateField,
+  DeleteButton,
   TextField,
 } from "@refinedev/mantine";
 import { Link } from "react-router-dom";
-import { Company } from "../../interfaces";
+import { Job, Resume } from "../../../interfaces";
 
-export const JobList: React.FC<IResourceComponentsProps> = () => {
+export const MatchingIndexList: React.FC<IResourceComponentsProps> = () => {
   const translate = useTranslate();
   const columns = React.useMemo<ColumnDef<any>[]>(
     () => [
       {
-        id: "id",
-        accessorKey: "id",
-        header: translate("ID"),
-      },
-      {
-        id: "title",
-        accessorKey: "title",
-        header: translate("Title"),
-      },
-      {
-        id: "description",
-        accessorKey: "description",
-        header: translate("Description"),
+        id: "job",
+        accessorKey: "job",
+        header: translate("Job Title"),
         cell: function render({ getValue }) {
           return (
-            <MarkdownField value={getValue<string>()?.slice(0, 80) + "..."} />
-          );
-        },
-      },
-      {
-        id: "salaryRange",
-        accessorKey: "salaryRange",
-        header: translate("Salary Range"),
-      },
-      {
-        id: "location",
-        accessorKey: "location",
-        header: translate("Location"),
-      },
-      {
-        id: "createdAt",
-        accessorKey: "createdAt",
-        header: translate("Created At"),
-        cell: function render({ getValue }) {
-          return <DateField value={getValue<any>()} />;
-        },
-      },
-      {
-        id: "expireAt",
-        accessorKey: "expireAt",
-        header: translate("Expire At"),
-        cell: function render({ getValue }) {
-          return <DateField value={getValue<any>()} />;
-        },
-      },
-      {
-        id: "status",
-        accessorKey: "status",
-        header: translate("Status"),
-      },
-      {
-        id: "company",
-        header: translate("Company Name"),
-        accessorKey: "company",
-        cell: function render({ getValue }) {
-          return (
-            <Link to={`/companies/show/${(getValue() as Company).id}`}>
-              <TextField value={(getValue() as Company).name} />
+            <Link to={`/jobs/show/${(getValue() as Job).id}`}>
+              <TextField value={(getValue() as Job).title} />
             </Link>
           );
         },
       },
       {
-        id: "actions",
-        accessorKey: "id",
-        header: translate("table.actions"),
+        id: "resume",
+        accessorKey: "resume",
+        header: translate("Job Seeker"),
         cell: function render({ getValue }) {
           return (
-            <Group spacing="xs" noWrap>
-              <ShowButton hideText recordItemId={getValue() as string} />
-              <EditButton hideText recordItemId={getValue() as string} />
-            </Group>
+            <Link to={`/resumes/show/${(getValue() as Resume).id}`}>
+              <TextField value={(getValue() as Resume).fullName} />
+            </Link>
           );
         },
       },
+
+      {
+        id: "degree",
+        accessorKey: "degree",
+        header: translate("Degree Match"),
+      },
+      {
+        id: "major",
+        accessorKey: "major",
+        header: translate("Major Match"),
+      },
+      {
+        id: "experience",
+        accessorKey: "experience",
+        header: translate("Experience Match"),
+      },
+      {
+        id: "skill",
+        accessorKey: "skill",
+        header: translate("Skill Match"),
+      },
+      {
+        id: "language",
+        accessorKey: "language",
+        header: translate("Language Match"),
+      },
+      {
+        id: "overall",
+        accessorKey: "overall",
+        header: translate("Overall Match"),
+      },
+      // {
+      //   id: "actions",
+      //   accessorKey: "id",
+      //   header: translate("table.actions"),
+      //   cell: function render({ getValue }) {
+      //     return (
+      //       <Group spacing="xs" noWrap>
+      //         <ShowButton hideText recordItemId={getValue() as string} />
+      //       </Group>
+      //     );
+      //   },
+      // },
     ],
     [translate]
   );

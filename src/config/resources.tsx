@@ -17,12 +17,11 @@ const user = getLoginUser();
 
 export const resources: IResourceItem[] = [
   {
-    name: "dashboard",
-    list: "/dashboard",
+    name: "home",
+    list: "/home",
     meta: {
-      label: "Dashboard",
+      label: "Home",
       icon: <IconDashboard />,
-      hide: user?.role === "COMPANY" || user?.role === "JOB_SEEKER",
     },
   },
   {
@@ -34,7 +33,8 @@ export const resources: IResourceItem[] = [
     meta: {
       label: "User",
       icon: <IconUser size={20} />,
-      hide: user?.role === "COMPANY" || user?.role === "JOB_SEEKER",
+      hide:
+        user == null || user?.role === "COMPANY" || user?.role === "JOB_SEEKER",
     },
   },
   {
@@ -42,7 +42,8 @@ export const resources: IResourceItem[] = [
     meta: {
       label: "Company",
       icon: <IconBuildingBank size={20} />,
-      hide: user?.role === "COMPANY" || user?.role === "JOB_SEEKER",
+      hide:
+        user == null || user?.role === "COMPANY" || user?.role === "JOB_SEEKER",
     },
   },
   {
@@ -54,7 +55,8 @@ export const resources: IResourceItem[] = [
       label: "Company",
       parent: "company",
       icon: <IconBuilding size={20} />,
-      hide: user?.role === "COMPANY" || user?.role === "JOB_SEEKER",
+      hide:
+        user == null || user?.role === "COMPANY" || user?.role === "JOB_SEEKER",
     },
   },
   {
@@ -66,7 +68,8 @@ export const resources: IResourceItem[] = [
       label: "Job",
       parent: "company",
       icon: <Icon360View size={20} />,
-      hide: user?.role === "COMPANY" || user?.role === "JOB_SEEKER",
+      hide:
+        user == null || user?.role === "COMPANY" || user?.role === "JOB_SEEKER",
     },
   },
 
@@ -78,7 +81,8 @@ export const resources: IResourceItem[] = [
     meta: {
       label: "Resume",
       icon: <IconFaceId size={20} />,
-      hide: user?.role === "COMPANY" || user?.role === "JOB_SEEKER",
+      hide:
+        user == null || user?.role === "COMPANY" || user?.role === "JOB_SEEKER",
     },
   },
   {
@@ -88,7 +92,8 @@ export const resources: IResourceItem[] = [
     meta: {
       label: "Job Application",
       icon: <IconArrowBarToDown size={20} />,
-      hide: user?.role === "COMPANY" || user?.role === "JOB_SEEKER",
+      hide:
+        user == null || user?.role === "COMPANY" || user?.role === "JOB_SEEKER",
     },
   },
 
@@ -97,7 +102,8 @@ export const resources: IResourceItem[] = [
     meta: {
       label: "Assessment",
       icon: <IconTestPipe size={20} />,
-      hide: user?.role === "COMPANY" || user?.role === "JOB_SEEKER",
+      hide:
+        user == null || user?.role === "COMPANY" || user?.role === "JOB_SEEKER",
     },
   },
   {
@@ -108,7 +114,8 @@ export const resources: IResourceItem[] = [
       label: "Test Paper",
       icon: <IconPaperBag size={20} />,
       parent: "assessment",
-      hide: user?.role === "COMPANY" || user?.role === "JOB_SEEKER",
+      hide:
+        user == null || user?.role === "COMPANY" || user?.role === "JOB_SEEKER",
     },
   },
   {
@@ -119,7 +126,8 @@ export const resources: IResourceItem[] = [
       label: "Answer Sheet",
       icon: <IconPaperBag size={20} />,
       parent: "assessment",
-      hide: user?.role === "COMPANY" || user?.role === "JOB_SEEKER",
+      hide:
+        user == null || user?.role === "COMPANY" || user?.role === "JOB_SEEKER",
     },
   },
   {
@@ -128,7 +136,18 @@ export const resources: IResourceItem[] = [
     meta: {
       label: "Matching Index",
       icon: <IconSmartHome size={20} />,
-      hide: user?.role === "COMPANY" || user?.role === "JOB_SEEKER",
+      hide:
+        user == null || user?.role === "COMPANY" || user?.role === "JOB_SEEKER",
+    },
+  },
+
+  {
+    name: "my_resume",
+    list: "/my_resume",
+    meta: {
+      label: "My Resume",
+      icon: <IconDashboard />,
+      hide: user == null || user?.role === "COMPANY" || user?.role === "ADMIN",
     },
   },
 ];
