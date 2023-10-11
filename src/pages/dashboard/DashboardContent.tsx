@@ -1,12 +1,12 @@
 "use client";
 
 import { Flex, Grid, Text } from "@mantine/core";
-import { StatsGroup } from "./StatsGroup";
-import { mockData } from "./mock";
-import { BalanceCard } from "./BalanceCard";
-import { OverviewCard } from "./OverviewCard";
-import { ProfileCard } from "./ProfileCard";
-import { WelcomeCard } from "./WelcomeCard";
+import { StatsGroup } from "../admin/dashboard/StatsGroup";
+import { mockData } from "../admin/dashboard/mock";
+import { BalanceCard } from "../admin/dashboard/BalanceCard";
+import { OverviewCard } from "../admin/dashboard/OverviewCard";
+import { ProfileCard } from "../admin/dashboard/ProfileCard";
+import { WelcomeCard } from "../admin/dashboard/WelcomeCard";
 
 import axiosInstance, { API_URL } from "../../services/axios-instance";
 import { useEffect, useState } from "react";

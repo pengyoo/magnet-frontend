@@ -143,59 +143,72 @@ function App() {
                         element={<DashboardContent />}
                       />
 
-                      {user?.role == "JOB_SEEKER" && (
-                        <Route path="/my_resume" index element={<Resume />} />
+                      {/* ADMIN MENU */}
+                      {user?.role == "ADMIN" && (
+                        <>
+                          <Route path="/users">
+                            <Route index element={<UserList />} />
+                            <Route path="edit/:id" element={<UserEdit />} />
+                            <Route path="show/:id" element={<UserShow />} />
+                            <Route path="create" element={<UserCreate />} />
+                          </Route>
+
+                          <Route path="/companies">
+                            <Route index element={<CompanyList />} />
+                            <Route path="edit/:id" element={<CompanyEdit />} />
+                            <Route path="show/:id" element={<CompanyShow />} />
+                          </Route>
+
+                          <Route path="/jobs">
+                            <Route index element={<JobList />} />
+                            <Route path="edit/:id" element={<JobEdit />} />
+                            <Route path="show/:id" element={<JobShow />} />
+                          </Route>
+
+                          <Route
+                            element={<NavigateToResource resource="resumes" />}
+                          />
+                          <Route path="/resumes">
+                            <Route index element={<ResumeList />} />
+                            <Route path="edit/:id" element={<ResumeEdit />} />
+                            <Route path="show/:id" element={<ResumeShow />} />
+                          </Route>
+
+                          <Route path="/applications">
+                            <Route index element={<JobApplicationList />} />
+                            <Route
+                              path="show/:id"
+                              element={<JobApplicationShow />}
+                            />
+                          </Route>
+
+                          <Route path="/papers">
+                            <Route index element={<TestPaperList />} />
+                            <Route
+                              path="show/:id"
+                              element={<TestPaperShow />}
+                            />
+                          </Route>
+
+                          <Route path="/answers">
+                            <Route index element={<AnswerSheetList />} />
+                            <Route
+                              path="show/:id"
+                              element={<AnswerSheetShow />}
+                            />
+                          </Route>
+                          <Route path="/matches">
+                            <Route index element={<MatchingIndexList />} />
+                          </Route>
+                          <Route path="*" element={<ErrorComponent />} />
+                        </>
                       )}
-
-                      <Route path="/users">
-                        <Route index element={<UserList />} />
-                        <Route path="edit/:id" element={<UserEdit />} />
-                        <Route path="show/:id" element={<UserShow />} />
-                        <Route path="create" element={<UserCreate />} />
-                      </Route>
-
-                      <Route path="/companies">
-                        <Route index element={<CompanyList />} />
-                        <Route path="edit/:id" element={<CompanyEdit />} />
-                        <Route path="show/:id" element={<CompanyShow />} />
-                      </Route>
-
-                      <Route path="/jobs">
-                        <Route index element={<JobList />} />
-                        <Route path="edit/:id" element={<JobEdit />} />
-                        <Route path="show/:id" element={<JobShow />} />
-                      </Route>
-
-                      <Route
-                        element={<NavigateToResource resource="resumes" />}
-                      />
-                      <Route path="/resumes">
-                        <Route index element={<ResumeList />} />
-                        <Route path="edit/:id" element={<ResumeEdit />} />
-                        <Route path="show/:id" element={<ResumeShow />} />
-                      </Route>
-
-                      <Route path="/applications">
-                        <Route index element={<JobApplicationList />} />
-                        <Route
-                          path="show/:id"
-                          element={<JobApplicationShow />}
-                        />
-                      </Route>
-
-                      <Route path="/papers">
-                        <Route index element={<TestPaperList />} />
-                        <Route path="show/:id" element={<TestPaperShow />} />
-                      </Route>
-
-                      <Route path="/answers">
-                        <Route index element={<AnswerSheetList />} />
-                        <Route path="show/:id" element={<AnswerSheetShow />} />
-                      </Route>
-                      <Route path="/matches">
-                        <Route index element={<MatchingIndexList />} />
-                      </Route>
-                      <Route path="*" element={<ErrorComponent />} />
+                      {/* JOB_SEEKER MENU */}
+                      {user?.role == "JOB_SEEKER" && (
+                        <>
+                          <Route path="/my_resume" index element={<Resume />} />
+                        </>
+                      )}
                     </Route>
 
                     {/* Pages don't need to login */}

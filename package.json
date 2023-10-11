@@ -6,6 +6,7 @@
   "dependencies": {
     "@emotion/react": "^11.8.2",
     "@mantine/core": "^5.10.4",
+    "@mantine/dates": "^5.10.4",
     "@mantine/form": "^5.10.4",
     "@mantine/hooks": "^5.10.4",
     "@mantine/notifications": "^5.10.4",
@@ -28,6 +29,7 @@
     "react-i18next": "^11.8.11",
     "react-icons": "^4.11.0",
     "react-router-dom": "^6.8.1",
+    "dayjs":"1.11.10",
 
     "chart.js": "^4.4.0",
     "react-chartjs-2": "^5.2.0"

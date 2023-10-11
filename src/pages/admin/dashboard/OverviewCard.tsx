@@ -61,7 +61,7 @@ export const data = {
   ],
 };
 
-import axiosInstance, { API_URL } from "../../services/axios-instance";
+import axiosInstance, { API_URL } from "../../../services/axios-instance";
 
 export function OverviewCard() {
   // const [data, setData] = useState({ labels: [], datasets: [] });
