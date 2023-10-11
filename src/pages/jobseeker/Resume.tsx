@@ -77,9 +77,11 @@ const Resume = () => {
   const skillFields = form.values.skills.map((item, index) => (
     <Flex key={item.id} mt="xs">
       <TextInput
+        label="Skill"
         placeholder="Skill"
         style={{ flex: 1 }}
         {...form.getInputProps(`skills.${index}.skill`)}
+        withAsterisk
       />
 
       <ActionIcon
@@ -99,6 +101,7 @@ const Resume = () => {
         placeholder="School Name"
         style={{ flex: 1 }}
         {...form.getInputProps(`education.${index}.schoolName`)}
+        withAsterisk
       />
       <Space m="md" />
       <Flex gap={50} align="center">
@@ -107,6 +110,7 @@ const Resume = () => {
           placeholder="Degree"
           style={{ flex: 1 }}
           {...form.getInputProps(`education.${index}.degree`)}
+          withAsterisk
         />
 
         <TextInput
@@ -114,6 +118,7 @@ const Resume = () => {
           placeholder="Major"
           style={{ flex: 1 }}
           {...form.getInputProps(`education.${index}.major`)}
+          withAsterisk
         />
       </Flex>
       <Space m="md" />
@@ -151,12 +156,14 @@ const Resume = () => {
         placeholder="Company Name"
         style={{ flex: 1 }}
         {...form.getInputProps(`experience.${index}.companyName`)}
+        withAsterisk
       />
       <TextInput
         label="Title"
         placeholder="Title"
         style={{ flex: 1 }}
         {...form.getInputProps(`experience.${index}.position`)}
+        withAsterisk
       />
 
       <Space m="md" />
@@ -183,6 +190,7 @@ const Resume = () => {
         placeholder="Description"
         style={{ flex: 1 }}
         {...form.getInputProps(`experience.${index}.description`)}
+        withAsterisk
       />
       <TextInput
         label="Location"
@@ -208,6 +216,7 @@ const Resume = () => {
         placeholder="Project Name"
         style={{ flex: 1 }}
         {...form.getInputProps(`projects.${index}.name`)}
+        withAsterisk
       />
 
       <Space m="md" />
@@ -234,6 +243,7 @@ const Resume = () => {
         placeholder="Description"
         style={{ flex: 1 }}
         {...form.getInputProps(`projects.${index}.description`)}
+        withAsterisk
       />
 
       <ActionIcon
@@ -260,12 +270,14 @@ const Resume = () => {
               placeholder="Your full name"
               {...form.getInputProps("fullName")}
               style={{ flex: 1 }}
+              withAsterisk
             />
             <TextInput
               label="Email"
               placeholder="Your Email"
               {...form.getInputProps("contact.email")}
               style={{ flex: 1 }}
+              withAsterisk
             />
           </Flex>
           <Textarea
@@ -279,16 +291,18 @@ const Resume = () => {
           <h3>Contact</h3>
           <Flex gap={50} align="center">
             <TextInput
-              label="Post Code"
-              placeholder="Your Post Code"
-              {...form.getInputProps("contact.postCode")}
-              style={{ flex: 1 }}
-            />
-            <TextInput
               label="Phone Number"
               placeholder="Your phone number"
               {...form.getInputProps("contact.phoneNumber")}
               style={{ flex: 1 }}
+              withAsterisk
+            />
+            <TextInput
+              label="Country"
+              placeholder="Your Country"
+              {...form.getInputProps("contact.country")}
+              style={{ flex: 1 }}
+              withAsterisk
             />
           </Flex>
           <Space m="md" />
@@ -300,9 +314,9 @@ const Resume = () => {
               style={{ flex: 1 }}
             />
             <TextInput
-              label="Country"
-              placeholder="Your Country"
-              {...form.getInputProps("contact.country")}
+              label="Post Code"
+              placeholder="Your Post Code"
+              {...form.getInputProps("contact.postCode")}
               style={{ flex: 1 }}
             />
           </Flex>
