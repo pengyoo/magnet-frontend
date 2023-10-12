@@ -15,10 +15,14 @@ import {
 import { DatePicker } from "@mantine/dates";
 import { useForm } from "@mantine/form";
 import { randomId } from "@mantine/hooks";
+import { useNotification } from "@refinedev/core";
+import axiosInstance, { API_URL } from "../../services/axios-instance";
 import { IconTrash } from "@tabler/icons";
-import React from "react";
+import { SetStateAction, useEffect } from "react";
+import { Resume } from "../../interfaces";
 
-const Resume = () => {
+const ResumeForm = () => {
+  // form
   const form = useForm({
     initialValues: {
       id: "",
@@ -32,12 +36,13 @@ const Resume = () => {
         city: "",
         country: "",
         postCode: "",
-        linkedInUrl: "string",
+        linkedInUrl: "",
       },
       skills: [
         {
           id: "",
           skill: "",
+          key: randomId(),
         },
       ],
       education: [
@@ -48,17 +53,19 @@ const Resume = () => {
           major: "",
           startDate: "",
           endDate: "",
+          key: randomId(),
         },
       ],
       experience: [
         {
-          id: 0,
+          id: "",
           position: "",
           companyName: "",
           startDate: "",
           endDate: "",
           description: "",
           location: "",
+          key: randomId(),
         },
       ],
 
@@ -69,6 +76,7 @@ const Resume = () => {
           startDate: "",
           endDate: "",
           description: "",
+          key: randomId(),
         },
       ],
     },
@@ -76,7 +84,7 @@ const Resume = () => {
 
   // Skills Fields
   const skillFields = form.values.skills.map((item, index) => (
-    <Flex key={item.id} mt="xs">
+    <Flex key={item.key} mt="xs">
       <TextInput
         label="Skill"
         placeholder="Skill"
@@ -96,7 +104,7 @@ const Resume = () => {
 
   // Educations Fields
   const educationFields = form.values.education.map((item, index) => (
-    <Box key={item.id} mt="xs">
+    <Box key={item.key} mt="xs">
       <TextInput
         label="School Name"
         placeholder="School Name"
@@ -128,6 +136,8 @@ const Resume = () => {
           label="Start Date"
           placeholder="Start Date"
           style={{ flex: 1 }}
+          inputFormat="YYYY-MM-DD"
+          dateParser={(value) => new Date(value)}
           {...form.getInputProps(`education.${index}.startDate`)}
           withAsterisk
         />
@@ -136,6 +146,8 @@ const Resume = () => {
           label="End Date"
           placeholder="End Date"
           style={{ flex: 1 }}
+          inputFormat="YYYY-MM-DD"
+          dateParser={(value) => new Date(value)}
           {...form.getInputProps(`education.${index}.endDate`)}
           withAsterisk
         />
@@ -151,7 +163,7 @@ const Resume = () => {
 
   // Work Experience Fields
   const experienceFields = form.values.experience.map((item, index) => (
-    <Box key={item.id} mt="xs">
+    <Box key={item.key} mt="xs">
       <TextInput
         label="Company Name"
         placeholder="Company Name"
@@ -211,7 +223,7 @@ const Resume = () => {
 
   // Projects Fields
   const projectsFields = form.values.projects.map((item, index) => (
-    <Box key={item.id} mt="xs">
+    <Box key={item.key} mt="xs">
       <TextInput
         label="Project Name"
         placeholder="Project Name"
@@ -229,7 +241,6 @@ const Resume = () => {
           {...form.getInputProps(`projects.${index}.startDate`)}
           withAsterisk
         />
-
         <DatePicker
           label="End Date"
           placeholder="End Date"
@@ -256,12 +267,49 @@ const Resume = () => {
     </Box>
   ));
 
+  const { open } = useNotification();
+
+  // Submit Data
+  const handleSubmit = (resume: any) => {
+    axiosInstance
+      .post(API_URL + "/resumes", resume)
+      .then((resp) => {
+        open?.({
+          type: "success",
+          message: "Your resume has been successfully saved.",
+        });
+      })
+      .catch((err) => {
+        open?.({
+          type: "error",
+          message: err,
+        });
+      });
+  };
+
+  // Fetch Resume
+  useEffect(() => {
+    axiosInstance
+      .get(API_URL + "/resumes/my")
+      .then((resp) => {
+        form.setValues(resp.data);
+        //TODO: display startDate and endDate in Datepicker
+      })
+      .catch((err) => {
+        open?.({
+          type: "error",
+          message: err,
+        });
+      });
+  }, []);
+
   return (
     <Card p="md">
       <Title>My Resume</Title>
       <form
         onSubmit={form.onSubmit((values) => {
           console.log(values);
+          handleSubmit(values);
         })}
       >
         <Box>
@@ -332,7 +380,7 @@ const Resume = () => {
           <TextInput
             label="LinkedIn Profile"
             placeholder="Your LinkedIn Profile Link"
-            {...form.getInputProps("contact.linkedIn")}
+            {...form.getInputProps("contact.linkedInUrl")}
           />
           <Space m="md" />
 
@@ -440,13 +488,13 @@ const Resume = () => {
           <Button w="100%" type="submit" radius="xl">
             Submit
           </Button>
-          <Code block mt={5}>
+          {/* <Code block mt={5}>
             {JSON.stringify(form.values, null, 2)}
-          </Code>
+          </Code> */}
         </Box>
       </form>
     </Card>
   );
 };
 
-export default Resume;
+export default ResumeForm;

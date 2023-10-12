@@ -55,7 +55,7 @@ import axiosInstance, { API_URL } from "./services/axios-instance";
 import { MatchingIndexList } from "./pages/admin/matches";
 import { resources } from "./config/resources";
 import { DashboardContent } from "./pages/dashboard/DashboardContent";
-import Resume from "./pages/jobseeker/Resume";
+import ResumeForm from "./pages/jobseeker/ResumeForm";
 import getLoginUser from "./utils/login-user";
 import { UserCreate, UserEdit, UserList, UserShow } from "./pages/admin/users";
 
@@ -206,7 +206,11 @@ function App() {
                       {/* JOB_SEEKER MENU */}
                       {user?.role == "JOB_SEEKER" && (
                         <>
-                          <Route path="/my_resume" index element={<Resume />} />
+                          <Route
+                            path="/my_resume"
+                            index
+                            element={<ResumeForm />}
+                          />
                         </>
                       )}
                     </Route>
@@ -232,8 +236,8 @@ function App() {
 
                     {/* External pages independent of the Refine management system */}
                     <Route>
-                      <Route path="/" index element={<Resume />} />
-                      <Route path="/landing" element={<Resume />} />
+                      <Route path="/" index element={<ResumeForm />} />
+                      <Route path="/landing" element={<ResumeForm />} />
                     </Route>
                   </Routes>
 
