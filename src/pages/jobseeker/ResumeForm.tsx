@@ -12,6 +12,8 @@ import {
   Textarea,
   Title,
   Affix,
+  Select,
+  Autocomplete,
 } from "@mantine/core";
 import { DatePicker } from "@mantine/dates";
 import { isEmail, useForm, FORM_INDEX } from "@mantine/form";
@@ -296,6 +298,7 @@ const ResumeForm = () => {
         label="Description"
         placeholder="Description"
         minRows={3}
+        autosize
         style={{ flex: 1 }}
         {...form.getInputProps(`experience.${index}.description`)}
         withAsterisk
@@ -362,6 +365,7 @@ const ResumeForm = () => {
         withAsterisk
         disabled={isDisabled}
         minRows={3}
+        autosize
       />
 
       <ActionIcon
@@ -397,6 +401,8 @@ const ResumeForm = () => {
       });
   };
 
+  const [countries, setCountries] = useState<string[]>([]);
+
   // Fetch And Display My Resume
   useEffect(() => {
     axiosInstance
@@ -405,6 +411,18 @@ const ResumeForm = () => {
         form.setValues(resp.data);
 
         //TODO: display startDate and endDate in Datepicker
+      })
+      .catch((err) => {
+        open?.({
+          type: "error",
+          message: err,
+        });
+      });
+
+    axiosInstance
+      .get(API_URL + "/external/countries")
+      .then((resp) => {
+        setCountries(resp.data);
       })
       .catch((err) => {
         open?.({
@@ -460,7 +478,8 @@ const ResumeForm = () => {
           </Flex>
           <Textarea
             label="Profile"
-            minRows={5}
+            minRows={4}
+            autosize
             placeholder="Your Profile"
             {...form.getInputProps("profile")}
             style={{ flex: 1 }}
@@ -478,7 +497,17 @@ const ResumeForm = () => {
               withAsterisk
               disabled={isDisabled}
             />
-            <TextInput
+            {/* <TextInput
+              label="Country"
+              placeholder="Your Country"
+              {...form.getInputProps("contact.country")}
+              style={{ flex: 1 }}
+              withAsterisk
+              disabled={isDisabled}
+            /> */}
+
+            <Autocomplete
+              data={countries}
               label="Country"
               placeholder="Your Country"
               {...form.getInputProps("contact.country")}
@@ -486,6 +515,16 @@ const ResumeForm = () => {
               withAsterisk
               disabled={isDisabled}
             />
+
+            {/* <Select
+              data={countries}
+              label="Country"
+              placeholder="Your Country"
+              {...form.getInputProps("contact.country")}
+              style={{ flex: 1 }}
+              withAsterisk
+              disabled={isDisabled}
+            /> */}
           </Flex>
           <Space m="md" />
           <Flex gap={50} align="center">
