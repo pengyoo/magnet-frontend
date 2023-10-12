@@ -11,17 +11,19 @@ import {
   Space,
   Textarea,
   Title,
+  Affix,
 } from "@mantine/core";
 import { DatePicker } from "@mantine/dates";
-import { useForm } from "@mantine/form";
+import { isEmail, useForm, FORM_INDEX } from "@mantine/form";
 import { randomId } from "@mantine/hooks";
 import { useNotification } from "@refinedev/core";
 import axiosInstance, { API_URL } from "../../services/axios-instance";
-import { IconTrash } from "@tabler/icons";
-import { SetStateAction, useEffect } from "react";
-import { Resume } from "../../interfaces";
+import { IconEdit, IconTrash } from "@tabler/icons";
+import { useEffect, useState } from "react";
 
 const ResumeForm = () => {
+  const [isDisabled, setDisabled] = useState(true);
+
   // form
   const form = useForm({
     initialValues: {
@@ -80,6 +82,80 @@ const ResumeForm = () => {
         },
       ],
     },
+
+    // Form Validation
+    validate: {
+      fullName: (value) =>
+        value.length < 2 ? "Full Name must have at least 2 letters" : null,
+      contact: {
+        email: isEmail("Invalid email"),
+        phoneNumber: (value) =>
+          /^\+\d{1,4}\d{6,}$/.test(value) ? null : "Invalid Phonenumber",
+        country: (value) =>
+          value.length === 0 ? "Country can not be empty" : null,
+      },
+      skills: {
+        skill: (value) =>
+          value.length === 0 ? "Skill can not be empty" : null,
+      },
+      education: {
+        schoolName: (value) =>
+          value.length === 0 ? "School Name can not be empty" : null,
+        degree: (value) =>
+          value.length === 0 ? "Degree can not be empty" : null,
+        major: (value) =>
+          value.length === 0 ? "Major can not be empty" : null,
+        startDate: (value) =>
+          value.length === 0 ? "Start Date can not be empty" : null,
+        endDate: (value) =>
+          value.length === 0 ? "End Date can not be empty" : null,
+      },
+      experience: {
+        position: (value) =>
+          value.length === 0 ? "Title can not be empty" : null,
+        companyName: (value) =>
+          value.length === 0 ? "Company can not be empty" : null,
+        startDate: (value) =>
+          value.length === 0 ? "Start Date can not be empty" : null,
+        endDate: (value) =>
+          value.length === 0 ? "End Date can not be empty" : null,
+        description: (value) =>
+          value.length === 0 ? "Description can not be empty" : null,
+        key: randomId(),
+      },
+      projects: {
+        name: (value) =>
+          value.length === 0 ? "Project Name can not be empty" : null,
+        startDate: (value) =>
+          value.length === 0 ? "Start Date can not be empty" : null,
+        endDate: (value) =>
+          value.length === 0 ? "End Date can not be empty" : null,
+        description: (value) =>
+          value.length === 0 ? "Project description can not be empty" : null,
+        key: randomId(),
+      },
+    },
+    validateInputOnBlur: [
+      "fullName",
+      "contact.email",
+      "contact.phoneNumber",
+      "contact.country",
+      `skills.${FORM_INDEX}.skill`,
+      `education.${FORM_INDEX}.schoolName`,
+      `education.${FORM_INDEX}.degree`,
+      `education.${FORM_INDEX}.major`,
+      `education.${FORM_INDEX}.startDate`,
+      `education.${FORM_INDEX}.endDate`,
+      `experience.${FORM_INDEX}.position`,
+      `experience.${FORM_INDEX}.companyName`,
+      `experience.${FORM_INDEX}.startDate`,
+      `experience.${FORM_INDEX}.endDate`,
+      `experience.${FORM_INDEX}.description`,
+      `projects.${FORM_INDEX}.name`,
+      `projects.${FORM_INDEX}.description`,
+      `projects.${FORM_INDEX}.startDate`,
+      `projects.${FORM_INDEX}.endDate`,
+    ],
   });
 
   // Skills Fields
@@ -91,11 +167,14 @@ const ResumeForm = () => {
         style={{ flex: 1 }}
         {...form.getInputProps(`skills.${index}.skill`)}
         withAsterisk
+        disabled={isDisabled}
       />
 
       <ActionIcon
         color="red"
         onClick={() => form.removeListItem("skills", index)}
+        disabled={isDisabled}
+        hidden={isDisabled}
       >
         <IconTrash size="1rem" />
       </ActionIcon>
@@ -105,12 +184,15 @@ const ResumeForm = () => {
   // Educations Fields
   const educationFields = form.values.education.map((item, index) => (
     <Box key={item.key} mt="xs">
+      <Space m="lg" />
+      <Text style={{ fontWeight: "bold" }}>Education {index + 1}</Text>
       <TextInput
         label="School Name"
         placeholder="School Name"
         style={{ flex: 1 }}
         {...form.getInputProps(`education.${index}.schoolName`)}
         withAsterisk
+        disabled={isDisabled}
       />
       <Space m="md" />
       <Flex gap={50} align="center">
@@ -120,6 +202,7 @@ const ResumeForm = () => {
           style={{ flex: 1 }}
           {...form.getInputProps(`education.${index}.degree`)}
           withAsterisk
+          disabled={isDisabled}
         />
 
         <TextInput
@@ -128,6 +211,7 @@ const ResumeForm = () => {
           style={{ flex: 1 }}
           {...form.getInputProps(`education.${index}.major`)}
           withAsterisk
+          disabled={isDisabled}
         />
       </Flex>
       <Space m="md" />
@@ -140,6 +224,7 @@ const ResumeForm = () => {
           dateParser={(value) => new Date(value)}
           {...form.getInputProps(`education.${index}.startDate`)}
           withAsterisk
+          disabled={isDisabled}
         />
 
         <DatePicker
@@ -150,10 +235,13 @@ const ResumeForm = () => {
           dateParser={(value) => new Date(value)}
           {...form.getInputProps(`education.${index}.endDate`)}
           withAsterisk
+          disabled={isDisabled}
         />
       </Flex>
       <ActionIcon
         color="red"
+        disabled={isDisabled}
+        hidden={isDisabled}
         onClick={() => form.removeListItem("education", index)}
       >
         <IconTrash size="1rem" />
@@ -164,12 +252,15 @@ const ResumeForm = () => {
   // Work Experience Fields
   const experienceFields = form.values.experience.map((item, index) => (
     <Box key={item.key} mt="xs">
+      <Space m="lg" />
+      <Text style={{ fontWeight: "bold" }}>Experience {index + 1}</Text>
       <TextInput
         label="Company Name"
         placeholder="Company Name"
         style={{ flex: 1 }}
         {...form.getInputProps(`experience.${index}.companyName`)}
         withAsterisk
+        disabled={isDisabled}
       />
       <TextInput
         label="Title"
@@ -177,6 +268,7 @@ const ResumeForm = () => {
         style={{ flex: 1 }}
         {...form.getInputProps(`experience.${index}.position`)}
         withAsterisk
+        disabled={isDisabled}
       />
 
       <Space m="md" />
@@ -187,6 +279,7 @@ const ResumeForm = () => {
           style={{ flex: 1 }}
           {...form.getInputProps(`experience.${index}.startDate`)}
           withAsterisk
+          disabled={isDisabled}
         />
 
         <DatePicker
@@ -195,26 +288,32 @@ const ResumeForm = () => {
           style={{ flex: 1 }}
           {...form.getInputProps(`experience.${index}.endDate`)}
           withAsterisk
+          disabled={isDisabled}
         />
       </Flex>
 
       <Textarea
         label="Description"
         placeholder="Description"
+        minRows={3}
         style={{ flex: 1 }}
         {...form.getInputProps(`experience.${index}.description`)}
         withAsterisk
+        disabled={isDisabled}
       />
       <TextInput
         label="Location"
         placeholder="Location"
         style={{ flex: 1 }}
         {...form.getInputProps(`experience.${index}.location`)}
+        disabled={isDisabled}
       />
 
       <ActionIcon
         color="red"
         onClick={() => form.removeListItem("experience", index)}
+        disabled={isDisabled}
+        hidden={isDisabled}
       >
         <IconTrash size="1rem" />
       </ActionIcon>
@@ -224,12 +323,15 @@ const ResumeForm = () => {
   // Projects Fields
   const projectsFields = form.values.projects.map((item, index) => (
     <Box key={item.key} mt="xs">
+      <Space m="lg" />
+      <Text style={{ fontWeight: "bold" }}>Project {index + 1}</Text>
       <TextInput
         label="Project Name"
         placeholder="Project Name"
         style={{ flex: 1 }}
         {...form.getInputProps(`projects.${index}.name`)}
         withAsterisk
+        disabled={isDisabled}
       />
 
       <Space m="md" />
@@ -240,6 +342,7 @@ const ResumeForm = () => {
           style={{ flex: 1 }}
           {...form.getInputProps(`projects.${index}.startDate`)}
           withAsterisk
+          disabled={isDisabled}
         />
         <DatePicker
           label="End Date"
@@ -247,6 +350,7 @@ const ResumeForm = () => {
           style={{ flex: 1 }}
           {...form.getInputProps(`projects.${index}.endDate`)}
           withAsterisk
+          disabled={isDisabled}
         />
       </Flex>
 
@@ -256,11 +360,15 @@ const ResumeForm = () => {
         style={{ flex: 1 }}
         {...form.getInputProps(`projects.${index}.description`)}
         withAsterisk
+        disabled={isDisabled}
+        minRows={3}
       />
 
       <ActionIcon
         color="red"
         onClick={() => form.removeListItem("projects", index)}
+        disabled={isDisabled}
+        hidden={isDisabled}
       >
         <IconTrash size="1rem" />
       </ActionIcon>
@@ -274,6 +382,7 @@ const ResumeForm = () => {
     axiosInstance
       .post(API_URL + "/resumes", resume)
       .then((resp) => {
+        setDisabled(true);
         open?.({
           type: "success",
           message: "Your resume has been successfully saved.",
@@ -287,12 +396,13 @@ const ResumeForm = () => {
       });
   };
 
-  // Fetch Resume
+  // Fetch And Display My Resume
   useEffect(() => {
     axiosInstance
       .get(API_URL + "/resumes/my")
       .then((resp) => {
         form.setValues(resp.data);
+
         //TODO: display startDate and endDate in Datepicker
       })
       .catch((err) => {
@@ -306,6 +416,21 @@ const ResumeForm = () => {
   return (
     <Card p="md">
       <Title>My Resume</Title>
+      <Affix position={{ top: 100, right: 20 }}>
+        <ActionIcon
+          color={isDisabled ? "blue" : "red"}
+          onClick={() => {
+            if (!isDisabled) {
+              handleSubmit(form.values);
+            }
+            setDisabled(!isDisabled);
+          }}
+          title="Edit Resume"
+        >
+          {" "}
+          <IconEdit />
+        </ActionIcon>
+      </Affix>
       <form
         onSubmit={form.onSubmit((values) => {
           console.log(values);
@@ -321,6 +446,7 @@ const ResumeForm = () => {
               {...form.getInputProps("fullName")}
               style={{ flex: 1 }}
               withAsterisk
+              disabled={isDisabled}
             />
             <TextInput
               label="Email"
@@ -328,13 +454,16 @@ const ResumeForm = () => {
               {...form.getInputProps("contact.email")}
               style={{ flex: 1 }}
               withAsterisk
+              disabled={isDisabled}
             />
           </Flex>
           <Textarea
             label="Profile"
+            minRows={5}
             placeholder="Your Profile"
             {...form.getInputProps("profile")}
             style={{ flex: 1 }}
+            disabled={isDisabled}
           />
 
           <Space m="md" />
@@ -346,6 +475,7 @@ const ResumeForm = () => {
               {...form.getInputProps("contact.phoneNumber")}
               style={{ flex: 1 }}
               withAsterisk
+              disabled={isDisabled}
             />
             <TextInput
               label="Country"
@@ -353,6 +483,7 @@ const ResumeForm = () => {
               {...form.getInputProps("contact.country")}
               style={{ flex: 1 }}
               withAsterisk
+              disabled={isDisabled}
             />
           </Flex>
           <Space m="md" />
@@ -362,12 +493,14 @@ const ResumeForm = () => {
               placeholder="Your City"
               {...form.getInputProps("contact.city")}
               style={{ flex: 1 }}
+              disabled={isDisabled}
             />
             <TextInput
               label="Post Code"
               placeholder="Your Post Code"
               {...form.getInputProps("contact.postCode")}
               style={{ flex: 1 }}
+              disabled={isDisabled}
             />
           </Flex>
           <Space m="md" />
@@ -375,12 +508,14 @@ const ResumeForm = () => {
             label="Address"
             placeholder="Your Address"
             {...form.getInputProps("contact.address")}
+            disabled={isDisabled}
           />
           <Space m="md" />
           <TextInput
             label="LinkedIn Profile"
             placeholder="Your LinkedIn Profile Link"
             {...form.getInputProps("contact.linkedInUrl")}
+            disabled={isDisabled}
           />
           <Space m="md" />
 
@@ -404,6 +539,8 @@ const ResumeForm = () => {
                   key: randomId(),
                 })
               }
+              disabled={isDisabled}
+              hidden={isDisabled}
             >
               Add Skill
             </Button>
@@ -426,9 +563,16 @@ const ResumeForm = () => {
               variant="outline"
               onClick={() =>
                 form.insertListItem("education", {
+                  schoolName: "",
+                  degree: "",
+                  major: "",
+                  startDate: "",
+                  endDate: "",
                   key: randomId(),
                 })
               }
+              disabled={isDisabled}
+              hidden={isDisabled}
             >
               Add Education
             </Button>
@@ -451,9 +595,17 @@ const ResumeForm = () => {
               variant="outline"
               onClick={() =>
                 form.insertListItem("experience", {
+                  position: "",
+                  companyName: "",
+                  startDate: "",
+                  endDate: "",
+                  description: "",
+                  location: "",
                   key: randomId(),
                 })
               }
+              disabled={isDisabled}
+              hidden={isDisabled}
             >
               Add Experience
             </Button>
@@ -475,9 +627,15 @@ const ResumeForm = () => {
               variant="outline"
               onClick={() =>
                 form.insertListItem("projects", {
+                  name: "",
+                  startDate: "",
+                  endDate: "",
+                  description: "",
                   key: randomId(),
                 })
               }
+              disabled={isDisabled}
+              hidden={isDisabled}
             >
               Add Project
             </Button>
@@ -485,7 +643,13 @@ const ResumeForm = () => {
 
           <Space m="md" />
           <Space m="md" />
-          <Button w="100%" type="submit" radius="xl">
+          <Button
+            disabled={isDisabled}
+            hidden={isDisabled}
+            w="100%"
+            type="submit"
+            radius="xl"
+          >
             Submit
           </Button>
           {/* <Code block mt={5}>
