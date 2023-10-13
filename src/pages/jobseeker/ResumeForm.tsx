@@ -2,7 +2,6 @@ import {
   ActionIcon,
   Box,
   Button,
-  Code,
   Group,
   TextInput,
   Text,
@@ -12,7 +11,6 @@ import {
   Textarea,
   Title,
   Affix,
-  Select,
   Autocomplete,
 } from "@mantine/core";
 import { DatePicker } from "@mantine/dates";
@@ -22,6 +20,7 @@ import { useNotification } from "@refinedev/core";
 import axiosInstance, { API_URL } from "../../services/axios-instance";
 import { IconEdit, IconTrash } from "@tabler/icons";
 import { useEffect, useState } from "react";
+import { List } from "@refinedev/mantine";
 
 const ResumeForm = () => {
   const [isDisabled, setDisabled] = useState(true);
@@ -433,8 +432,8 @@ const ResumeForm = () => {
   }, []);
 
   return (
-    <Card p="md">
-      <Title>My Resume</Title>
+    <Card>
+      <Title style={{ fontSize: 22 }}>My Resume</Title>
       <Affix position={{ top: 100, right: 20 }}>
         <ActionIcon
           color={isDisabled ? "blue" : "red"}

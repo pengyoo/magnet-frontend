@@ -1,29 +1,56 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import {
   HttpError,
   IResourceComponentsProps,
   useList,
   useTable,
 } from "@refinedev/core";
-import { Group, Pagination } from "@mantine/core";
+import {
+  Autocomplete,
+  Button,
+  Group,
+  Pagination,
+  Space,
+  TextInput,
+} from "@mantine/core";
 import { List } from "@refinedev/mantine";
 import { Job } from "../../../interfaces";
 import JobCard from "./card";
+import { IconSearch } from "@tabler/icons";
 
 export const Jobseeker_JobList: React.FC<IResourceComponentsProps> = () => {
-  const {
-    filters,
-    setFilters,
-    tableQueryResult,
-    pageCount,
-    current,
-    setCurrent,
-  } = useTable<Job, HttpError>({
-    resource: "explore_jobs",
-  });
+  const { setFilters, tableQueryResult, pageCount, current, setCurrent } =
+    useTable<Job, HttpError>({
+      resource: "explore_jobs",
+    });
+
+  const [title, setTitle] = useState("");
+
+  // Search by title
+  const handleSearch = () => {
+    setFilters([
+      {
+        field: "title",
+        operator: "contains",
+        value: title,
+      },
+    ]);
+  };
 
   return (
     <List breadcrumb={false}>
+      <Group position="left">
+        <TextInput
+          placeholder="Search"
+          icon={<IconSearch />}
+          value={title}
+          onChange={(e) => {
+            setTitle(e.currentTarget.value);
+          }}
+        />
+        <Button onClick={handleSearch}>Search Jobs</Button>
+      </Group>
+      <Space m="lg" />
       <Group position="left">
         {tableQueryResult.data?.data?.map((job: Job) => {
           return (

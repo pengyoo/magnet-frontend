@@ -2,7 +2,7 @@ import React from "react";
 import { IResourceComponentsProps, useTranslate } from "@refinedev/core";
 import { useTable } from "@refinedev/react-table";
 import { ColumnDef, flexRender } from "@tanstack/react-table";
-import { ScrollArea, Table, Pagination, Group } from "@mantine/core";
+import { ScrollArea, Table, Pagination, Group, Badge } from "@mantine/core";
 import {
   List,
   EditButton,
@@ -32,6 +32,21 @@ export const JobApplicationList: React.FC<IResourceComponentsProps> = () => {
         id: "status",
         accessorKey: "status",
         header: translate("Status"),
+        cell: function render({ getValue }) {
+          return (
+            <Badge
+              color={
+                getValue<string>() === "ACCEPTED"
+                  ? "green"
+                  : getValue<string>() === "PENDING_REVIEW"
+                  ? "blue"
+                  : "red"
+              }
+            >
+              {getValue<string>()}
+            </Badge>
+          );
+        },
       },
       {
         id: "job",

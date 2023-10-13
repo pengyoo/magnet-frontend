@@ -11,6 +11,7 @@ import { WelcomeCard } from "../admin/dashboard/WelcomeCard";
 import axiosInstance, { API_URL } from "../../services/axios-instance";
 import { useEffect, useState } from "react";
 import getLoginUser from "../../utils/login-user";
+import ResumeForm from "../jobseeker/ResumeForm";
 
 export function DashboardContent() {
   const [data, setData] = useState([]);
@@ -48,7 +49,7 @@ export function DashboardContent() {
     </Grid>
   );
 
-  const jobSeekerDashboard = <Text>JobSeeker</Text>;
+  const jobSeekerDashboard = <ResumeForm />;
 
   const companyDashboard = <Text>Company</Text>;
 

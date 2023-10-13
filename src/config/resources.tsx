@@ -7,15 +7,15 @@ import {
   IconBuildingBank,
   IconDashboard,
   IconFaceId,
-  IconMagnet,
+  IconHome,
+  IconLockOpen,
+  IconNotebook,
   IconPaperBag,
-  IconPropeller,
   IconSmartHome,
   IconTestPipe,
   IconUser,
 } from "@tabler/icons";
 import getLoginUser from "../utils/login-user";
-import { IconJetpack } from "@tabler/icons-react";
 
 const user = getLoginUser();
 
@@ -24,8 +24,20 @@ export const resources: IResourceItem[] = [
     name: "home",
     list: "/home",
     meta: {
-      label: "Home",
-      icon: <IconDashboard />,
+      label:
+        user?.role === "ADMIN"
+          ? "Dashboard"
+          : user?.role === "JOB_SEEKER"
+          ? "My Resume"
+          : "Home",
+      icon:
+        user?.role === "ADMIN" ? (
+          <IconDashboard size={20} />
+        ) : user?.role === "JOB_SEEKER" ? (
+          <IconNotebook size={20} />
+        ) : (
+          <IconHome size={20} />
+        ),
     },
   },
   {
@@ -80,7 +92,6 @@ export const resources: IResourceItem[] = [
   {
     name: "resumes",
     list: "/resumes",
-    edit: "/resumes/edit/:id",
     show: "/resumes/show/:id",
     meta: {
       label: "Resume",
@@ -146,12 +157,23 @@ export const resources: IResourceItem[] = [
   },
 
   //Job Seeker Menus
+  // {
+  //   name: "my_resume",
+  //   list: "/my_resume",
+  //   meta: {
+  //     label: "My Resume",
+  //     icon: <IconMagnet />,
+  //     hide: user == null || user?.role === "COMPANY" || user?.role === "ADMIN",
+  //   },
+  // },
+
   {
-    name: "my_resume",
-    list: "/my_resume",
+    name: "explore_jobs",
+    list: "/explore_jobs",
+    show: "/explore_jobs/show/:id",
     meta: {
-      label: "My Resume",
-      icon: <IconMagnet />,
+      label: "Explore Jobs",
+      icon: <IconLockOpen size={20} />,
       hide: user == null || user?.role === "COMPANY" || user?.role === "ADMIN",
     },
   },
@@ -161,18 +183,8 @@ export const resources: IResourceItem[] = [
     list: "/my_applications",
     // show: "/my_applications/show/:id",
     meta: {
-      label: "My Application",
+      label: "My Applications",
       icon: <IconBrandAppgallery size={20} />,
-      hide: user == null || user?.role === "COMPANY" || user?.role === "ADMIN",
-    },
-  },
-  {
-    name: "explore_jobs",
-    list: "/explore_jobs",
-    show: "/explore_jobs/show/:id",
-    meta: {
-      label: "Explore Jobs",
-      icon: <IconJetpack size={20} />,
       hide: user == null || user?.role === "COMPANY" || user?.role === "ADMIN",
     },
   },

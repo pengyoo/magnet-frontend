@@ -33,16 +33,15 @@ import { Header } from "./components/header";
 import { ForgotPassword } from "./pages/forgotPassword";
 import { Login } from "./pages/login";
 import { Register } from "./pages/register";
-import {
-  //   MantineCreateInferencer,
-  //   MantineEditInferencer,
-  // MantineListInferencer,
-  MantineShowInferencer,
-} from "@refinedev/inferencer/mantine";
+import //   MantineCreateInferencer,
+//   MantineEditInferencer,
+// MantineListInferencer,
+// MantineShowInferencer,
+"@refinedev/inferencer/mantine";
 
 import { CompanyEdit, CompanyList, CompanyShow } from "./pages/admin/companies";
 import { JobEdit, JobList, JobShow } from "./pages/admin/jobs";
-import { ResumeEdit, ResumeList, ResumeShow } from "./pages/admin/resumes";
+import { ResumeList, ResumeShow } from "./pages/admin/resumes";
 import {
   JobApplicationList,
   JobApplicationShow,
@@ -63,6 +62,7 @@ import {
   MyApplicationShow,
 } from "./pages/jobseeker/applications";
 import { Jobseeker_JobList } from "./pages/jobseeker/jobs/list";
+import { Jobseeker_JobShow } from "./pages/jobseeker/jobs/show";
 
 function App() {
   const [colorScheme, setColorScheme] = useLocalStorage<ColorScheme>({
@@ -175,7 +175,6 @@ function App() {
                           />
                           <Route path="/resumes">
                             <Route index element={<ResumeList />} />
-                            <Route path="edit/:id" element={<ResumeEdit />} />
                             <Route path="show/:id" element={<ResumeShow />} />
                           </Route>
 
@@ -209,7 +208,7 @@ function App() {
                         </>
                       )}
                       {/* JOB_SEEKER MENU */}
-                      {user?.role == "JOB_SEEKER" && (
+                      {/* {user?.role == "JOB_SEEKER" && (
                         <>
                           <Route
                             path="/my_resume"
@@ -217,6 +216,16 @@ function App() {
                             element={<ResumeForm />}
                           />
                         </>
+                      )} */}
+
+                      {user?.role == "JOB_SEEKER" && (
+                        <Route path="/explore_jobs">
+                          <Route index element={<Jobseeker_JobList />} />
+                          <Route
+                            path="show/:id"
+                            element={<Jobseeker_JobShow />}
+                          />
+                        </Route>
                       )}
 
                       {user?.role == "JOB_SEEKER" && (
@@ -226,12 +235,6 @@ function App() {
                             path="show/:id"
                             element={<MyApplicationShow />}
                           /> */}
-                        </Route>
-                      )}
-                      {user?.role == "JOB_SEEKER" && (
-                        <Route path="/explore_jobs">
-                          <Route index element={<Jobseeker_JobList />} />
-                          <Route path="show/:id" element={<JobShow />} />
                         </Route>
                       )}
                     </Route>
