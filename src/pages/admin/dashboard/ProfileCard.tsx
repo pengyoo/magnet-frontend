@@ -16,6 +16,7 @@ import {
 } from "@mantine/core";
 import { useGetIdentity } from "@refinedev/core";
 import { IconDots, IconEye, IconFileZip, IconTrash } from "@tabler/icons-react";
+import { User } from "../../../interfaces";
 
 const useStyle = createStyles((theme) => ({
   section: {
@@ -28,7 +29,7 @@ const useStyle = createStyles((theme) => ({
 
 export function ProfileCard() {
   const { classes } = useStyle();
-  const { data } = useGetIdentity();
+  const { data: user } = useGetIdentity<User>();
 
   return (
     <Card radius="md">
@@ -41,7 +42,6 @@ export function ProfileCard() {
                 <IconDots size="1rem" />
               </ActionIcon>
             </Menu.Target>
-
             <Menu.Dropdown>
               <Menu.Item icon={<IconFileZip size={14} />}>Action One</Menu.Item>
               <Menu.Item icon={<IconEye size={14} />}>Action Two</Menu.Item>
@@ -55,14 +55,14 @@ export function ProfileCard() {
         <Space h="md" />
 
         <Flex direction="column">
-          <Title order={5}>{data?.name}</Title>
+          <Title order={5}>{user?.email}</Title>
           <Space h="xs" />
           <Text fz="sm" c="dimmed" fw="500">
-            {data?.profile}
+            {user?.profile}
           </Text>
           <Space h="4" />
           <Text fz="sm" c="dimmed" fw="500">
-            {data?.email}
+            {user?.email}
           </Text>
         </Flex>
       </Card.Section>

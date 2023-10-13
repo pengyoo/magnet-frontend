@@ -55,14 +55,13 @@ import { MatchingIndexList } from "./pages/admin/matches";
 import { resources } from "./config/resources";
 import { DashboardContent } from "./pages/dashboard/DashboardContent";
 import ResumeForm from "./pages/jobseeker/resume/form";
-import getLoginUser from "./utils/login-user";
 import { UserCreate, UserEdit, UserList, UserShow } from "./pages/admin/users";
-import {
-  MyApplicationList,
-  MyApplicationShow,
-} from "./pages/jobseeker/applications";
+import { MyApplicationList } from "./pages/jobseeker/applications";
 import { Jobseeker_JobList } from "./pages/jobseeker/jobs/list";
 import { Jobseeker_JobShow } from "./pages/jobseeker/jobs/show";
+
+import getLoginUser from "./utils/login-user";
+import { User } from "./interfaces";
 
 function App() {
   const [colorScheme, setColorScheme] = useLocalStorage<ColorScheme>({

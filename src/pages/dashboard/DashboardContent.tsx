@@ -8,13 +8,12 @@ import { OverviewCard } from "../admin/dashboard/OverviewCard";
 import { ProfileCard } from "../admin/dashboard/ProfileCard";
 import { WelcomeCard } from "../admin/dashboard/WelcomeCard";
 
-import axiosInstance, { API_URL } from "../../services/axios-instance";
-import { useEffect, useState } from "react";
-import getLoginUser from "../../utils/login-user";
+import { useEffect } from "react";
 import ResumeForm from "../jobseeker/resume/form";
+import { useGetIdentity } from "@refinedev/core";
+import { User } from "../../interfaces";
 
 export function DashboardContent() {
-  const [data, setData] = useState([]);
   useEffect(() => {
     // axiosInstance
     //   .get(`${API_URL}/stats`)
@@ -26,7 +25,7 @@ export function DashboardContent() {
     //   });
   }, []);
 
-  const user = getLoginUser();
+  const { data: user } = useGetIdentity<User>();
 
   const adminDashboard = (
     <Grid>

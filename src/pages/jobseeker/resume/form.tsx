@@ -12,6 +12,7 @@ import {
   Title,
   Affix,
   Autocomplete,
+  Grid,
 } from "@mantine/core";
 import { DatePicker } from "@mantine/dates";
 import { isEmail, useForm, FORM_INDEX } from "@mantine/form";
@@ -178,17 +179,19 @@ const ResumeForm = () => {
 
   // Skills Fields
   const skillFields = form.values.skills.map((item, index) => (
-    <Flex key={item.key} mt="xs">
+    <Group key={item.key} position="left" p={2}>
       <Autocomplete
         data={skillPrompts}
-        label="Skill"
+        // label="Skill"
         placeholder="Skill"
-        style={{ flex: 1 }}
+        maw={130}
+        size="xs"
         onSelect={(e) => handleFetchSkillPrompts(e)}
         {...form.getInputProps(`skills.${index}.skill`)}
-        withAsterisk
+        // withAsterisk
         disabled={isDisabled}
       />
+
       <ActionIcon
         color="red"
         onClick={() => form.removeListItem("skills", index)}
@@ -197,7 +200,7 @@ const ResumeForm = () => {
       >
         <IconTrash size="1rem" />
       </ActionIcon>
-    </Flex>
+    </Group>
   ));
 
   // Educations Fields
@@ -235,23 +238,21 @@ const ResumeForm = () => {
       </Flex>
       <Space m="md" />
       <Flex gap={50} align="center">
-        <DatePicker
+        <TextInput
+          type="date"
           label="Start Date"
           placeholder="Start Date"
           style={{ flex: 1 }}
-          inputFormat="YYYY-MM-DD"
-          dateParser={(value) => new Date(value)}
           {...form.getInputProps(`education.${index}.startDate`)}
           withAsterisk
           disabled={isDisabled}
         />
 
-        <DatePicker
+        <TextInput
+          type="date"
           label="End Date"
           placeholder="End Date"
           style={{ flex: 1 }}
-          inputFormat="YYYY-MM-DD"
-          dateParser={(value) => new Date(value)}
           {...form.getInputProps(`education.${index}.endDate`)}
           withAsterisk
           disabled={isDisabled}
@@ -292,7 +293,8 @@ const ResumeForm = () => {
 
       <Space m="md" />
       <Flex gap={50} align="center">
-        <DatePicker
+        <TextInput
+          type="date"
           label="Start Date"
           placeholder="Start Date"
           style={{ flex: 1 }}
@@ -301,7 +303,8 @@ const ResumeForm = () => {
           disabled={isDisabled}
         />
 
-        <DatePicker
+        <TextInput
+          type="date"
           label="End Date"
           placeholder="End Date"
           style={{ flex: 1 }}
@@ -356,7 +359,8 @@ const ResumeForm = () => {
 
       <Space m="md" />
       <Flex gap={50} align="center">
-        <DatePicker
+        <TextInput
+          type="date"
           label="Start Date"
           placeholder="Start Date"
           style={{ flex: 1 }}
@@ -364,7 +368,8 @@ const ResumeForm = () => {
           withAsterisk
           disabled={isDisabled}
         />
-        <DatePicker
+        <TextInput
+          type="date"
           label="End Date"
           placeholder="End Date"
           style={{ flex: 1 }}
@@ -598,9 +603,7 @@ const ResumeForm = () => {
               No one here...
             </Text>
           )}
-
-          {skillFields}
-
+          <Group>{skillFields}</Group>
           <Group mt="md">
             <Button
               variant="outline"

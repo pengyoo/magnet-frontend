@@ -6,6 +6,7 @@ export const TOKEN_KEY = "auth";
 export const LOGIN_USER = "LOGIN_USER";
 import {API_URL} from "./services/axios-instance";
 import { User } from "./interfaces";
+import jwt_decode, { JwtPayload } from "jwt-decode";
 
 export const authProvider: AuthBindings = {
   login: async ({email, password}) => {
@@ -44,11 +45,23 @@ export const authProvider: AuthBindings = {
   },
   check: async () => {
     const token = localStorage.getItem(TOKEN_KEY);
-    if (token) {
+    if (token === null || token === undefined) {
+      return {
+        authenticated: false,
+        redirectTo: "/login",
+      };
+    } 
+    
+    const { exp } = jwt_decode<JwtPayload>(token);
+    if (exp && Date.now() <= exp * 1000) {
       return {
         authenticated: true,
       };
     }
+
+    // Logout
+    localStorage.removeItem(TOKEN_KEY);
+    localStorage.removeItem(LOGIN_USER);
 
     return {
       authenticated: false,
@@ -66,7 +79,8 @@ export const authProvider: AuthBindings = {
         name: user?.email,
         avatar: "https://i.pravatar.cc/300",
         email: user?.email,
-        profile: user?.profile
+        profile: user?.profile,
+        role: user?.role
       };
     }
     return null;
