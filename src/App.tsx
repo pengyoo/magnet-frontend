@@ -219,7 +219,7 @@ function App() {
                       )} */}
 
                       {user?.role == "JOB_SEEKER" && (
-                        <Route path="/explore_jobs">
+                        <Route path="/sjobs">
                           <Route index element={<Jobseeker_JobList />} />
                           <Route
                             path="show/:id"
@@ -229,7 +229,7 @@ function App() {
                       )}
 
                       {user?.role == "JOB_SEEKER" && (
-                        <Route path="/my_applications">
+                        <Route path="/spplications">
                           <Route index element={<MyApplicationList />} />
                           {/* <Route
                             path="show/:id"

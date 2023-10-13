@@ -168,9 +168,9 @@ export const resources: IResourceItem[] = [
   // },
 
   {
-    name: "explore_jobs",
-    list: "/explore_jobs",
-    show: "/explore_jobs/show/:id",
+    name: "sjobs",
+    list: "/sjobs",
+    show: "/sjobs/show/:id",
     meta: {
       label: "Explore Jobs",
       icon: <IconLockOpen size={20} />,
@@ -179,8 +179,8 @@ export const resources: IResourceItem[] = [
   },
 
   {
-    name: "my_applications",
-    list: "/my_applications",
+    name: "spplications",
+    list: "/spplications",
     // show: "/my_applications/show/:id",
     meta: {
       label: "My Applications",

@@ -20,7 +20,7 @@ import { useNotification } from "@refinedev/core";
 import axiosInstance, { API_URL } from "../../services/axios-instance";
 import { IconEdit, IconTrash } from "@tabler/icons";
 import { useEffect, useState } from "react";
-import { List } from "@refinedev/mantine";
+import { AiOutlineSave } from "react-icons/ai";
 
 const ResumeForm = () => {
   const [isDisabled, setDisabled] = useState(true);
@@ -384,7 +384,7 @@ const ResumeForm = () => {
   // Submit Data
   const handleSubmit = (resume: any) => {
     axiosInstance
-      .post(API_URL + "/resumes", resume)
+      .post(API_URL + "/sresumes", resume)
       .then((resp) => {
         setDisabled(true);
         open?.({
@@ -405,7 +405,7 @@ const ResumeForm = () => {
   // Fetch And Display My Resume
   useEffect(() => {
     axiosInstance
-      .get(API_URL + "/resumes/my")
+      .get(API_URL + "/sresumes")
       .then((resp) => {
         form.setValues(resp.data);
 
@@ -434,13 +434,10 @@ const ResumeForm = () => {
   return (
     <Card>
       <Title style={{ fontSize: 22 }}>My Resume</Title>
-      <Affix position={{ top: 100, right: 20 }}>
+      <Affix position={{ top: 100, right: 60 }}>
         <ActionIcon
           color={isDisabled ? "blue" : "red"}
           onClick={() => {
-            if (!isDisabled) {
-              handleSubmit(form.values);
-            }
             setDisabled(!isDisabled);
           }}
           title="Edit Resume"
@@ -449,6 +446,23 @@ const ResumeForm = () => {
           <IconEdit />
         </ActionIcon>
       </Affix>
+      {!isDisabled && (
+        <Affix position={{ top: 100, right: 25 }}>
+          <ActionIcon
+            color="blue"
+            onClick={() => {
+              if (!isDisabled) {
+                handleSubmit(form.values);
+              }
+              setDisabled(!isDisabled);
+            }}
+            title="Save Resume"
+          >
+            {" "}
+            <AiOutlineSave size={23} />
+          </ActionIcon>
+        </Affix>
+      )}
       <form
         onSubmit={form.onSubmit((values) => {
           // console.log(values);
