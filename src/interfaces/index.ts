@@ -7,6 +7,13 @@ export interface Company {
 export interface Job {
     id: string;
     title: string;
+    description:string;
+    salaryRange:string;
+    location:string;
+    createdAt: Date;
+    expireAt:Date;
+    status:string;
+    company:Company;
 }
 
 export interface Resume {

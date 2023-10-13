@@ -33,12 +33,12 @@ import { Header } from "./components/header";
 import { ForgotPassword } from "./pages/forgotPassword";
 import { Login } from "./pages/login";
 import { Register } from "./pages/register";
-// import {
-//   MantineCreateInferencer,
-//   MantineEditInferencer,
-//   MantineListInferencer,
-//   MantineShowInferencer,
-// } from "@refinedev/inferencer/mantine";
+import {
+  //   MantineCreateInferencer,
+  //   MantineEditInferencer,
+  // MantineListInferencer,
+  MantineShowInferencer,
+} from "@refinedev/inferencer/mantine";
 
 import { CompanyEdit, CompanyList, CompanyShow } from "./pages/admin/companies";
 import { JobEdit, JobList, JobShow } from "./pages/admin/jobs";
@@ -58,6 +58,11 @@ import { DashboardContent } from "./pages/dashboard/DashboardContent";
 import ResumeForm from "./pages/jobseeker/ResumeForm";
 import getLoginUser from "./utils/login-user";
 import { UserCreate, UserEdit, UserList, UserShow } from "./pages/admin/users";
+import {
+  MyApplicationList,
+  MyApplicationShow,
+} from "./pages/jobseeker/applications";
+import { Jobseeker_JobList } from "./pages/jobseeker/jobs/list";
 
 function App() {
   const [colorScheme, setColorScheme] = useLocalStorage<ColorScheme>({
@@ -212,6 +217,22 @@ function App() {
                             element={<ResumeForm />}
                           />
                         </>
+                      )}
+
+                      {user?.role == "JOB_SEEKER" && (
+                        <Route path="/my_applications">
+                          <Route index element={<MyApplicationList />} />
+                          {/* <Route
+                            path="show/:id"
+                            element={<MyApplicationShow />}
+                          /> */}
+                        </Route>
+                      )}
+                      {user?.role == "JOB_SEEKER" && (
+                        <Route path="/explore_jobs">
+                          <Route index element={<Jobseeker_JobList />} />
+                          <Route path="show/:id" element={<JobShow />} />
+                        </Route>
                       )}
                     </Route>
 

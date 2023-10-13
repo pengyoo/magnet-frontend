@@ -452,7 +452,7 @@ const ResumeForm = () => {
       </Affix>
       <form
         onSubmit={form.onSubmit((values) => {
-          console.log(values);
+          // console.log(values);
           handleSubmit(values);
         })}
       >

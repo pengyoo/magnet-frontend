@@ -2,16 +2,20 @@ import { type IResourceItem } from "@refinedev/core";
 import {
   Icon360View,
   IconArrowBarToDown,
+  IconBrandAppgallery,
   IconBuilding,
   IconBuildingBank,
   IconDashboard,
   IconFaceId,
+  IconMagnet,
   IconPaperBag,
+  IconPropeller,
   IconSmartHome,
   IconTestPipe,
   IconUser,
 } from "@tabler/icons";
 import getLoginUser from "../utils/login-user";
+import { IconJetpack } from "@tabler/icons-react";
 
 const user = getLoginUser();
 
@@ -141,12 +145,34 @@ export const resources: IResourceItem[] = [
     },
   },
 
+  //Job Seeker Menus
   {
     name: "my_resume",
     list: "/my_resume",
     meta: {
       label: "My Resume",
-      icon: <IconDashboard />,
+      icon: <IconMagnet />,
+      hide: user == null || user?.role === "COMPANY" || user?.role === "ADMIN",
+    },
+  },
+
+  {
+    name: "my_applications",
+    list: "/my_applications",
+    // show: "/my_applications/show/:id",
+    meta: {
+      label: "My Application",
+      icon: <IconBrandAppgallery size={20} />,
+      hide: user == null || user?.role === "COMPANY" || user?.role === "ADMIN",
+    },
+  },
+  {
+    name: "explore_jobs",
+    list: "/explore_jobs",
+    show: "/explore_jobs/show/:id",
+    meta: {
+      label: "Explore Jobs",
+      icon: <IconJetpack size={20} />,
       hide: user == null || user?.role === "COMPANY" || user?.role === "ADMIN",
     },
   },
