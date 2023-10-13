@@ -54,7 +54,7 @@ import axiosInstance, { API_URL } from "./services/axios-instance";
 import { MatchingIndexList } from "./pages/admin/matches";
 import { resources } from "./config/resources";
 import { DashboardContent } from "./pages/dashboard/DashboardContent";
-import ResumeForm from "./pages/jobseeker/ResumeForm";
+import ResumeForm from "./pages/jobseeker/resume/form";
 import getLoginUser from "./utils/login-user";
 import { UserCreate, UserEdit, UserList, UserShow } from "./pages/admin/users";
 import {

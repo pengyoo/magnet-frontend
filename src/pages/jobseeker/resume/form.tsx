@@ -17,14 +17,31 @@ import { DatePicker } from "@mantine/dates";
 import { isEmail, useForm, FORM_INDEX } from "@mantine/form";
 import { randomId } from "@mantine/hooks";
 import { useNotification } from "@refinedev/core";
-import axiosInstance, { API_URL } from "../../services/axios-instance";
+import axiosInstance, { API_URL } from "../../../services/axios-instance";
 import { IconEdit, IconTrash } from "@tabler/icons";
-import { useEffect, useState } from "react";
+import { SyntheticEvent, useEffect, useState } from "react";
 import { AiOutlineSave } from "react-icons/ai";
 
 const ResumeForm = () => {
   const [isDisabled, setDisabled] = useState(true);
+  const [skillPrompts, setSkillPrompts] = useState<string[]>([]);
 
+  const handleFetchSkillPrompts = (
+    e: SyntheticEvent<HTMLInputElement, Event>
+  ) => {
+    // const skillValue = form.values.skills[index].skill;
+    axiosInstance
+      .get(API_URL + "/external/skills?skill=" + e.currentTarget.value)
+      .then((resp) => {
+        setSkillPrompts(resp.data);
+      })
+      .catch((err) => {
+        open?.({
+          type: "error",
+          message: err,
+        });
+      });
+  };
   // form
   const form = useForm({
     initialValues: {
@@ -162,15 +179,16 @@ const ResumeForm = () => {
   // Skills Fields
   const skillFields = form.values.skills.map((item, index) => (
     <Flex key={item.key} mt="xs">
-      <TextInput
+      <Autocomplete
+        data={skillPrompts}
         label="Skill"
         placeholder="Skill"
         style={{ flex: 1 }}
+        onSelect={(e) => handleFetchSkillPrompts(e)}
         {...form.getInputProps(`skills.${index}.skill`)}
         withAsterisk
         disabled={isDisabled}
       />
-
       <ActionIcon
         color="red"
         onClick={() => form.removeListItem("skills", index)}

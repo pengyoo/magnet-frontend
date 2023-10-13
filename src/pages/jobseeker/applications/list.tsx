@@ -6,17 +6,37 @@ import {
 } from "@refinedev/core";
 import { useTable } from "@refinedev/react-table";
 import { ColumnDef, flexRender } from "@tanstack/react-table";
-import { ScrollArea, Table, Pagination, Group, Badge } from "@mantine/core";
+import {
+  ScrollArea,
+  Table,
+  Pagination,
+  Group,
+  Badge,
+  Anchor,
+} from "@mantine/core";
 import { List, ShowButton, DateField } from "@refinedev/mantine";
+import { useNavigate } from "react-router-dom";
+import { Job } from "../../../interfaces";
 
 export const MyApplicationList: React.FC<IResourceComponentsProps> = () => {
   const translate = useTranslate();
+  const navigate = useNavigate();
+
   const columns = React.useMemo<ColumnDef<any>[]>(
     () => [
       {
         id: "job",
         header: translate("Job"),
-        accessorKey: "job.title",
+        accessorKey: "job",
+        cell: function render({ getValue }) {
+          return (
+            <Anchor
+              onClick={() => navigate(`/sjobs/show/${(getValue() as Job).id}`)}
+            >
+              {(getValue() as Job).title}
+            </Anchor>
+          );
+        },
       },
       {
         id: "company",

@@ -2,6 +2,11 @@ export interface Company {
     id: string;
     name: string;
     description:string;
+    country:string;
+    city: string ;
+    address: string;
+    scale: number;
+    industry:string;
 }
 
 export interface Job {

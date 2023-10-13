@@ -11,7 +11,7 @@ import { WelcomeCard } from "../admin/dashboard/WelcomeCard";
 import axiosInstance, { API_URL } from "../../services/axios-instance";
 import { useEffect, useState } from "react";
 import getLoginUser from "../../utils/login-user";
-import ResumeForm from "../jobseeker/ResumeForm";
+import ResumeForm from "../jobseeker/resume/form";
 
 export function DashboardContent() {
   const [data, setData] = useState([]);

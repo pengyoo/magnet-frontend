@@ -31,6 +31,7 @@ export const Jobseeker_JobList: React.FC<IResourceComponentsProps> = () => {
       <form onSubmit={handleSearch}>
         <Group position="left">
           <TextInput
+            miw={270}
             placeholder="Search"
             icon={<IconSearch />}
             value={title}
