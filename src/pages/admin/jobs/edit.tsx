@@ -1,6 +1,6 @@
 import { IResourceComponentsProps, useTranslate } from "@refinedev/core";
 import { Edit, useForm } from "@refinedev/mantine";
-import { Text, TextInput } from "@mantine/core";
+import { Switch, Text, TextInput } from "@mantine/core";
 import MDEditor from "@uiw/react-md-editor";
 
 export const JobEdit: React.FC<IResourceComponentsProps> = () => {
@@ -45,11 +45,26 @@ export const JobEdit: React.FC<IResourceComponentsProps> = () => {
         {...getInputProps("location")}
         withAsterisk
       />
-      <TextInput
+
+      {/* <TextInput
         mt="sm"
         label={translate("Status")}
         {...getInputProps("status")}
         withAsterisk
+      /> */}
+
+      <Switch
+        mt="sm"
+        label={translate("Status")}
+        labelPosition="left"
+        {...getInputProps("status")}
+        checked={getInputProps("status").value === "ACTIVE"}
+        onChange={(e) => {
+          setFieldValue(
+            "status",
+            e.currentTarget.checked ? "ACTIVE" : "PAUSED"
+          );
+        }}
       />
 
       <Text

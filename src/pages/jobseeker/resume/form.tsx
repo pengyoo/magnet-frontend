@@ -12,9 +12,7 @@ import {
   Title,
   Affix,
   Autocomplete,
-  Grid,
 } from "@mantine/core";
-import { DatePicker } from "@mantine/dates";
 import { isEmail, useForm, FORM_INDEX } from "@mantine/form";
 import { randomId } from "@mantine/hooks";
 import { useNotification } from "@refinedev/core";
@@ -431,8 +429,6 @@ const ResumeForm = () => {
       .get(API_URL + "/sresumes")
       .then((resp) => {
         form.setValues(resp.data);
-
-        //TODO: display startDate and endDate in Datepicker
       })
       .catch((err) => {
         open?.({
@@ -487,9 +483,8 @@ const ResumeForm = () => {
         </Affix>
       )}
       <form
-        onSubmit={form.onSubmit((values) => {
-          // console.log(values);
-          handleSubmit(values);
+        onSubmit={form.onSubmit(() => {
+          handleSubmit(form.values);
         })}
       >
         <Box>

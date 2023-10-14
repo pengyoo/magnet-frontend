@@ -2,7 +2,15 @@ import React from "react";
 import { IResourceComponentsProps, useTranslate } from "@refinedev/core";
 import { useTable } from "@refinedev/react-table";
 import { ColumnDef, flexRender } from "@tanstack/react-table";
-import { ScrollArea, Table, Pagination, Group, Anchor } from "@mantine/core";
+import {
+  ScrollArea,
+  Table,
+  Pagination,
+  Group,
+  Anchor,
+  Button,
+  Badge,
+} from "@mantine/core";
 import {
   List,
   EditButton,
@@ -11,6 +19,7 @@ import {
   DateField,
   TextField,
   DeleteButton,
+  CreateButton,
 } from "@refinedev/mantine";
 import { Link, useNavigate } from "react-router-dom";
 import { Company, Job } from "../../../interfaces";
@@ -68,6 +77,21 @@ export const JobList: React.FC<IResourceComponentsProps> = () => {
         id: "status",
         accessorKey: "status",
         header: translate("Status"),
+        cell: function render({ getValue }) {
+          return (
+            <Badge
+              color={
+                getValue<string>() === "ACTIVE"
+                  ? "green"
+                  : getValue<string>() === "PAUSED"
+                  ? "blue"
+                  : "red"
+              }
+            >
+              {getValue<string>()}
+            </Badge>
+          );
+        },
       },
       {
         id: "company",
@@ -92,7 +116,6 @@ export const JobList: React.FC<IResourceComponentsProps> = () => {
         cell: function render({ getValue }) {
           return (
             <Group spacing="xs" noWrap>
-              <ShowButton hideText recordItemId={getValue() as string} />
               <EditButton hideText recordItemId={getValue() as string} />
               <DeleteButton hideText recordItemId={getValue() as string} />
             </Group>
@@ -125,7 +148,7 @@ export const JobList: React.FC<IResourceComponentsProps> = () => {
   }));
 
   return (
-    <List>
+    <List headerButtons={<CreateButton>Post a Job</CreateButton>}>
       <ScrollArea>
         <Table highlightOnHover>
           <thead>
