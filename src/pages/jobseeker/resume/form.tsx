@@ -39,7 +39,7 @@ const ResumeForm = () => {
       .catch((err) => {
         open?.({
           type: "error",
-          message: err,
+          message: err.message,
         });
       });
   };
@@ -418,7 +418,7 @@ const ResumeForm = () => {
       .catch((err) => {
         open?.({
           type: "error",
-          message: err,
+          message: err.message,
         });
       });
   };
@@ -437,7 +437,7 @@ const ResumeForm = () => {
       .catch((err) => {
         open?.({
           type: "error",
-          message: err,
+          message: err.message,
         });
       });
 
@@ -449,7 +449,7 @@ const ResumeForm = () => {
       .catch((err) => {
         open?.({
           type: "error",
-          message: err,
+          message: err.message,
         });
       });
   }, []);

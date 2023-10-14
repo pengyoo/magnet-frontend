@@ -1,6 +1,7 @@
 import { IResourceComponentsProps, useTranslate } from "@refinedev/core";
-import { Edit, useForm, useSelect } from "@refinedev/mantine";
-import { NumberInput, TextInput, Textarea, Select } from "@mantine/core";
+import { Edit, useForm } from "@refinedev/mantine";
+import { Text, TextInput } from "@mantine/core";
+import MDEditor from "@uiw/react-md-editor";
 
 export const JobEdit: React.FC<IResourceComponentsProps> = () => {
   const translate = useTranslate();
@@ -23,50 +24,51 @@ export const JobEdit: React.FC<IResourceComponentsProps> = () => {
 
   const jobData = queryResult?.data?.data;
 
-  const { selectProps: companySelectProps } = useSelect({
-    resource: "company",
-    defaultValue: jobData?.company?.id,
-  });
-
   return (
     <Edit saveButtonProps={saveButtonProps}>
-      <NumberInput
-        mt="sm"
-        disabled
-        label={translate("ID")}
-        {...getInputProps("id")}
-      />
       <TextInput
         mt="sm"
         label={translate("Title")}
         {...getInputProps("title")}
+        withAsterisk
       />
-      <Textarea
-        mt="sm"
-        label={translate("Description")}
-        autosize
-        {...getInputProps("description")}
-      />
+
       <TextInput
         mt="sm"
         label={translate("Salary Range")}
         {...getInputProps("salaryRange")}
+        withAsterisk
       />
       <TextInput
         mt="sm"
         label={translate("Location")}
         {...getInputProps("location")}
+        withAsterisk
       />
       <TextInput
         mt="sm"
         label={translate("Status")}
         {...getInputProps("status")}
+        withAsterisk
       />
-      <TextInput
-        mt="sm"
-        disabled
-        label={translate("Company")}
-        {...getInputProps("company.name")}
+
+      <Text
+        style={{
+          fontSize: "14px",
+          fontWeight: "500",
+          fontFamily:
+            "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji",
+        }}
+        mt="md"
+      >
+        Description <span style={{ color: "red" }}>*</span>
+      </Text>
+
+      <MDEditor
+        {...getInputProps("description")}
+        data-color-mode="light"
+        preview={"edit"}
+        height={600}
       />
     </Edit>
   );

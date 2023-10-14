@@ -38,7 +38,7 @@ export const JobApplicationList: React.FC<IResourceComponentsProps> = () => {
               color={
                 getValue<string>() === "ACCEPTED"
                   ? "green"
-                  : getValue<string>() === "PENDING_REVIEW"
+                  : getValue<string>() === "PENDING"
                   ? "blue"
                   : "red"
               }

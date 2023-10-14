@@ -14,7 +14,7 @@ import {
   Badge,
   Anchor,
 } from "@mantine/core";
-import { List, ShowButton, DateField } from "@refinedev/mantine";
+import { List, ShowButton, DateField, TextField } from "@refinedev/mantine";
 import { useNavigate } from "react-router-dom";
 import { Job } from "../../../interfaces";
 
@@ -33,7 +33,7 @@ export const MyApplicationList: React.FC<IResourceComponentsProps> = () => {
             <Anchor
               onClick={() => navigate(`/sjobs/show/${(getValue() as Job).id}`)}
             >
-              {(getValue() as Job).title}
+              <TextField value={(getValue() as Job).title} fz="md" fw={500} />
             </Anchor>
           );
         },
@@ -61,7 +61,7 @@ export const MyApplicationList: React.FC<IResourceComponentsProps> = () => {
               color={
                 getValue<string>() === "ACCEPTED"
                   ? "green"
-                  : getValue<string>() === "PENDING_REVIEW"
+                  : getValue<string>() === "PENDING"
                   ? "blue"
                   : "red"
               }

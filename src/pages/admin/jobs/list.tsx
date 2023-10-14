@@ -2,7 +2,7 @@ import React from "react";
 import { IResourceComponentsProps, useTranslate } from "@refinedev/core";
 import { useTable } from "@refinedev/react-table";
 import { ColumnDef, flexRender } from "@tanstack/react-table";
-import { ScrollArea, Table, Pagination, Group } from "@mantine/core";
+import { ScrollArea, Table, Pagination, Group, Anchor } from "@mantine/core";
 import {
   List,
   EditButton,
@@ -10,23 +10,23 @@ import {
   MarkdownField,
   DateField,
   TextField,
+  DeleteButton,
 } from "@refinedev/mantine";
-import { Link } from "react-router-dom";
-import { Company } from "../../../interfaces";
+import { Link, useNavigate } from "react-router-dom";
+import { Company, Job } from "../../../interfaces";
 
 export const JobList: React.FC<IResourceComponentsProps> = () => {
   const translate = useTranslate();
+  const navigate = useNavigate();
   const columns = React.useMemo<ColumnDef<any>[]>(
     () => [
-      {
-        id: "id",
-        accessorKey: "id",
-        header: translate("ID"),
-      },
       {
         id: "title",
         accessorKey: "title",
         header: translate("Title"),
+        cell: function render({ getValue }) {
+          return <TextField value={getValue() as string} fz="md" fw={500} />;
+        },
       },
       {
         id: "description",
@@ -75,9 +75,13 @@ export const JobList: React.FC<IResourceComponentsProps> = () => {
         accessorKey: "company",
         cell: function render({ getValue }) {
           return (
-            <Link to={`/companies/show/${(getValue() as Company).id}`}>
-              <TextField value={(getValue() as Company).name} />
-            </Link>
+            // <Anchor
+            //   onClick={() => {
+            //     navigate(`/companies/show/${(getValue() as Company).id}`);
+            //   }}
+            // >
+            <TextField value={(getValue() as Company).name} />
+            // </Anchor>
           );
         },
       },
@@ -90,6 +94,7 @@ export const JobList: React.FC<IResourceComponentsProps> = () => {
             <Group spacing="xs" noWrap>
               <ShowButton hideText recordItemId={getValue() as string} />
               <EditButton hideText recordItemId={getValue() as string} />
+              <DeleteButton hideText recordItemId={getValue() as string} />
             </Group>
           );
         },

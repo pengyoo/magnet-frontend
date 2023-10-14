@@ -7,9 +7,11 @@ import {
   Group,
   ActionIcon,
   Anchor,
+  Flex,
+  Button,
 } from "@mantine/core";
 
-import { IconUpload } from "@tabler/icons-react";
+import { IconCalendar, IconUpload } from "@tabler/icons-react";
 import dayjs from "dayjs";
 import { useNavigate } from "react-router-dom";
 
@@ -54,8 +56,13 @@ export default function JobCard({
       <Text fz="sm" c="dimmed" mt={5}>
         {description}
       </Text>
+      <Flex justify="end" mt={"md"}>
+        <Button onClick={() => navigate(`/sjobs/show/${id}`)} variant="outline">
+          More...
+        </Button>
+      </Flex>
 
-      <Group mt="md">
+      {/* <Group mt="md">
         <Avatar.Group spacing="sm">
           <Avatar src={avatars[0]} radius="xl" />
           <Avatar src={avatars[1]} radius="xl" />
@@ -65,7 +72,7 @@ export default function JobCard({
         <ActionIcon variant="default" size="lg" radius="md">
           <IconUpload size="1.1rem" />
         </ActionIcon>
-      </Group>
+      </Group> */}
     </Card>
   );
 }

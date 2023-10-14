@@ -62,6 +62,9 @@ import { Jobseeker_JobShow } from "./pages/jobseeker/jobs/show";
 
 import getLoginUser from "./utils/login-user";
 import { User } from "./interfaces";
+import CompanyForm from "./pages/company/company/form";
+
+import "./App.css";
 
 function App() {
   const [colorScheme, setColorScheme] = useLocalStorage<ColorScheme>({
@@ -207,7 +210,7 @@ function App() {
                         </>
                       )}
                       {/* JOB_SEEKER MENU */}
-                      {/* {user?.role == "JOB_SEEKER" && (
+                      {user?.role == "COMPANY" && (
                         <>
                           <Route
                             path="/my_resume"
@@ -215,7 +218,7 @@ function App() {
                             element={<ResumeForm />}
                           />
                         </>
-                      )} */}
+                      )}
 
                       {user?.role == "JOB_SEEKER" && (
                         <Route path="/sjobs">
@@ -228,13 +231,29 @@ function App() {
                       )}
 
                       {user?.role == "JOB_SEEKER" && (
-                        <Route path="/spplications">
+                        <Route path="/sapplications">
                           <Route index element={<MyApplicationList />} />
                           {/* <Route
                             path="show/:id"
                             element={<MyApplicationShow />}
                           /> */}
                         </Route>
+                      )}
+
+                      {/* Company Route */}
+                      {user?.role === "COMPANY" && (
+                        <>
+                          <Route
+                            path="/ccompany"
+                            index
+                            element={<CompanyForm />}
+                          />
+                          <Route path="/cjobs">
+                            <Route index element={<JobList />} />
+                            <Route path="edit/:id" element={<JobEdit />} />
+                            <Route path="create" element={<JobEdit />} />
+                          </Route>
+                        </>
                       )}
                     </Route>
 

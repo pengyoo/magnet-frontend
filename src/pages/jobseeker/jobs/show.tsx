@@ -1,5 +1,6 @@
 import {
   IResourceComponentsProps,
+  useNotification,
   useShow,
   useTranslate,
 } from "@refinedev/core";
@@ -17,10 +18,12 @@ import {
   Divider,
   useMantineTheme,
   Image,
+  Indicator,
 } from "@mantine/core";
 import { BsCurrencyExchange } from "react-icons/bs";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
+import axiosInstance, { API_URL } from "../../../services/axios-instance";
 dayjs.extend(relativeTime);
 
 export const Jobseeker_JobShow: React.FC<IResourceComponentsProps> = () => {
@@ -30,6 +33,26 @@ export const Jobseeker_JobShow: React.FC<IResourceComponentsProps> = () => {
   const record = data?.data;
 
   const theme = useMantineTheme();
+
+  const { open } = useNotification();
+
+  // Apply Job
+  const handleApply = () => {
+    axiosInstance
+      .post(`${API_URL}/sapplications/apply/${record?.id}`)
+      .then(() => {
+        open?.({
+          type: "success",
+          message: "Successfully Applied.",
+        });
+      })
+      .catch((err) => {
+        open?.({
+          type: "error",
+          message: err.message,
+        });
+      });
+  };
 
   return (
     <Show isLoading={isLoading}>
@@ -106,7 +129,7 @@ export const Jobseeker_JobShow: React.FC<IResourceComponentsProps> = () => {
         </Grid.Col>
       </Grid>
       <Affix position={{ bottom: 100, right: 250 }}>
-        <Button>Apply Now</Button>
+        <Button onClick={handleApply}>Apply Now</Button>
       </Affix>
     </Show>
   );

@@ -96,7 +96,10 @@ export function Register() {
         navigate("/login");
       })
       .catch((err) => {
-        console.log(err);
+        open?.({
+          type: "error",
+          message: err.message,
+        });
       });
   };
   return (

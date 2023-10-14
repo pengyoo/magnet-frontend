@@ -1,6 +1,7 @@
 import { IResourceComponentsProps, useTranslate } from "@refinedev/core";
 import { Edit, useForm } from "@refinedev/mantine";
 import { NumberInput, TextInput } from "@mantine/core";
+import MDEditor from "@uiw/react-md-editor";
 
 export const CompanyEdit: React.FC<IResourceComponentsProps> = () => {
   const translate = useTranslate();
@@ -28,11 +29,7 @@ export const CompanyEdit: React.FC<IResourceComponentsProps> = () => {
         label={translate("Company Name")}
         {...getInputProps("name")}
       />
-      <TextInput
-        mt="sm"
-        label={translate("Description")}
-        {...getInputProps("description")}
-      />
+      <MDEditor data-color-mode="light" {...getInputProps("description")} />
       <TextInput
         mt="sm"
         label={translate("Address")}

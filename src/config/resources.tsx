@@ -49,8 +49,7 @@ export const resources: IResourceItem[] = [
     meta: {
       label: "User",
       icon: <IconUser size={20} />,
-      hide:
-        user == null || user?.role === "COMPANY" || user?.role === "JOB_SEEKER",
+      hide: user?.role != "ADMIN",
     },
   },
   {
@@ -58,8 +57,7 @@ export const resources: IResourceItem[] = [
     meta: {
       label: "Company",
       icon: <IconBuildingBank size={20} />,
-      hide:
-        user == null || user?.role === "COMPANY" || user?.role === "JOB_SEEKER",
+      hide: user?.role != "ADMIN",
     },
   },
   {
@@ -71,8 +69,7 @@ export const resources: IResourceItem[] = [
       label: "Company",
       parent: "company",
       icon: <IconBuilding size={20} />,
-      hide:
-        user == null || user?.role === "COMPANY" || user?.role === "JOB_SEEKER",
+      hide: user?.role != "ADMIN",
     },
   },
   {
@@ -84,8 +81,7 @@ export const resources: IResourceItem[] = [
       label: "Job",
       parent: "company",
       icon: <Icon360View size={20} />,
-      hide:
-        user == null || user?.role === "COMPANY" || user?.role === "JOB_SEEKER",
+      hide: user?.role != "ADMIN",
     },
   },
 
@@ -96,8 +92,7 @@ export const resources: IResourceItem[] = [
     meta: {
       label: "Resume",
       icon: <IconFaceId size={20} />,
-      hide:
-        user == null || user?.role === "COMPANY" || user?.role === "JOB_SEEKER",
+      hide: user?.role != "ADMIN",
     },
   },
   {
@@ -107,8 +102,7 @@ export const resources: IResourceItem[] = [
     meta: {
       label: "Job Application",
       icon: <IconArrowBarToDown size={20} />,
-      hide:
-        user == null || user?.role === "COMPANY" || user?.role === "JOB_SEEKER",
+      hide: user?.role != "ADMIN",
     },
   },
 
@@ -117,8 +111,7 @@ export const resources: IResourceItem[] = [
     meta: {
       label: "Assessment",
       icon: <IconTestPipe size={20} />,
-      hide:
-        user == null || user?.role === "COMPANY" || user?.role === "JOB_SEEKER",
+      hide: user?.role != "ADMIN",
     },
   },
   {
@@ -129,8 +122,7 @@ export const resources: IResourceItem[] = [
       label: "Test Paper",
       icon: <IconPaperBag size={20} />,
       parent: "assessment",
-      hide:
-        user == null || user?.role === "COMPANY" || user?.role === "JOB_SEEKER",
+      hide: user?.role != "ADMIN",
     },
   },
   {
@@ -141,8 +133,7 @@ export const resources: IResourceItem[] = [
       label: "Answer Sheet",
       icon: <IconPaperBag size={20} />,
       parent: "assessment",
-      hide:
-        user == null || user?.role === "COMPANY" || user?.role === "JOB_SEEKER",
+      hide: user?.role != "ADMIN",
     },
   },
   {
@@ -151,8 +142,7 @@ export const resources: IResourceItem[] = [
     meta: {
       label: "Matching Index",
       icon: <IconSmartHome size={20} />,
-      hide:
-        user == null || user?.role === "COMPANY" || user?.role === "JOB_SEEKER",
+      hide: user?.role != "ADMIN",
     },
   },
 
@@ -162,8 +152,8 @@ export const resources: IResourceItem[] = [
   //   list: "/my_resume",
   //   meta: {
   //     label: "My Resume",
-  //     icon: <IconMagnet />,
-  //     hide: user == null || user?.role === "COMPANY" || user?.role === "ADMIN",
+  //     // icon: <IconMagnet />,
+  //     hide: user?.role != "COMPANY",
   //   },
   // },
 
@@ -174,18 +164,43 @@ export const resources: IResourceItem[] = [
     meta: {
       label: "Explore Jobs",
       icon: <IconLockOpen size={20} />,
-      hide: user == null || user?.role === "COMPANY" || user?.role === "ADMIN",
+      hide: user?.role != "JOB_SEEKER",
     },
   },
 
   {
-    name: "spplications",
-    list: "/spplications",
+    name: "sapplications",
+    list: "/sapplications",
     // show: "/my_applications/show/:id",
     meta: {
       label: "My Applications",
       icon: <IconBrandAppgallery size={20} />,
-      hide: user == null || user?.role === "COMPANY" || user?.role === "ADMIN",
+      hide: user?.role != "JOB_SEEKER",
+    },
+  },
+
+  //Company Menus
+
+  {
+    name: "ccompany",
+    list: "/ccompany",
+    meta: {
+      label: "Company Information",
+      icon: <IconLockOpen />,
+      hide: user?.role != "COMPANY",
+    },
+  },
+  {
+    name: "cjobs",
+    list: "/cjobs",
+    edit: "/cjobs/edit/:id",
+    create: "/cjobs/create",
+    canDelete: true,
+    meta: {
+      label: "Job Management",
+      icon: <IconLockOpen size={20} />,
+      hide: user?.role != "COMPANY",
+      canDelete: true,
     },
   },
 ];
