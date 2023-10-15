@@ -1,6 +1,7 @@
 import { type IResourceItem } from "@refinedev/core";
 import {
   Icon360View,
+  IconAppWindow,
   IconArrowBarToDown,
   IconBrandAppgallery,
   IconBuilding,
@@ -199,6 +200,17 @@ export const resources: IResourceItem[] = [
     meta: {
       label: "Job Management",
       icon: <IconLockOpen size={20} />,
+      hide: user?.role != "COMPANY",
+      canDelete: true,
+    },
+  },
+
+  {
+    name: "capplications",
+    list: "/capplications",
+    meta: {
+      label: "Application Management",
+      icon: <IconAppWindow size={20} />,
       hide: user?.role != "COMPANY",
       canDelete: true,
     },

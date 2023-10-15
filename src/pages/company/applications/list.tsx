@@ -1,48 +1,94 @@
-import React from "react";
+import React, { useState } from "react";
 import { IResourceComponentsProps, useTranslate } from "@refinedev/core";
 import { useTable } from "@refinedev/react-table";
 import { ColumnDef, flexRender } from "@tanstack/react-table";
-import { ScrollArea, Table, Pagination, Group } from "@mantine/core";
 import {
-  List,
-  EditButton,
-  ShowButton,
-  DeleteButton,
-  MarkdownField,
-} from "@refinedev/mantine";
+  ScrollArea,
+  Table,
+  Pagination,
+  Group,
+  Badge,
+  ActionIcon,
+  Modal,
+  Anchor,
+} from "@mantine/core";
+import { List, DateField } from "@refinedev/mantine";
+import { useNavigate } from "react-router-dom";
+import { Resume } from "../../../interfaces";
+import { IconVaccine } from "@tabler/icons";
+import ResumeShow from "../resume/show";
 
-export const ResumeList: React.FC<IResourceComponentsProps> = () => {
+export const CApplicationList: React.FC<IResourceComponentsProps> = () => {
   const translate = useTranslate();
+  const navigate = useNavigate();
+
+  const [resume, setResume] = useState<Resume>();
+  const [opened, setOpened] = useState(false);
+
+  const handleShowResume = (resume: Resume) => {
+    setResume(resume);
+    setOpened(true);
+  };
+
   const columns = React.useMemo<ColumnDef<any>[]>(
     () => [
       {
-        id: "id",
-        accessorKey: "id",
-        header: translate("ID"),
+        id: "job",
+        header: translate("Job"),
+        accessorKey: "job.title",
       },
       {
-        id: "fullName",
-        accessorKey: "fullName",
-        header: translate("Full Name"),
-      },
-      {
-        id: "profile",
-        accessorKey: "profile",
-        header: translate("Profile"),
+        id: "resume",
+        header: translate("Applicant"),
+        accessorKey: "resume",
         cell: function render({ getValue }) {
           return (
-            <MarkdownField value={getValue<string>()?.slice(0, 120) + "..."} />
+            <Anchor onClick={() => handleShowResume(getValue<Resume>())}>
+              {" "}
+              {getValue<Resume>().fullName}
+            </Anchor>
           );
         },
       },
       {
+        id: "appliedDate",
+        accessorKey: "appliedDate",
+        header: translate("Applied Date"),
+        cell: function render({ getValue }) {
+          return <DateField value={getValue<any>()} />;
+        },
+      },
+      {
+        id: "status",
+        accessorKey: "status",
+        header: translate("Status"),
+        cell: function render({ getValue }) {
+          return (
+            <Badge
+              color={
+                getValue<string>() === "ACCEPTED"
+                  ? "green"
+                  : getValue<string>() === "PENDING"
+                  ? "blue"
+                  : "red"
+              }
+            >
+              {getValue<string>()}
+            </Badge>
+          );
+        },
+      },
+
+      {
         id: "actions",
-        accessorKey: "id",
+        accessorKey: "resume",
         header: translate("table.actions"),
         cell: function render({ getValue }) {
           return (
             <Group spacing="xs" noWrap>
-              <ShowButton hideText recordItemId={getValue() as string} />
+              <ActionIcon onClick={() => handleShowResume(getValue<Resume>())}>
+                <IconVaccine />
+              </ActionIcon>
             </Group>
           );
         },
@@ -54,7 +100,6 @@ export const ResumeList: React.FC<IResourceComponentsProps> = () => {
   const {
     getHeaderGroups,
     getRowModel,
-    setOptions,
     refineCore: {
       setCurrent,
       pageCount,
@@ -64,13 +109,6 @@ export const ResumeList: React.FC<IResourceComponentsProps> = () => {
   } = useTable({
     columns,
   });
-
-  setOptions((prev) => ({
-    ...prev,
-    meta: {
-      ...prev.meta,
-    },
-  }));
 
   return (
     <List>
@@ -120,6 +158,14 @@ export const ResumeList: React.FC<IResourceComponentsProps> = () => {
         page={current}
         onChange={setCurrent}
       />
+      <Modal
+        opened={opened}
+        onClose={() => setOpened(false)}
+        title={`${resume?.fullName}'s Resume`}
+        size="70%"
+      >
+        {resume && <ResumeShow resume={resume} />}
+      </Modal>
     </List>
   );
 };

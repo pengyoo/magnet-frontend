@@ -37,16 +37,7 @@ export const JobList: React.FC<IResourceComponentsProps> = () => {
           return <TextField value={getValue() as string} fz="md" fw={500} />;
         },
       },
-      {
-        id: "description",
-        accessorKey: "description",
-        header: translate("Description"),
-        cell: function render({ getValue }) {
-          return (
-            <MarkdownField value={getValue<string>()?.slice(0, 80) + "..."} />
-          );
-        },
-      },
+
       {
         id: "salaryRange",
         accessorKey: "salaryRange",
@@ -106,6 +97,16 @@ export const JobList: React.FC<IResourceComponentsProps> = () => {
             // >
             <TextField value={(getValue() as Company).name} />
             // </Anchor>
+          );
+        },
+      },
+      {
+        id: "description",
+        accessorKey: "description",
+        header: translate("Description"),
+        cell: function render({ getValue }) {
+          return (
+            <MarkdownField value={getValue<string>()?.slice(0, 80) + "..."} />
           );
         },
       },

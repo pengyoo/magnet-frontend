@@ -180,11 +180,8 @@ const CompanyForm = () => {
             data-color-mode="light"
             height={600}
           />
-
-          <Space m="md" />
-          <Space m="md" />
-          <Button type="submit" radius="xl">
-            Submit
+          <Button type="submit" radius="xl" mb="lg">
+            Save
           </Button>
           {/* <Code block mt={5}>
             {JSON.stringify(form.values, null, 2)}

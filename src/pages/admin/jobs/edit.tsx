@@ -18,7 +18,7 @@ export const JobEdit: React.FC<IResourceComponentsProps> = () => {
       salaryRange: "",
       location: "",
       status: "",
-      company: { id: "" },
+      expireAt: "",
     },
   });
 
@@ -43,6 +43,13 @@ export const JobEdit: React.FC<IResourceComponentsProps> = () => {
         mt="sm"
         label={translate("Location")}
         {...getInputProps("location")}
+        withAsterisk
+      />
+      <TextInput
+        type="date"
+        mt="sm"
+        label={translate("Expire Date")}
+        {...getInputProps("expireAt")}
         withAsterisk
       />
 

@@ -65,6 +65,7 @@ import { User } from "./interfaces";
 import CompanyForm from "./pages/company/company/form";
 
 import "./App.css";
+import { CApplicationList } from "./pages/company/applications/list";
 
 function App() {
   const [colorScheme, setColorScheme] = useLocalStorage<ColorScheme>({
@@ -252,6 +253,9 @@ function App() {
                             <Route index element={<JobList />} />
                             <Route path="edit/:id" element={<JobEdit />} />
                             <Route path="create" element={<JobEdit />} />
+                          </Route>
+                          <Route path="/capplications">
+                            <Route index element={<CApplicationList />} />
                           </Route>
                         </>
                       )}

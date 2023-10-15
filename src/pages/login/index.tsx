@@ -9,7 +9,7 @@ export const Login = () => {
         <ThemedTitleV2 collapsed={false} text="Magnet" icon={<AppIcon />} />
       }
       formProps={{
-        initialValues: { email: "demo@refine.dev", password: "demodemo" },
+        initialValues: { email: "", password: "" },
       }}
     />
   );

@@ -35,7 +35,11 @@ export interface Resume {
       postCode: string;
       linkedInUrl: string;
     };
-    skills: string[];
+    skills: {
+      id: "",
+      skill: "",
+      key: ""
+    }[];
     education: {
       id: string;
       schoolName: string;
