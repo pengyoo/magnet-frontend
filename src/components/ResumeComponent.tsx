@@ -64,100 +64,114 @@ const ResumeComponent = ({ resume }: Props) => {
           </Flex>
         </Stack>
       </Paper>
+      {skills && skills.length != 0 && (
+        <Paper p="xs" withBorder mt="md">
+          <Text weight={700} size="xl">
+            Skills
+          </Text>
+          <Group>
+            {skills.map((skill) => (
+              <span key={skill.id}>
+                <Text size="sm">{skill.skill}</Text>
+              </span>
+            ))}
+          </Group>
+        </Paper>
+      )}
 
-      <Paper p="xs" withBorder mt="md">
-        <Text weight={700} size="xl">
-          Skills
-        </Text>
-        <Group>
-          {skills.map((skill) => (
-            <span key={skill.id}>
-              <Text size="sm">{skill.skill}</Text>
-            </span>
-          ))}
-        </Group>
-      </Paper>
+      {education && education.length != 0 && (
+        <Paper p="lg" withBorder mt="md">
+          <Text weight={700} size="xl">
+            Education
+          </Text>
+          <List>
+            {education.map((edu) => (
+              <Stack>
+                <Flex justify="start" align="center" key={edu.id}>
+                  <Text fw={500} size="sm" style={{ flex: 1 }}>
+                    {edu.schoolName}
+                  </Text>
+                  <Text size="sm" style={{ flex: 1 }}>
+                    {dayjs(edu.startDate).format("MMMM D, YYYY")} -{" "}
+                    {dayjs(edu.endDate).format("MMMM D, YYYY")}
+                  </Text>
+                </Flex>
 
-      <Paper p="lg" withBorder mt="md">
-        <Text weight={700} size="xl">
-          Education
-        </Text>
-        <List>
-          {education.map((edu) => (
-            <Stack>
-              <Flex justify="start" align="center" key={edu.id}>
-                <Text fw={500} size="sm" style={{ flex: 1 }}>
-                  {edu.schoolName}
-                </Text>
-                <Text size="sm" style={{ flex: 1 }}>
-                  {dayjs(edu.startDate).format("MMMM D, YYYY")} -{" "}
-                  {dayjs(edu.endDate).format("MMMM D, YYYY")}
-                </Text>
-              </Flex>
+                <Flex justify="start" align="center" key={edu.id} mb="xs">
+                  <Text size="sm" style={{ flex: 1 }}>
+                    {edu.degree}
+                  </Text>
+                  <Text size="sm" style={{ flex: 1 }}>
+                    {edu.major}
+                  </Text>
+                </Flex>
+              </Stack>
+            ))}
+          </List>
+        </Paper>
+      )}
 
-              <Flex justify="start" align="center" key={edu.id} mb="xs">
-                <Text size="sm" style={{ flex: 1 }}>
-                  {edu.degree}
-                </Text>
-                <Text size="sm" style={{ flex: 1 }}>
-                  {edu.major}
-                </Text>
-              </Flex>
-            </Stack>
-          ))}
-        </List>
-      </Paper>
+      {experience && experience.length != 0 && (
+        <Paper p="lg" withBorder mt="md">
+          <Text weight={700} size="xl">
+            Experience
+          </Text>
+          <List>
+            {experience.map((exp) => (
+              <List.Item key={exp.id}>
+                <Flex justify="start" my="xs">
+                  <Text style={{ flex: 1 }} fw={500} size="sm">
+                    {exp.position} · {exp.companyName}
+                  </Text>
 
-      <Paper p="lg" withBorder mt="md">
-        <Text weight={700} size="xl">
-          Experience
-        </Text>
-        <List>
-          {experience.map((exp) => (
-            <List.Item key={exp.id}>
-              <Flex justify="start" my="xs">
-                <Text style={{ flex: 1 }} fw={500} size="sm">
-                  {exp.position} · {exp.companyName}
+                  <Text style={{ flex: 1 }} size="sm">
+                    {dayjs(exp.startDate).format("MMMM D, YYYY")} -{" "}
+                    {dayjs(exp.endDate).format("MMMM D, YYYY")}
+                  </Text>
+                </Flex>
+                <Text
+                  style={{ whiteSpace: "pre-wrap" }}
+                  size="sm"
+                  inline={false}
+                >
+                  {exp.description}
                 </Text>
+                <Text size="sm">Location: {exp.location}</Text>
+              </List.Item>
+            ))}
+          </List>
+        </Paper>
+      )}
+      {projects && projects.length != 0 && (
+        <Paper p="lg" withBorder mt="md">
+          <Text weight={700} size="xl">
+            Projects
+          </Text>
+          <List>
+            {projects.map((project) => (
+              <List.Item key={project.id}>
+                <Flex align="center" justify="space-between">
+                  <Text fw={500} style={{ flex: 1 }} size="sm" my="xs">
+                    {project.name}
+                  </Text>
+                  <Text style={{ flex: 1 }} size="sm">
+                    {dayjs(project.startDate).format("MMMM D, YYYY")} -{" "}
+                    {dayjs(project.endDate).format("MMMM D, YYYY")}
+                  </Text>
+                </Flex>
 
-                <Text style={{ flex: 1 }} size="sm">
-                  {dayjs(exp.startDate).format("MMMM D, YYYY")} -{" "}
-                  {dayjs(exp.endDate).format("MMMM D, YYYY")}
+                <Text
+                  style={{ whiteSpace: "pre-wrap" }}
+                  size="sm"
+                  inline={false}
+                >
+                  {project.description}
                 </Text>
-              </Flex>
-              <Text style={{ whiteSpace: "pre-wrap" }} size="sm" inline={false}>
-                {exp.description}
-              </Text>
-              <Text size="sm">Location: {exp.location}</Text>
-            </List.Item>
-          ))}
-        </List>
-      </Paper>
-
-      <Paper p="lg" withBorder mt="md">
-        <Text weight={700} size="xl">
-          Projects
-        </Text>
-        <List>
-          {projects.map((project) => (
-            <List.Item key={project.id}>
-              <Flex align="center" justify="space-between">
-                <Text fw={500} style={{ flex: 1 }} size="sm" my="xs">
-                  {project.name}
-                </Text>
-                <Text style={{ flex: 1 }} size="sm">
-                  {dayjs(project.startDate).format("MMMM D, YYYY")} -{" "}
-                  {dayjs(project.endDate).format("MMMM D, YYYY")}
-                </Text>
-              </Flex>
-
-              <Text style={{ whiteSpace: "pre-wrap" }} size="sm" inline={false}>
-                {project.description}
-              </Text>
-            </List.Item>
-          ))}
-        </List>
-      </Paper>
+              </List.Item>
+            ))}
+          </List>
+        </Paper>
+      )}
     </Card>
   );
 };

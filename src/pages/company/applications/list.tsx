@@ -105,9 +105,7 @@ export const CApplicationList: React.FC<IResourceComponentsProps> = () => {
               }}
             >
               <Badge color="red" style={{ fontSize: 16 }}>
-                {getValue<any>()
-                  ? getValue<any>().overall * 100 + "%"
-                  : "No Data"}
+                {getValue<any>() ? getValue<any>().overall * 100 : "No Data"}
               </Badge>
             </Anchor>
           );
@@ -227,6 +225,8 @@ export const CApplicationList: React.FC<IResourceComponentsProps> = () => {
           <Text style={{ fontSize: 25, fontWeight: 500 }}>Match Index</Text>
         }
         pt="0"
+        px="lg"
+        pb="lg"
         opened={matchOpened}
         onClose={() => setMatchOpened(false)}
       >
@@ -245,7 +245,7 @@ export const CApplicationList: React.FC<IResourceComponentsProps> = () => {
                 ],
                 backgroundColor: "rgba(255, 99, 132, 0.2)",
                 borderColor: "rgba(255, 99, 132, 1)",
-                borderWidth: 1,
+                borderWidth: 2,
               },
             ],
           }}
@@ -265,11 +265,17 @@ export const CApplicationList: React.FC<IResourceComponentsProps> = () => {
           sections={[
             {
               value: currentMatchIndex.overall * 100,
-              color: "pink",
-              label: "Overall:" + currentMatchIndex.overall * 100 + "%",
+              color: "red",
+              label: "Overall:" + currentMatchIndex.overall * 100,
             },
           ]}
         />
+        <Text style={{ fontSize: 12, fontWeight: "bold", color: "gray" }}>
+          Note:
+        </Text>
+        <Text style={{ fontSize: 12, color: "gray" }}>
+          degree + major + language = 20%, skills = 40%, experience = 40%
+        </Text>
       </Modal>
     </List>
   );
