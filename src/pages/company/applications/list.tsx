@@ -19,6 +19,25 @@ import { useNavigate } from "react-router-dom";
 import { Resume } from "../../../interfaces";
 import { IconVaccine } from "@tabler/icons";
 import ResumeComponent from "../../../components/ResumeComponent";
+import { Radar } from "react-chartjs-2";
+import {
+  Chart as ChartJS,
+  RadialLinearScale,
+  PointElement,
+  LineElement,
+  Filler,
+  Tooltip,
+  Legend,
+} from "chart.js";
+
+ChartJS.register(
+  RadialLinearScale,
+  PointElement,
+  LineElement,
+  Filler,
+  Tooltip,
+  Legend
+);
 
 export const CApplicationList: React.FC<IResourceComponentsProps> = () => {
   const translate = useTranslate();
@@ -86,7 +105,9 @@ export const CApplicationList: React.FC<IResourceComponentsProps> = () => {
               }}
             >
               <Badge color="red" style={{ fontSize: 16 }}>
-                {getValue<any>() ? getValue<any>().overall : "No Data"}
+                {getValue<any>()
+                  ? getValue<any>().overall * 100 + "%"
+                  : "No Data"}
               </Badge>
             </Anchor>
           );
@@ -209,6 +230,34 @@ export const CApplicationList: React.FC<IResourceComponentsProps> = () => {
         opened={matchOpened}
         onClose={() => setMatchOpened(false)}
       >
+        <Radar
+          data={{
+            labels: ["Degree", "Major", "Skills", "Experience", "Language"],
+            datasets: [
+              {
+                label: "Match Index (0-100)",
+                data: [
+                  currentMatchIndex.degree * 100,
+                  currentMatchIndex.major * 100,
+                  currentMatchIndex.skill * 100,
+                  currentMatchIndex.experience * 100,
+                  currentMatchIndex.language * 100,
+                ],
+                backgroundColor: "rgba(255, 99, 132, 0.2)",
+                borderColor: "rgba(255, 99, 132, 1)",
+                borderWidth: 1,
+              },
+            ],
+          }}
+          options={{
+            scales: {
+              r: {
+                min: 0,
+                max: 100,
+              },
+            },
+          }}
+        />
         <Progress
           radius="xl"
           size={24}
@@ -217,69 +266,7 @@ export const CApplicationList: React.FC<IResourceComponentsProps> = () => {
             {
               value: currentMatchIndex.overall * 100,
               color: "pink",
-              label: "Overall:" + currentMatchIndex.overall,
-            },
-          ]}
-        />
-
-        <Progress
-          radius="xl"
-          size={24}
-          my="lg"
-          sections={[
-            {
-              value: currentMatchIndex.degree * 100,
-              color: "indigo",
-              label: "Degree:" + currentMatchIndex.degree,
-            },
-          ]}
-        />
-
-        <Progress
-          radius="xl"
-          size={24}
-          my="lg"
-          sections={[
-            {
-              value: currentMatchIndex.major * 100,
-              color: "violet",
-              label: "Major:" + currentMatchIndex.major,
-            },
-          ]}
-        />
-        <Progress
-          radius="xl"
-          size={24}
-          my="lg"
-          sections={[
-            {
-              value: currentMatchIndex.skill * 100,
-              color: "green",
-              label: "Skill:" + currentMatchIndex.skill,
-            },
-          ]}
-        />
-        <Progress
-          radius="xl"
-          size={24}
-          my="lg"
-          sections={[
-            {
-              value: currentMatchIndex.experience * 100,
-              color: "cyan",
-              label: "Experience:" + currentMatchIndex.experience,
-            },
-          ]}
-        />
-        <Progress
-          radius="xl"
-          size={24}
-          my="lg"
-          sections={[
-            {
-              value: currentMatchIndex.language * 100,
-              color: "grape",
-              label: "Language:" + currentMatchIndex.language,
+              label: "Overall:" + currentMatchIndex.overall * 100 + "%",
             },
           ]}
         />

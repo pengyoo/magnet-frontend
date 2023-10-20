@@ -431,10 +431,10 @@ const ResumeForm = () => {
         form.setValues(resp.data);
       })
       .catch((err) => {
-        open?.({
-          type: "error",
-          message: err.message,
-        });
+        // open?.({
+        //   type: "error",
+        //   message: err.message,
+        // });
       });
 
     axiosInstance
