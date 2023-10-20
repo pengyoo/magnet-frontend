@@ -33,11 +33,12 @@ import { Header } from "./components/header";
 import { ForgotPassword } from "./pages/forgotPassword";
 import { Login } from "./pages/login";
 import { Register } from "./pages/register";
-import //   MantineCreateInferencer,
-//   MantineEditInferencer,
-// MantineListInferencer,
-// MantineShowInferencer,
-"@refinedev/inferencer/mantine";
+import {
+  MantineCreateInferencer,
+  MantineEditInferencer,
+  MantineListInferencer,
+  MantineShowInferencer,
+} from "@refinedev/inferencer/mantine";
 
 import { CompanyEdit, CompanyList, CompanyShow } from "./pages/admin/companies";
 import { JobEdit, JobList, JobShow } from "./pages/admin/jobs";
@@ -66,6 +67,10 @@ import CompanyForm from "./pages/company/company/form";
 
 import "./App.css";
 import { CApplicationList } from "./pages/company/applications/list";
+import { CJobList } from "./pages/company/jobs/list";
+import { TestList } from "./pages/company/tests/list";
+import { TestShow } from "./pages/company/tests/show";
+import { TestEdit } from "./pages/company/tests/edit";
 
 function App() {
   const [colorScheme, setColorScheme] = useLocalStorage<ColorScheme>({
@@ -250,12 +255,19 @@ function App() {
                             element={<CompanyForm />}
                           />
                           <Route path="/cjobs">
-                            <Route index element={<JobList />} />
+                            <Route index element={<CJobList />} />
                             <Route path="edit/:id" element={<JobEdit />} />
                             <Route path="create" element={<JobEdit />} />
                           </Route>
                           <Route path="/capplications">
                             <Route index element={<CApplicationList />} />
+                          </Route>
+
+                          <Route path="/ctests">
+                            <Route index element={<TestList />} />
+                            <Route path="show/:id" element={<TestShow />} />
+                            <Route path="edit/:id" element={<TestEdit />} />
+                            <Route path="create" element={<TestEdit />} />
                           </Route>
                         </>
                       )}

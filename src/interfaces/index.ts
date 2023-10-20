@@ -80,3 +80,11 @@ export interface User {
     terms: boolean;
 
   }
+
+export interface Question {
+  id: "",
+  question: "",
+  optionList: "",
+  type: "",
+  standardAnswer:""
+}

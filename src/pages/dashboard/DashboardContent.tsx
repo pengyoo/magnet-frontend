@@ -1,6 +1,6 @@
 "use client";
 
-import { Flex, Grid, Text } from "@mantine/core";
+import { Flex, Grid } from "@mantine/core";
 import { StatsGroup } from "../admin/dashboard/StatsGroup";
 import { mockData } from "../admin/dashboard/mock";
 import { BalanceCard } from "../admin/dashboard/BalanceCard";
@@ -12,6 +12,7 @@ import { useEffect } from "react";
 import ResumeForm from "../jobseeker/resume/form";
 import { useGetIdentity } from "@refinedev/core";
 import { User } from "../../interfaces";
+import CompanyForm from "../company/company/form";
 
 export function DashboardContent() {
   useEffect(() => {
@@ -50,7 +51,7 @@ export function DashboardContent() {
 
   const jobSeekerDashboard = <ResumeForm />;
 
-  const companyDashboard = <Text>Company</Text>;
+  const companyDashboard = <CompanyForm />;
 
   if (user?.role === "ADMIN") {
     return adminDashboard;

@@ -30,7 +30,7 @@ export const resources: IResourceItem[] = [
           ? "Dashboard"
           : user?.role === "JOB_SEEKER"
           ? "My Resume"
-          : "Home",
+          : "Company Information",
       icon:
         user?.role === "ADMIN" ? (
           <IconDashboard size={20} />
@@ -182,15 +182,15 @@ export const resources: IResourceItem[] = [
 
   //Company Menus
 
-  {
-    name: "ccompany",
-    list: "/ccompany",
-    meta: {
-      label: "Company Information",
-      icon: <IconLockOpen />,
-      hide: user?.role != "COMPANY",
-    },
-  },
+  // {
+  //   name: "ccompany",
+  //   list: "/ccompany",
+  //   meta: {
+  //     label: "Company Information",
+  //     icon: <IconLockOpen />,
+  //     hide: user?.role != "COMPANY",
+  //   },
+  // },
   {
     name: "cjobs",
     list: "/cjobs",
@@ -211,6 +211,19 @@ export const resources: IResourceItem[] = [
     meta: {
       label: "Application Management",
       icon: <IconAppWindow size={20} />,
+      hide: user?.role != "COMPANY",
+      canDelete: true,
+    },
+  },
+  {
+    name: "ctests",
+    list: "/ctests",
+    show: "/ctests/show/:id",
+    edit: "/ctests/edit/:id",
+    create: "/ctests/create",
+    meta: {
+      label: "Test Management",
+      icon: <IconTestPipe size={20} />,
       hide: user?.role != "COMPANY",
       canDelete: true,
     },
