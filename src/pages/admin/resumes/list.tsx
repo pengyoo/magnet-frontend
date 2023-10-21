@@ -9,6 +9,7 @@ import {
   ShowButton,
   DeleteButton,
   MarkdownField,
+  TextField,
 } from "@refinedev/mantine";
 
 export const ResumeList: React.FC<IResourceComponentsProps> = () => {
@@ -24,6 +25,9 @@ export const ResumeList: React.FC<IResourceComponentsProps> = () => {
         id: "fullName",
         accessorKey: "fullName",
         header: translate("Full Name"),
+        cell: function render({ getValue }) {
+          return <TextField value={getValue() as string} fz="md" fw={500} />;
+        },
       },
       {
         id: "profile",

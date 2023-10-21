@@ -71,6 +71,7 @@ import { CJobList } from "./pages/company/jobs/list";
 import { TestList } from "./pages/company/tests/list";
 import { TestShow } from "./pages/company/tests/show";
 import { TestEdit } from "./pages/company/tests/edit";
+import { JobApplicationListComponent } from "./components/JobApplicationListComponent";
 
 function App() {
   const [colorScheme, setColorScheme] = useLocalStorage<ColorScheme>({
@@ -187,7 +188,10 @@ function App() {
                           </Route>
 
                           <Route path="/applications">
-                            <Route index element={<JobApplicationList />} />
+                            <Route
+                              index
+                              element={<JobApplicationListComponent />}
+                            />
                             <Route
                               path="show/:id"
                               element={<JobApplicationShow />}
@@ -260,7 +264,10 @@ function App() {
                             <Route path="create" element={<JobEdit />} />
                           </Route>
                           <Route path="/capplications">
-                            <Route index element={<CApplicationList />} />
+                            <Route
+                              index
+                              element={<JobApplicationListComponent />}
+                            />
                           </Route>
 
                           <Route path="/ctests">

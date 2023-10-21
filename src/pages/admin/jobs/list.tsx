@@ -30,6 +30,11 @@ export const JobList: React.FC<IResourceComponentsProps> = () => {
   const columns = React.useMemo<ColumnDef<any>[]>(
     () => [
       {
+        id: "id",
+        accessorKey: "id",
+        header: translate("ID"),
+      },
+      {
         id: "title",
         accessorKey: "title",
         header: translate("Title"),
@@ -117,6 +122,7 @@ export const JobList: React.FC<IResourceComponentsProps> = () => {
         cell: function render({ getValue }) {
           return (
             <Group spacing="xs" noWrap>
+              <ShowButton hideText recordItemId={getValue() as string} />
               <EditButton hideText recordItemId={getValue() as string} />
               <DeleteButton hideText recordItemId={getValue() as string} />
             </Group>

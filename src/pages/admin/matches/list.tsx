@@ -2,7 +2,14 @@ import React from "react";
 import { IResourceComponentsProps, useTranslate } from "@refinedev/core";
 import { useTable } from "@refinedev/react-table";
 import { ColumnDef, flexRender } from "@tanstack/react-table";
-import { ScrollArea, Table, Pagination, Group } from "@mantine/core";
+import {
+  ScrollArea,
+  Table,
+  Pagination,
+  Group,
+  Anchor,
+  Badge,
+} from "@mantine/core";
 import {
   List,
   EditButton,
@@ -10,11 +17,12 @@ import {
   DeleteButton,
   TextField,
 } from "@refinedev/mantine";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Job, Resume } from "../../../interfaces";
 
 export const MatchingIndexList: React.FC<IResourceComponentsProps> = () => {
   const translate = useTranslate();
+  const navigate = useNavigate();
   const columns = React.useMemo<ColumnDef<any>[]>(
     () => [
       {
@@ -23,9 +31,11 @@ export const MatchingIndexList: React.FC<IResourceComponentsProps> = () => {
         header: translate("Job Title"),
         cell: function render({ getValue }) {
           return (
-            <Link to={`/jobs/show/${(getValue() as Job).id}`}>
+            <Anchor
+              onClick={() => navigate(`/jobs/show/${(getValue() as Job).id}`)}
+            >
               <TextField value={(getValue() as Job).title} />
-            </Link>
+            </Anchor>
           );
         },
       },
@@ -35,9 +45,13 @@ export const MatchingIndexList: React.FC<IResourceComponentsProps> = () => {
         header: translate("Job Seeker"),
         cell: function render({ getValue }) {
           return (
-            <Link to={`/resumes/show/${(getValue() as Resume).id}`}>
+            <Anchor
+              onClick={() =>
+                navigate(`/resumes/show/${(getValue() as Resume).id}`)
+              }
+            >
               <TextField value={(getValue() as Resume).fullName} />
-            </Link>
+            </Anchor>
           );
         },
       },
@@ -71,6 +85,13 @@ export const MatchingIndexList: React.FC<IResourceComponentsProps> = () => {
         id: "overall",
         accessorKey: "overall",
         header: translate("Overall Match"),
+        cell: function render({ getValue }) {
+          return (
+            <Badge color="red" style={{ fontSize: 16 }}>
+              {getValue<any>() ? getValue<any>() : "No Data"}
+            </Badge>
+          );
+        },
       },
       // {
       //   id: "actions",

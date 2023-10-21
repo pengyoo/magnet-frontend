@@ -88,3 +88,13 @@ export interface Question {
   type: "",
   standardAnswer:""
 }
+
+export interface MatchIndex {
+  overall: 0,
+  major: 0,
+  degree: 0,
+  skill: 0,
+  experience: 0,
+  education: 0,
+  language: 0,
+}

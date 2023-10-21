@@ -8,6 +8,7 @@ import {
   EditButton,
   ShowButton,
   MarkdownField,
+  TextField,
 } from "@refinedev/mantine";
 
 export const CompanyList: React.FC<IResourceComponentsProps> = () => {
@@ -23,7 +24,11 @@ export const CompanyList: React.FC<IResourceComponentsProps> = () => {
         id: "name",
         accessorKey: "name",
         header: translate("Company Name"),
+        cell: function render({ getValue }) {
+          return <TextField value={getValue() as string} fz="md" fw={500} />;
+        },
       },
+
       {
         id: "description",
         accessorKey: "description",
