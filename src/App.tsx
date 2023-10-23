@@ -33,20 +33,17 @@ import { Header } from "./components/header";
 import { ForgotPassword } from "./pages/forgotPassword";
 import { Login } from "./pages/login";
 import { Register } from "./pages/register";
-import {
-  MantineCreateInferencer,
-  MantineEditInferencer,
-  MantineListInferencer,
-  MantineShowInferencer,
-} from "@refinedev/inferencer/mantine";
+// import {
+//   MantineCreateInferencer,
+//   MantineEditInferencer,
+//   MantineListInferencer,
+//   MantineShowInferencer,
+// } from "@refinedev/inferencer/mantine";
 
 import { CompanyEdit, CompanyList, CompanyShow } from "./pages/admin/companies";
 import { JobEdit, JobList, JobShow } from "./pages/admin/jobs";
 import { ResumeList, ResumeShow } from "./pages/admin/resumes";
-import {
-  JobApplicationList,
-  JobApplicationShow,
-} from "./pages/admin/job-applications";
+import { JobApplicationShow } from "./pages/admin/job-applications";
 import { TestPaperList } from "./pages/admin/test-paper/list";
 import { TestPaperShow } from "./pages/admin/test-paper/show";
 import { AnswerSheetList, AnswerSheetShow } from "./pages/admin/answers";
@@ -62,11 +59,9 @@ import { Jobseeker_JobList } from "./pages/jobseeker/jobs/list";
 import { Jobseeker_JobShow } from "./pages/jobseeker/jobs/show";
 
 import getLoginUser from "./utils/login-user";
-import { User } from "./interfaces";
 import CompanyForm from "./pages/company/company/form";
 
 import "./App.css";
-import { CApplicationList } from "./pages/company/applications/list";
 import { CJobList } from "./pages/company/jobs/list";
 import { TestList } from "./pages/company/tests/list";
 import { TestShow } from "./pages/company/tests/show";

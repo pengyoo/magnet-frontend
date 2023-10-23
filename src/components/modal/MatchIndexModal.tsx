@@ -86,7 +86,8 @@ const MatchIndexModal = ({
         Note:
       </Text>
       <Text style={{ fontSize: 12, color: "gray" }}>
-        degree + major + language = 20%, skills = 40%, experience = 40%
+        Overall = (degree + major + language) * 20% + skills * 40% + experience
+        * 40%
       </Text>
     </Modal>
   );

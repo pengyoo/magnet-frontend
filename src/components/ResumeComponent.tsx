@@ -85,8 +85,8 @@ const ResumeComponent = ({ resume }: Props) => {
           </Text>
           <List>
             {education.map((edu) => (
-              <Stack>
-                <Flex justify="start" align="center" key={edu.id}>
+              <Stack key={edu.id}>
+                <Flex justify="start" align="center">
                   <Text fw={500} size="sm" style={{ flex: 1 }}>
                     {edu.schoolName}
                   </Text>

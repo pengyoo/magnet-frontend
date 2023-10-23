@@ -192,7 +192,23 @@ const ResumeForm = () => {
 
       <ActionIcon
         color="red"
-        onClick={() => form.removeListItem("skills", index)}
+        onClick={() => {
+          form.removeListItem("skills", index);
+          axiosInstance
+            .delete(API_URL + "/sresumes/skill/" + item.id)
+            .then(() => {
+              open?.({
+                type: "success",
+                message: "Skill successfully deleted",
+              });
+            })
+            .catch((err) => {
+              open?.({
+                type: "error",
+                message: err.message,
+              });
+            });
+        }}
         disabled={isDisabled}
         hidden={isDisabled}
       >
@@ -260,7 +276,23 @@ const ResumeForm = () => {
         color="red"
         disabled={isDisabled}
         hidden={isDisabled}
-        onClick={() => form.removeListItem("education", index)}
+        onClick={() => {
+          form.removeListItem("education", index);
+          axiosInstance
+            .delete(API_URL + "/sresumes/education/" + item.id)
+            .then(() => {
+              open?.({
+                type: "success",
+                message: "Education successfully deleted",
+              });
+            })
+            .catch((err) => {
+              open?.({
+                type: "error",
+                message: err.message,
+              });
+            });
+        }}
       >
         <IconTrash size="1rem" />
       </ActionIcon>
@@ -332,7 +364,23 @@ const ResumeForm = () => {
 
       <ActionIcon
         color="red"
-        onClick={() => form.removeListItem("experience", index)}
+        onClick={() => {
+          form.removeListItem("experience", index);
+          axiosInstance
+            .delete(API_URL + "/sresumes/experience/" + item.id)
+            .then(() => {
+              open?.({
+                type: "success",
+                message: "Experience successfully deleted",
+              });
+            })
+            .catch((err) => {
+              open?.({
+                type: "error",
+                message: err.message,
+              });
+            });
+        }}
         disabled={isDisabled}
         hidden={isDisabled}
       >
@@ -390,7 +438,23 @@ const ResumeForm = () => {
 
       <ActionIcon
         color="red"
-        onClick={() => form.removeListItem("projects", index)}
+        onClick={() => {
+          form.removeListItem("projects", index);
+          axiosInstance
+            .delete(API_URL + "/sresumes/project/" + item.id)
+            .then(() => {
+              open?.({
+                type: "success",
+                message: "Project successfully deleted",
+              });
+            })
+            .catch((err) => {
+              open?.({
+                type: "error",
+                message: err.message,
+              });
+            });
+        }}
         disabled={isDisabled}
         hidden={isDisabled}
       >

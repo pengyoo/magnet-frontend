@@ -4,7 +4,7 @@ import {
   useTranslate,
 } from "@refinedev/core";
 import { Show, NumberField, TextField } from "@refinedev/mantine";
-import { Flex, Table, Title } from "@mantine/core";
+import { Box, Flex, Table, Title } from "@mantine/core";
 import { IconPencilQuestion } from "@tabler/icons-react";
 
 export const TestShow: React.FC<IResourceComponentsProps> = () => {
@@ -35,29 +35,27 @@ export const TestShow: React.FC<IResourceComponentsProps> = () => {
       </Title>
 
       <Table highlightOnHover>
-        <tbody>
-          {record?.questionList?.map((question: any) => {
-            return (
-              <>
-                <tr key={question.key}>
-                  <td>
-                    <IconPencilQuestion color="#F06418" size={20} />{" "}
-                  </td>
-                  <td>
-                    <TextField
-                      style={{ fontWeight: "bold" }}
-                      value={question.question}
-                    ></TextField>
-                  </td>
-                </tr>
-                <tr>
-                  <td>Example Answer: </td>
-                  <td>{question.standardAnswer}</td>
-                </tr>
-              </>
-            );
-          })}
-        </tbody>
+        {record?.questionList?.map((question: any) => {
+          return (
+            <tbody key={question.key}>
+              <tr key={question.key}>
+                <td>
+                  <IconPencilQuestion color="#F06418" size={20} />{" "}
+                </td>
+                <td>
+                  <TextField
+                    style={{ fontWeight: "bold" }}
+                    value={question.question}
+                  ></TextField>
+                </td>
+              </tr>
+              <tr>
+                <td>Example Answer: </td>
+                <td>{question.standardAnswer}</td>
+              </tr>
+            </tbody>
+          );
+        })}
       </Table>
     </Show>
   );

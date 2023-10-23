@@ -29,6 +29,7 @@ import { Job, MatchIndex, Resume, User } from "../interfaces";
 import ResumeComponent from "./ResumeComponent";
 import MatchIndexModal from "./modal/MatchIndexModal";
 import { useNavigate } from "react-router-dom";
+import { useMediaQuery } from "@mantine/hooks";
 
 export const JobApplicationListComponent: React.FC<
   IResourceComponentsProps
@@ -36,6 +37,8 @@ export const JobApplicationListComponent: React.FC<
   const translate = useTranslate();
   const { data: user } = useGetIdentity<User>();
   const navigate = useNavigate();
+
+  const isMobile = useMediaQuery(`(max-width: 750px`);
 
   const [resume, setResume] = useState<Resume>();
   const [resumeOpened, setResumeOpened] = useState(false);
@@ -234,7 +237,7 @@ export const JobApplicationListComponent: React.FC<
         opened={resumeOpened}
         onClose={() => setResumeOpened(false)}
         title={`${resume?.fullName}'s Resume`}
-        size="70%"
+        size={isMobile ? "100%" : "70%"}
       >
         {resume && <ResumeComponent resume={resume} />}
       </Modal>
