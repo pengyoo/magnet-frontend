@@ -1,4 +1,8 @@
-import { IResourceComponentsProps, useTranslate } from "@refinedev/core";
+import {
+  IResourceComponentsProps,
+  useNotification,
+  useTranslate,
+} from "@refinedev/core";
 import { Create, useForm, useSelect } from "@refinedev/mantine";
 import {
   Select,
@@ -11,6 +15,7 @@ import {
 } from "@mantine/core";
 import { randomId } from "@mantine/hooks";
 import { IconTrash } from "@tabler/icons";
+import axiosInstance, { API_URL } from "../../../services/axios-instance";
 
 export const TestEdit: React.FC<IResourceComponentsProps> = () => {
   const {
@@ -37,6 +42,9 @@ export const TestEdit: React.FC<IResourceComponentsProps> = () => {
     },
   });
 
+  // Notification
+  const { open } = useNotification();
+
   // questionList
   const questionListFields = values.questionList.map((item, index) => (
     <Flex style={{ width: "100%" }} key={item.key} p={2} gap="md" my="lg">
@@ -58,7 +66,23 @@ export const TestEdit: React.FC<IResourceComponentsProps> = () => {
       />
       <ActionIcon
         color="red"
-        onClick={() => removeListItem("questionList", index)}
+        onClick={() => {
+          removeListItem("questionList", index);
+          axiosInstance
+            .delete(API_URL + "/ctests/question/" + values.id + "/" + item.id)
+            .then(() => {
+              open?.({
+                type: "success",
+                message: "Project successfully deleted",
+              });
+            })
+            .catch((err) => {
+              open?.({
+                type: "error",
+                message: err.message,
+              });
+            });
+        }}
       >
         <IconTrash size="1rem" />
       </ActionIcon>

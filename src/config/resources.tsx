@@ -215,6 +215,7 @@ export const resources: IResourceItem[] = [
       canDelete: true,
     },
   },
+
   {
     name: "ctests",
     list: "/ctests",
@@ -224,6 +225,16 @@ export const resources: IResourceItem[] = [
     meta: {
       label: "Test Management",
       icon: <IconTestPipe size={20} />,
+      hide: user?.role != "COMPANY",
+      canDelete: true,
+    },
+  },
+  {
+    name: "cinvitations",
+    list: "/cinvitations",
+    meta: {
+      label: "Test Invitation",
+      icon: <IconAppWindow size={20} />,
       hide: user?.role != "COMPANY",
       canDelete: true,
     },

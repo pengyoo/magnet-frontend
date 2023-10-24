@@ -33,12 +33,12 @@ import { Header } from "./components/header";
 import { ForgotPassword } from "./pages/forgotPassword";
 import { Login } from "./pages/login";
 import { Register } from "./pages/register";
-// import {
-//   MantineCreateInferencer,
-//   MantineEditInferencer,
-//   MantineListInferencer,
-//   MantineShowInferencer,
-// } from "@refinedev/inferencer/mantine";
+import {
+  MantineCreateInferencer,
+  MantineEditInferencer,
+  MantineListInferencer,
+  MantineShowInferencer,
+} from "@refinedev/inferencer/mantine";
 
 import { CompanyEdit, CompanyList, CompanyShow } from "./pages/admin/companies";
 import { JobEdit, JobList, JobShow } from "./pages/admin/jobs";
@@ -67,6 +67,7 @@ import { TestList } from "./pages/company/tests/list";
 import { TestShow } from "./pages/company/tests/show";
 import { TestEdit } from "./pages/company/tests/edit";
 import { JobApplicationListComponent } from "./components/JobApplicationListComponent";
+import { TestInvitationList } from "./pages/company/invitations/list";
 
 function App() {
   const [colorScheme, setColorScheme] = useLocalStorage<ColorScheme>({
@@ -270,6 +271,9 @@ function App() {
                             <Route path="show/:id" element={<TestShow />} />
                             <Route path="edit/:id" element={<TestEdit />} />
                             <Route path="create" element={<TestEdit />} />
+                          </Route>
+                          <Route path="/cinvitations">
+                            <Route index element={<TestInvitationList />} />
                           </Route>
                         </>
                       )}

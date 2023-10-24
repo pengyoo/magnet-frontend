@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import {
   IResourceComponentsProps,
   useGetIdentity,
+  useNotification,
   useTranslate,
 } from "@refinedev/core";
 import { useTable } from "@refinedev/react-table";
@@ -16,6 +17,7 @@ import {
   Anchor,
   Flex,
   Group,
+  useMantineTheme,
 } from "@mantine/core";
 import {
   List,
@@ -24,12 +26,13 @@ import {
   ShowButton,
   DeleteButton,
 } from "@refinedev/mantine";
-import { IconVaccine } from "@tabler/icons";
 import { Job, MatchIndex, Resume, User } from "../interfaces";
 import ResumeComponent from "./ResumeComponent";
 import MatchIndexModal from "./modal/MatchIndexModal";
 import { useNavigate } from "react-router-dom";
 import { useMediaQuery } from "@mantine/hooks";
+import { PiExamFill } from "react-icons/pi";
+import axiosInstance, { API_URL } from "../services/axios-instance";
 
 export const JobApplicationListComponent: React.FC<
   IResourceComponentsProps
@@ -53,10 +56,32 @@ export const JobApplicationListComponent: React.FC<
     language: 0,
   });
 
+  // Notification
+  const { open } = useNotification();
+
   const handleShowResume = (resume: Resume) => {
     setResume(resume);
     setResumeOpened(true);
   };
+
+  const handleTestInvite = (applicationId: string) => {
+    axiosInstance
+      .post(API_URL + "/cinvitations/" + applicationId)
+      .then((resp) => {
+        open?.({
+          type: "success",
+          message: "Invited successfully!",
+        });
+      })
+      .catch((err) => {
+        open?.({
+          type: "error",
+          message: err.message,
+        });
+      });
+  };
+
+  const theme = useMantineTheme();
 
   const columns = React.useMemo<ColumnDef<any>[]>(
     () => [
@@ -159,8 +184,12 @@ export const JobApplicationListComponent: React.FC<
             </Group>
           ) : (
             <Group spacing="xs" noWrap>
-              <ActionIcon>
-                <IconVaccine />
+              <ActionIcon title="Invite to do a test">
+                <PiExamFill
+                  onClick={() => handleTestInvite(getValue() as string)}
+                  size={25}
+                  color={theme.colors.blue[5]}
+                />
               </ActionIcon>
             </Group>
           );
