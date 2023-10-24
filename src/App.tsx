@@ -70,6 +70,7 @@ import { JobApplicationListComponent } from "./components/JobApplicationListComp
 import { TestInvitationList } from "./pages/company/invitations/list";
 import { MyTestInvitationList } from "./pages/jobseeker/invitations/list";
 import { MyTestInvitationShow } from "./pages/jobseeker/invitations/show";
+import LandingPage from "./pages/landing/landing";
 
 function App() {
   const [colorScheme, setColorScheme] = useLocalStorage<ColorScheme>({
@@ -306,8 +307,7 @@ function App() {
 
                     {/* External pages independent of the Refine management system */}
                     <Route>
-                      <Route path="/" index element={<ResumeForm />} />
-                      <Route path="/landing" element={<ResumeForm />} />
+                      <Route path="/" index element={<LandingPage />} />
                     </Route>
                   </Routes>
 

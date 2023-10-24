@@ -22,11 +22,12 @@ import {
   useRouterType,
 } from "@refinedev/core";
 import { CSSProperties } from "react";
-import { ThemedTitle } from "@refinedev/mantine";
+import { ThemedTitle, ThemedTitleV2 } from "@refinedev/mantine";
 import axiosInstance, { API_URL } from "../../services/axios-instance";
 import { User } from "../../interfaces";
 
 import { useNavigate } from "react-router-dom";
+import { GiMagnet } from "react-icons/gi";
 
 const useStyles = createStyles(() => ({
   loginBox: {
@@ -105,7 +106,11 @@ export function Register() {
   return (
     <Container maw="25rem" className={classes.loginBox}>
       <div style={pageTitleStyles}>
-        <ThemedTitle collapsed={false} text="Magnet" />
+        <ThemedTitleV2
+          collapsed={false}
+          text="Magnet"
+          icon={<GiMagnet size={30} />}
+        />
       </div>
       <Card style={cardStyles}>
         <Title style={titleStyles} color={"brand.8"}>
