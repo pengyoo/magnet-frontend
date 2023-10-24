@@ -180,6 +180,17 @@ export const resources: IResourceItem[] = [
     },
   },
 
+  {
+    name: "sinvitations",
+    list: "/sinvitations",
+    show: "/sinvitations/show/:id",
+    meta: {
+      label: "Test Invitation",
+      icon: <IconAppWindow size={20} />,
+      hide: user?.role != "JOB_SEEKER",
+    },
+  },
+
   //Company Menus
 
   // {

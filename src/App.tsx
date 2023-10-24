@@ -68,6 +68,7 @@ import { TestShow } from "./pages/company/tests/show";
 import { TestEdit } from "./pages/company/tests/edit";
 import { JobApplicationListComponent } from "./components/JobApplicationListComponent";
 import { TestInvitationList } from "./pages/company/invitations/list";
+import { MyTestInvitationList } from "./pages/jobseeker/invitations/list";
 
 function App() {
   const [colorScheme, setColorScheme] = useLocalStorage<ColorScheme>({
@@ -216,34 +217,37 @@ function App() {
                         </>
                       )}
                       {/* JOB_SEEKER MENU */}
-                      {user?.role == "COMPANY" && (
+                      {user?.role == "JOB_SEEKER" && (
                         <>
                           <Route
                             path="/my_resume"
                             index
                             element={<ResumeForm />}
                           />
-                        </>
-                      )}
 
-                      {user?.role == "JOB_SEEKER" && (
-                        <Route path="/sjobs">
-                          <Route index element={<Jobseeker_JobList />} />
-                          <Route
-                            path="show/:id"
-                            element={<Jobseeker_JobShow />}
-                          />
-                        </Route>
-                      )}
+                          <Route path="/sjobs">
+                            <Route index element={<Jobseeker_JobList />} />
+                            <Route
+                              path="show/:id"
+                              element={<Jobseeker_JobShow />}
+                            />
+                          </Route>
 
-                      {user?.role == "JOB_SEEKER" && (
-                        <Route path="/sapplications">
-                          <Route index element={<MyApplicationList />} />
-                          {/* <Route
+                          <Route path="/sapplications">
+                            <Route index element={<MyApplicationList />} />
+                            {/* <Route
                             path="show/:id"
                             element={<MyApplicationShow />}
                           /> */}
-                        </Route>
+                          </Route>
+                          <Route path="/sinvitations">
+                            <Route index element={<MyTestInvitationList />} />
+                            <Route
+                              path="show/:id"
+                              element={<MantineShowInferencer />}
+                            />
+                          </Route>
+                        </>
                       )}
 
                       {/* Company Route */}
