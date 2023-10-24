@@ -2,17 +2,42 @@ import React from "react";
 import { IResourceComponentsProps, useTranslate } from "@refinedev/core";
 import { useTable } from "@refinedev/react-table";
 import { ColumnDef, flexRender } from "@tanstack/react-table";
-import { ScrollArea, Table, Pagination, Group, Badge } from "@mantine/core";
-import { List, DeleteButton, DateField, ShowButton } from "@refinedev/mantine";
+import {
+  ScrollArea,
+  Table,
+  Pagination,
+  Group,
+  Badge,
+  ActionIcon,
+} from "@mantine/core";
+import { List, DateField } from "@refinedev/mantine";
+import { IconPencil } from "@tabler/icons";
+import { useNavigate } from "react-router-dom";
 
 export const MyTestInvitationList: React.FC<IResourceComponentsProps> = () => {
   const translate = useTranslate();
+  const navigate = useNavigate();
   const columns = React.useMemo<ColumnDef<any>[]>(
     () => [
       {
         id: "jobTitle",
         accessorKey: "jobTitle",
         header: "Job Title",
+      },
+      {
+        id: "companyName",
+        accessorKey: "testPaper.job.company.name",
+        header: "Company Name",
+      },
+      {
+        id: "testType",
+        accessorKey: "testPaper.type",
+        header: "Test Type",
+      },
+      {
+        id: "numberOfQuestions",
+        accessorKey: "testPaper.questionList.length",
+        header: "Number of Questions",
       },
       {
         id: "createdAt",
@@ -37,7 +62,14 @@ export const MyTestInvitationList: React.FC<IResourceComponentsProps> = () => {
         cell: function render({ getValue }) {
           return (
             <Group spacing="xs" noWrap>
-              <ShowButton hideText recordItemId={getValue() as string} />
+              <ActionIcon
+                title="Take Test"
+                onClick={() =>
+                  navigate(`/sinvitations/show/${getValue() as string}`)
+                }
+              >
+                <IconPencil />
+              </ActionIcon>
             </Group>
           );
         },

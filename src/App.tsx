@@ -69,6 +69,7 @@ import { TestEdit } from "./pages/company/tests/edit";
 import { JobApplicationListComponent } from "./components/JobApplicationListComponent";
 import { TestInvitationList } from "./pages/company/invitations/list";
 import { MyTestInvitationList } from "./pages/jobseeker/invitations/list";
+import { MyTestInvitationShow } from "./pages/jobseeker/invitations/show";
 
 function App() {
   const [colorScheme, setColorScheme] = useLocalStorage<ColorScheme>({
@@ -242,9 +243,10 @@ function App() {
                           </Route>
                           <Route path="/sinvitations">
                             <Route index element={<MyTestInvitationList />} />
+
                             <Route
                               path="show/:id"
-                              element={<MantineShowInferencer />}
+                              element={<MyTestInvitationShow />}
                             />
                           </Route>
                         </>
