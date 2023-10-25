@@ -19,10 +19,7 @@ import { GiMagnet } from "react-icons/gi";
 export function LandingFooter() {
   const theme = useMantineTheme();
   return (
-    <footer
-      className={classes.footer}
-      style={{ marginTop: 80, marginBottom: 20 }}
-    >
+    <footer className={classes.footer} style={{ marginTop: 50 }}>
       <Container className={classes.inner}>
         <div className={classes.logo}>
           <Flex gap={5} mb={10}>
@@ -31,7 +28,7 @@ export function LandingFooter() {
           </Flex>
 
           <Text size="xs" c="dimmed" className={classes.description}>
-            High speed, low cost, right people! Magnet, an AI powered intellgent
+            High speed, low cost, right people! Magnet, an AI powered smart
             recruitment system!
           </Text>
         </div>

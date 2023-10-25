@@ -3,13 +3,20 @@ import { createRoot } from "react-dom/client";
 
 import App from "./App";
 import "./i18n";
+import { Center, Loader } from "@mantine/core";
 
 const container = document.getElementById("root") as HTMLElement;
 const root = createRoot(container);
 
 root.render(
   <React.StrictMode>
-    <React.Suspense fallback="loading">
+    <React.Suspense
+      fallback={
+        <Center>
+          <Loader size="xs" />
+        </Center>
+      }
+    >
       <App />
     </React.Suspense>
   </React.StrictMode>

@@ -30,7 +30,7 @@ export const resources: IResourceItem[] = [
           ? "Dashboard"
           : user?.role === "JOB_SEEKER"
           ? "My Resume"
-          : "Company Information",
+          : "Company",
       icon:
         user?.role === "ADMIN" ? (
           <IconDashboard size={20} />
@@ -209,7 +209,7 @@ export const resources: IResourceItem[] = [
     create: "/cjobs/create",
     canDelete: true,
     meta: {
-      label: "Job Management",
+      label: "Job",
       icon: <IconLockOpen size={20} />,
       hide: user?.role != "COMPANY",
       canDelete: true,
@@ -220,10 +220,19 @@ export const resources: IResourceItem[] = [
     name: "capplications",
     list: "/capplications",
     meta: {
-      label: "Application Management",
+      label: "Application",
       icon: <IconAppWindow size={20} />,
       hide: user?.role != "COMPANY",
       canDelete: true,
+    },
+  },
+
+  {
+    name: "assesment",
+    meta: {
+      label: "Assesment",
+      icon: <IconBuildingBank size={20} />,
+      hide: user?.role != "COMPANY",
     },
   },
 
@@ -234,20 +243,22 @@ export const resources: IResourceItem[] = [
     edit: "/ctests/edit/:id",
     create: "/ctests/create",
     meta: {
-      label: "Test Management",
+      label: "Test",
       icon: <IconTestPipe size={20} />,
       hide: user?.role != "COMPANY",
       canDelete: true,
+      parent: "assesment",
     },
   },
   {
     name: "cinvitations",
     list: "/cinvitations",
     meta: {
-      label: "Test Invitation",
+      label: "Invitation",
       icon: <IconAppWindow size={20} />,
       hide: user?.role != "COMPANY",
       canDelete: true,
+      parent: "assesment",
     },
   },
 ];

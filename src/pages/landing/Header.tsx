@@ -48,7 +48,7 @@ export const LandingHeader = () => {
                 ml={20}
                 style={{ fontFamily: "'Caveat', cursive", fontSize: 20 }}
               >
-                An AI powered intellgent recruitment system!
+                An AI powered smart recruitment system!
               </Text>
             </MediaQuery>
           </Flex>

@@ -40,7 +40,7 @@ export const authProvider: AuthBindings = {
     localStorage.removeItem(LOGIN_USER);
     return {
       success: true,
-      redirectTo: "/login",
+      redirectTo: "/",
     };
   },
   check: async () => {

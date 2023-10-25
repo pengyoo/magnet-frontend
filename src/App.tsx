@@ -11,9 +11,11 @@ import {
 } from "@refinedev/mantine";
 
 import {
+  Center,
   ColorScheme,
   ColorSchemeProvider,
   Global,
+  Loader,
   MantineProvider,
 } from "@mantine/core";
 import { useLocalStorage } from "@mantine/hooks";
@@ -70,7 +72,8 @@ import { JobApplicationListComponent } from "./components/JobApplicationListComp
 import { TestInvitationList } from "./pages/company/invitations/list";
 import { MyTestInvitationList } from "./pages/jobseeker/invitations/list";
 import { MyTestInvitationShow } from "./pages/jobseeker/invitations/show";
-import LandingPage from "./pages/landing/landing";
+import { ErrorPage } from "./pages/ErrorPage";
+import LandingPage from "./pages/landing/LandPage";
 
 function App() {
   const [colorScheme, setColorScheme] = useLocalStorage<ColorScheme>({
@@ -129,6 +132,11 @@ function App() {
                         <Authenticated
                           key="authenticated-inner"
                           fallback={<CatchAllNavigate to="/login" />}
+                          loading={
+                            <Center>
+                              <Loader size="xs" />
+                            </Center>
+                          }
                         >
                           <ThemedLayoutV2
                             Header={() => <Header sticky />}
@@ -292,6 +300,11 @@ function App() {
                         <Authenticated
                           key="authenticated-outer"
                           fallback={<Outlet />}
+                          loading={
+                            <Center>
+                              <Loader size="xs" />
+                            </Center>
+                          }
                         >
                           <NavigateToResource />
                         </Authenticated>
@@ -308,6 +321,7 @@ function App() {
                     {/* External pages independent of the Refine management system */}
                     <Route>
                       <Route path="/" index element={<LandingPage />} />
+                      <Route path="*" element={<ErrorPage />} />
                     </Route>
                   </Routes>
 
