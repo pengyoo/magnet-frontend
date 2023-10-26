@@ -1,22 +1,18 @@
 import { type IResourceItem } from "@refinedev/core";
-import {
-  Icon360View,
-  IconAppWindow,
-  IconArrowBarToDown,
-  IconBrandAppgallery,
-  IconBuilding,
-  IconBuildingBank,
-  IconDashboard,
-  IconFaceId,
-  IconHome,
-  IconLockOpen,
-  IconNotebook,
-  IconPaperBag,
-  IconSmartHome,
-  IconTestPipe,
-  IconUser,
-} from "@tabler/icons";
+import { IconDashboard } from "@tabler/icons";
 import getLoginUser from "../utils/login-user";
+import { PiExamLight } from "react-icons/pi";
+import {
+  BsBuildings,
+  BsCalendarHeart,
+  BsClipboardData,
+  BsPersonCheck,
+  BsReverseLayoutTextWindowReverse,
+} from "react-icons/bs";
+import { AiOutlineHome } from "react-icons/ai";
+import { ImProfile } from "react-icons/im";
+import { GrDocumentUser } from "react-icons/gr";
+import { GiMagnet } from "react-icons/gi";
 
 const user = getLoginUser();
 
@@ -33,11 +29,11 @@ export const resources: IResourceItem[] = [
           : "Company",
       icon:
         user?.role === "ADMIN" ? (
-          <IconDashboard size={20} />
+          <IconDashboard size={22} />
         ) : user?.role === "JOB_SEEKER" ? (
-          <IconNotebook size={20} />
+          <ImProfile size={18} />
         ) : (
-          <IconHome size={20} />
+          <AiOutlineHome size={20} />
         ),
     },
   },
@@ -49,7 +45,7 @@ export const resources: IResourceItem[] = [
     create: "/users/create",
     meta: {
       label: "User",
-      icon: <IconUser size={20} />,
+      icon: <GrDocumentUser size={18} />,
       hide: user?.role != "ADMIN",
     },
   },
@@ -57,7 +53,7 @@ export const resources: IResourceItem[] = [
     name: "company",
     meta: {
       label: "Company",
-      icon: <IconBuildingBank size={20} />,
+      icon: <BsBuildings size={18} />,
       hide: user?.role != "ADMIN",
     },
   },
@@ -69,7 +65,7 @@ export const resources: IResourceItem[] = [
     meta: {
       label: "Company",
       parent: "company",
-      icon: <IconBuilding size={20} />,
+      icon: <BsBuildings size={20} />,
       hide: user?.role != "ADMIN",
     },
   },
@@ -81,7 +77,7 @@ export const resources: IResourceItem[] = [
     meta: {
       label: "Job",
       parent: "company",
-      icon: <Icon360View size={20} />,
+      icon: <BsClipboardData size={20} />,
       hide: user?.role != "ADMIN",
     },
   },
@@ -92,7 +88,7 @@ export const resources: IResourceItem[] = [
     show: "/resumes/show/:id",
     meta: {
       label: "Resume",
-      icon: <IconFaceId size={20} />,
+      icon: <ImProfile size={18} />,
       hide: user?.role != "ADMIN",
     },
   },
@@ -102,7 +98,7 @@ export const resources: IResourceItem[] = [
     show: "/applications/show/:id",
     meta: {
       label: "Job Application",
-      icon: <IconArrowBarToDown size={20} />,
+      icon: <BsPersonCheck size={20} />,
       hide: user?.role != "ADMIN",
     },
   },
@@ -111,7 +107,7 @@ export const resources: IResourceItem[] = [
     name: "assessment",
     meta: {
       label: "Assessment",
-      icon: <IconTestPipe size={20} />,
+      icon: <PiExamLight size={22} />,
       hide: user?.role != "ADMIN",
     },
   },
@@ -121,7 +117,7 @@ export const resources: IResourceItem[] = [
     show: "/papers/show/:id",
     meta: {
       label: "Test Paper",
-      icon: <IconPaperBag size={20} />,
+      icon: <PiExamLight size={22} />,
       parent: "assessment",
       hide: user?.role != "ADMIN",
     },
@@ -132,7 +128,7 @@ export const resources: IResourceItem[] = [
     show: "/answers/show/:id",
     meta: {
       label: "Answer Sheet",
-      icon: <IconPaperBag size={20} />,
+      icon: <BsReverseLayoutTextWindowReverse size={16} />,
       parent: "assessment",
       hide: user?.role != "ADMIN",
     },
@@ -142,7 +138,7 @@ export const resources: IResourceItem[] = [
     list: "/matches",
     meta: {
       label: "Matching Index",
-      icon: <IconSmartHome size={20} />,
+      icon: <GiMagnet size={20} />,
       hide: user?.role != "ADMIN",
     },
   },
@@ -164,7 +160,7 @@ export const resources: IResourceItem[] = [
     show: "/sjobs/show/:id",
     meta: {
       label: "Explore Jobs",
-      icon: <IconLockOpen size={20} />,
+      icon: <BsClipboardData size={18} />,
       hide: user?.role != "JOB_SEEKER",
     },
   },
@@ -175,7 +171,7 @@ export const resources: IResourceItem[] = [
     // show: "/my_applications/show/:id",
     meta: {
       label: "My Applications",
-      icon: <IconBrandAppgallery size={20} />,
+      icon: <BsPersonCheck size={20} />,
       hide: user?.role != "JOB_SEEKER",
     },
   },
@@ -186,7 +182,7 @@ export const resources: IResourceItem[] = [
     show: "/sinvitations/show/:id",
     meta: {
       label: "Test Invitation",
-      icon: <IconAppWindow size={20} />,
+      icon: <BsCalendarHeart size={17} />,
       hide: user?.role != "JOB_SEEKER",
     },
   },
@@ -210,7 +206,7 @@ export const resources: IResourceItem[] = [
     canDelete: true,
     meta: {
       label: "Job",
-      icon: <IconLockOpen size={20} />,
+      icon: <BsClipboardData size={18} />,
       hide: user?.role != "COMPANY",
       canDelete: true,
     },
@@ -221,7 +217,7 @@ export const resources: IResourceItem[] = [
     list: "/capplications",
     meta: {
       label: "Application",
-      icon: <IconAppWindow size={20} />,
+      icon: <BsPersonCheck size={20} />,
       hide: user?.role != "COMPANY",
       canDelete: true,
     },
@@ -231,7 +227,7 @@ export const resources: IResourceItem[] = [
     name: "assesment",
     meta: {
       label: "Assesment",
-      icon: <IconBuildingBank size={20} />,
+      icon: <PiExamLight size={22} />,
       hide: user?.role != "COMPANY",
     },
   },
@@ -244,7 +240,7 @@ export const resources: IResourceItem[] = [
     create: "/ctests/create",
     meta: {
       label: "Test",
-      icon: <IconTestPipe size={20} />,
+      icon: <PiExamLight size={22} />,
       hide: user?.role != "COMPANY",
       canDelete: true,
       parent: "assesment",
@@ -255,9 +251,20 @@ export const resources: IResourceItem[] = [
     list: "/cinvitations",
     meta: {
       label: "Invitation",
-      icon: <IconAppWindow size={20} />,
+      icon: <BsCalendarHeart size={17} />,
       hide: user?.role != "COMPANY",
       canDelete: true,
+      parent: "assesment",
+    },
+  },
+  {
+    name: "canswers",
+    list: "/canswers",
+    show: "/canswers/show/:id",
+    meta: {
+      label: "Test Result",
+      icon: <BsReverseLayoutTextWindowReverse size={16} />,
+      hide: user?.role != "COMPANY",
       parent: "assesment",
     },
   },

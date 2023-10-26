@@ -74,6 +74,8 @@ import { MyTestInvitationList } from "./pages/jobseeker/invitations/list";
 import { MyTestInvitationShow } from "./pages/jobseeker/invitations/show";
 import { ErrorPage } from "./pages/ErrorPage";
 import LandingPage from "./pages/landing/LandPage";
+import { TestResultList } from "./pages/company/answers/list";
+import { TestResultShow } from "./pages/company/answers/show";
 
 function App() {
   const [colorScheme, setColorScheme] = useLocalStorage<ColorScheme>({
@@ -289,6 +291,13 @@ function App() {
                           </Route>
                           <Route path="/cinvitations">
                             <Route index element={<TestInvitationList />} />
+                          </Route>
+                          <Route path="/canswers">
+                            <Route index element={<TestResultList />} />
+                            <Route
+                              path="show/:id"
+                              element={<TestResultShow />}
+                            />
                           </Route>
                         </>
                       )}

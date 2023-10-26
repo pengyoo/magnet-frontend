@@ -1,6 +1,7 @@
 import {
   ActionIcon,
   Avatar,
+  Drawer,
   Flex,
   Group,
   Header as MantineHeader,
@@ -15,9 +16,15 @@ import {
   HamburgerMenu,
   RefineThemedLayoutV2HeaderProps,
 } from "@refinedev/mantine";
-import { IconLanguage, IconMoonStars, IconSun } from "@tabler/icons";
+import {
+  IconLanguage,
+  IconMoonStars,
+  IconSettings,
+  IconSun,
+} from "@tabler/icons";
 import i18n from "i18next";
-import React from "react";
+import React, { useState } from "react";
+import SettingComponent from "./SettingComponent";
 
 type IUser = {
   id: number;
@@ -49,6 +56,8 @@ export const Header: React.FC<RefineThemedLayoutV2HeaderProps> = ({
       zIndex: 1,
     };
   }
+
+  const [opened, setOpened] = useState(false);
 
   return (
     <MantineHeader
@@ -112,11 +121,23 @@ export const Header: React.FC<RefineThemedLayoutV2HeaderProps> = ({
           {(user?.name || user?.avatar) && (
             <Group spacing="xs">
               {user?.name && <Title order={6}>{user?.name}</Title>}
-              <Avatar src={user?.avatar} alt={user?.name} radius="xl" />
+              <Menu shadow="md">
+                <Menu.Target>
+                  <ActionIcon variant="outline" onClick={() => setOpened(true)}>
+                    <Avatar src={user?.avatar} alt={user?.name} radius="xl" />
+                  </ActionIcon>
+                </Menu.Target>
+                <Menu.Dropdown>
+                  <Menu.Item icon={<IconSettings size={16} />}>
+                    Account Setting
+                  </Menu.Item>
+                </Menu.Dropdown>
+              </Menu>
             </Group>
           )}
         </Group>
       </Flex>
+      <SettingComponent opened={opened} setOpened={setOpened} />
     </MantineHeader>
   );
 };
