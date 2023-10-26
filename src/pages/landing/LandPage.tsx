@@ -67,9 +67,6 @@ const LandingPage = () => {
             >
               Key Features for Employers...
             </Title>
-            <Button variant="outline" onClick={() => navigate("/register")}>
-              Get Started
-            </Button>
           </Flex>
           <SimpleGrid
             cols={3}

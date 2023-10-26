@@ -30,8 +30,10 @@ import { Job, MatchIndex, Resume, User } from "../interfaces";
 import ResumeComponent from "./ResumeComponent";
 import MatchIndexModal from "./modal/MatchIndexModal";
 import { useNavigate } from "react-router-dom";
-import { useMediaQuery } from "@mantine/hooks";
+import { randomId, useMediaQuery } from "@mantine/hooks";
 import { PiExamFill } from "react-icons/pi";
+import { GoIssueClosed } from "react-icons/go";
+import { VscError } from "react-icons/vsc";
 import axiosInstance, { API_URL } from "../services/axios-instance";
 
 export const JobApplicationListComponent: React.FC<
@@ -58,28 +60,6 @@ export const JobApplicationListComponent: React.FC<
 
   // Notification
   const { open } = useNotification();
-
-  const handleShowResume = (resume: Resume) => {
-    setResume(resume);
-    setResumeOpened(true);
-  };
-
-  const handleTestInvite = (applicationId: string) => {
-    axiosInstance
-      .post(API_URL + "/cinvitations/" + applicationId)
-      .then((resp) => {
-        open?.({
-          type: "success",
-          message: "Invited successfully!",
-        });
-      })
-      .catch((err) => {
-        open?.({
-          type: "error",
-          message: err.message,
-        });
-      });
-  };
 
   const theme = useMantineTheme();
 
@@ -184,11 +164,26 @@ export const JobApplicationListComponent: React.FC<
             </Group>
           ) : (
             <Group spacing="xs" noWrap>
-              <ActionIcon title="Invite to do a test">
+              <ActionIcon title="Invite to test">
                 <PiExamFill
                   onClick={() => handleTestInvite(getValue() as string)}
                   size={25}
                   color={theme.colors.blue[5]}
+                />
+              </ActionIcon>
+              <ActionIcon title="Accept">
+                <GoIssueClosed
+                  onClick={() => handleAccept(getValue() as string)}
+                  size={25}
+                  color={theme.colors.green[5]}
+                />
+              </ActionIcon>
+
+              <ActionIcon title="Reject">
+                <VscError
+                  onClick={() => handleReject(getValue() as string)}
+                  size={25}
+                  color={theme.colors.red[5]}
                 />
               </ActionIcon>
             </Group>
@@ -207,10 +202,83 @@ export const JobApplicationListComponent: React.FC<
       pageCount,
       current,
       tableQueryResult: { data: tableData },
+      setFilters,
     },
   } = useTable({
     columns,
   });
+
+  const handleShowResume = (resume: Resume) => {
+    setResume(resume);
+    setResumeOpened(true);
+  };
+
+  const handleTestInvite = (applicationId: string) => {
+    axiosInstance
+      .post(API_URL + "/cinvitations/" + applicationId)
+      .then((resp) => {
+        open?.({
+          type: "success",
+          message: "Invited successfully!",
+        });
+      })
+      .catch((err) => {
+        open?.({
+          type: "error",
+          message: err.message,
+        });
+      });
+  };
+
+  const handleAccept = (applicationId: string) => {
+    axiosInstance
+      .post(API_URL + "/capplications/accept/" + applicationId)
+      .then((resp) => {
+        // Refresh Data
+        setFilters([
+          {
+            field: "refresh",
+            operator: "contains",
+            value: randomId(),
+          },
+        ]);
+        open?.({
+          type: "success",
+          message: "Successfully accepted this applicant!",
+        });
+      })
+      .catch((err) => {
+        open?.({
+          type: "error",
+          message: err.message,
+        });
+      });
+  };
+
+  const handleReject = (applicationId: string) => {
+    axiosInstance
+      .post(API_URL + "/capplications/reject/" + applicationId)
+      .then((resp) => {
+        // Refresh Data
+        setFilters([
+          {
+            field: "refresh",
+            operator: "contains",
+            value: randomId(),
+          },
+        ]);
+        open?.({
+          type: "success",
+          message: "Successfully rejected this applicant!",
+        });
+      })
+      .catch((err) => {
+        open?.({
+          type: "error",
+          message: err.message,
+        });
+      });
+  };
 
   return (
     <List>
