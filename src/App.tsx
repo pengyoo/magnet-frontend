@@ -28,7 +28,13 @@ import routerBindings, {
 } from "@refinedev/react-router-v6";
 import dataProvider from "@refinedev/simple-rest";
 import { useTranslation } from "react-i18next";
-import { BrowserRouter, Outlet, Route, Routes } from "react-router-dom";
+import {
+  BrowserRouter,
+  HashRouter,
+  Outlet,
+  Route,
+  Routes,
+} from "react-router-dom";
 import { authProvider } from "./authProvider";
 import { AppIcon } from "./components/app-icon";
 import { Header } from "./components/header";
@@ -98,7 +104,7 @@ function App() {
   const user = getLoginUser();
 
   return (
-    <BrowserRouter>
+    <HashRouter>
       {/* <GitHubBanner /> */}
       <RefineKbarProvider>
         <ColorSchemeProvider
@@ -344,7 +350,7 @@ function App() {
           </MantineProvider>
         </ColorSchemeProvider>
       </RefineKbarProvider>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
 
