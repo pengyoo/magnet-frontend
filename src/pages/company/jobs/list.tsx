@@ -49,21 +49,14 @@ export const CJobList: React.FC<IResourceComponentsProps> = () => {
 
   //Call backend API to generate questions
   const handleGenerateQuestions = () => {
-    axiosInstance
-      .post(API_URL + "/papers/generate", form.values)
-      .then((resp) => {
-        open?.({
-          type: "success",
-          message: "Successfully generated questions",
-        });
-        setOpened(false);
-      })
-      .catch((err) => {
-        open?.({
-          type: "error",
-          message: err.message,
-        });
-      });
+    axiosInstance.post(API_URL + "/papers/generate", form.values);
+
+    setOpened(false);
+    open?.({
+      type: "success",
+      message:
+        "The test will be generated in about 3 minutes. Please chech the in the assessment -> test",
+    });
   };
 
   const form = useForm({

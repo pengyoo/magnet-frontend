@@ -440,6 +440,7 @@ const ResumeForm = () => {
         color="red"
         onClick={() => {
           form.removeListItem("projects", index);
+          if (!item.id) return;
           axiosInstance
             .delete(API_URL + "/sresumes/project/" + item.id)
             .then(() => {
