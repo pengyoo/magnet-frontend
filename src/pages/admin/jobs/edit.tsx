@@ -65,7 +65,7 @@ export const JobEdit: React.FC<IResourceComponentsProps> = () => {
         label={translate("Status")}
         labelPosition="left"
         {...getInputProps("status")}
-        checked={getInputProps("status").value === "ACTIVE"}
+        checked={getInputProps("status").value != "PAUSED"}
         onChange={(e) => {
           setFieldValue(
             "status",
