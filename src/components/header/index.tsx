@@ -120,7 +120,7 @@ export const Header: React.FC<RefineThemedLayoutV2HeaderProps> = ({
 
           {(user?.name || user?.avatar) && (
             <Group spacing="xs">
-              {user?.name && <Title order={6}>{user?.name}</Title>}
+              {/* {user?.name && <Title order={6}>{user?.name}</Title>} */}
               <Menu shadow="md">
                 <Menu.Target>
                   <ActionIcon variant="outline" onClick={() => setOpened(true)}>

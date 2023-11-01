@@ -78,7 +78,7 @@ const MatchIndexModal = ({
           {
             value: currentMatchIndex.overall * 100,
             color: "red",
-            label: "Overall:" + currentMatchIndex.overall * 100,
+            label: "Overall:" + currentMatchIndex.overall * 100 + "%",
           },
         ]}
       />

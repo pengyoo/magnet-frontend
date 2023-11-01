@@ -125,7 +125,9 @@ export const JobApplicationListComponent: React.FC<
               }}
             >
               <Badge color="red" style={{ fontSize: 16 }}>
-                {getValue<any>() ? getValue<any>().overall * 100 : "No Data"}
+                {getValue<any>()
+                  ? getValue<any>().overall * 100 + "%"
+                  : "No Data"}
               </Badge>
             </Anchor>
           );
