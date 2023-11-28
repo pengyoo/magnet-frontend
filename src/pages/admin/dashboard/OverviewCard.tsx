@@ -28,6 +28,14 @@ export const options = {
       position: "top" as const,
     },
   },
+  scales: {
+    y: {
+      beginAtZero: true,
+      ticks: {
+        precision: 0,
+      },
+    },
+  },
 };
 
 import axiosInstance, { API_URL } from "../../../services/axios-instance";
@@ -56,7 +64,7 @@ export function OverviewCard() {
       }}
     >
       <Title order={5}>Overview</Title>
-      <Line options={options} data={data} />
+      <Line options={options} data={data} datatype="integer" />
     </Card>
   );
 }
