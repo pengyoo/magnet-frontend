@@ -59,7 +59,7 @@ import { AnswerSheetList, AnswerSheetShow } from "./pages/admin/answers";
 import axiosInstance, { API_URL } from "./services/axios-instance";
 import { MatchingIndexList } from "./pages/admin/matches";
 import { resources } from "./config/resources";
-import { DashboardContent } from "./pages/dashboard/DashboardContent";
+import { DashboardContent } from "./pages/admin/dashboard/DashboardContent";
 import ResumeForm from "./pages/jobseeker/resume/form";
 import { UserCreate, UserEdit, UserList, UserShow } from "./pages/admin/users";
 import { MyApplicationList } from "./pages/jobseeker/applications";

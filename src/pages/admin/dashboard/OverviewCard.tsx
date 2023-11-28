@@ -30,51 +30,19 @@ export const options = {
   },
 };
 
-const labels = [
-  "January",
-  "February",
-  "March",
-  "April",
-  "May",
-  "June",
-  "July",
-  "August",
-  "September",
-];
-export const data = {
-  labels,
-  datasets: [
-    {
-      label: "Users A",
-      data: labels.map(() => Math.random() * 100),
-      tension: 0.4,
-      borderColor: "#0891b2",
-      backgroundColor: "#0891b2",
-    },
-    {
-      label: "Posts B",
-      data: labels.map(() => Math.random() * 100),
-      tension: 0.4,
-      borderColor: "#748FFC",
-      backgroundColor: "#748FFC",
-    },
-  ],
-};
-
 import axiosInstance, { API_URL } from "../../../services/axios-instance";
 
 export function OverviewCard() {
-  // const [data, setData] = useState({ labels: [], datasets: [] });
-  console.log(data);
+  const [data, setData] = useState({ labels: [], datasets: [] });
   useEffect(() => {
-    // axiosInstance
-    //   .get(`${API_URL}/stats/linear`)
-    //   .then((res) => {
-    //     setData(res.data);
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //   });
+    axiosInstance
+      .get(`${API_URL}/stats/linear`)
+      .then((res) => {
+        setData(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }, []);
   return (
     <Card
