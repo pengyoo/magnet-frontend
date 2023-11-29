@@ -17,7 +17,7 @@ export const JobEdit: React.FC<IResourceComponentsProps> = () => {
       description: "",
       salaryRange: "",
       location: "",
-      status: "",
+      status: "ACTIVE",
       expireAt: "",
     },
   });

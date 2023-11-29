@@ -81,7 +81,7 @@ export function Register() {
     validate: {
       email: (val) => (/^\S+@\S+$/.test(val) ? null : "Invalid email"),
       password: (val) =>
-        val.length < 6 ? "Password should include at least 6 characters" : null,
+        val.length < 8 ? "Password should include at least 8 characters" : null,
     },
   });
 
@@ -149,7 +149,7 @@ export function Register() {
               }
               error={
                 form.errors.password &&
-                "Password should include at least 6 characters"
+                "Password should include at least 8 characters"
               }
               radius="md"
             />
