@@ -7,7 +7,7 @@ import {
 import { useTable } from "@refinedev/react-table";
 import { ColumnDef, flexRender } from "@tanstack/react-table";
 import { ScrollArea, Table, Pagination, Group } from "@mantine/core";
-import { List, ShowButton } from "@refinedev/mantine";
+import { DeleteButton, List, ShowButton } from "@refinedev/mantine";
 
 export const AnswerSheetList: React.FC<IResourceComponentsProps> = () => {
   const translate = useTranslate();
@@ -44,6 +44,7 @@ export const AnswerSheetList: React.FC<IResourceComponentsProps> = () => {
           return (
             <Group spacing="xs" noWrap>
               <ShowButton hideText recordItemId={getValue() as string} />
+              <DeleteButton hideText recordItemId={getValue() as string} />
             </Group>
           );
         },

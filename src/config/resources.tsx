@@ -131,6 +131,7 @@ export const resources: IResourceItem[] = [
       icon: <BsReverseLayoutTextWindowReverse size={16} />,
       parent: "assessment",
       hide: user?.role != "ADMIN",
+      canDelete: true,
     },
   },
   {
