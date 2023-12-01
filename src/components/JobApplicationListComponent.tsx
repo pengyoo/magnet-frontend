@@ -124,12 +124,28 @@ export const JobApplicationListComponent: React.FC<
                 setMatchOpened(true);
               }}
             >
-              <Badge color="red" style={{ fontSize: 16 }}>
-                {getValue<any>()
-                  ? getValue<any>().overall * 100 + "%"
-                  : "No Data"}
-              </Badge>
+              {getValue<any>() ? (
+                <Badge color="red" style={{ fontSize: 16 }}>
+                  {getValue<any>().overall * 100 + "%"}
+                </Badge>
+              ) : (
+                "No Data"
+              )}
             </Anchor>
+          );
+        },
+      },
+      {
+        id: "testScore",
+        accessorKey: "testScore",
+        header: translate("Test Score"),
+        cell: function render({ getValue }) {
+          return getValue<any>() ? (
+            <Badge color="red" style={{ fontSize: 16 }}>
+              {getValue<any>()}
+            </Badge>
+          ) : (
+            "No Data"
           );
         },
       },

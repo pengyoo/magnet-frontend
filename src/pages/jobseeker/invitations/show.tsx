@@ -26,6 +26,7 @@ export const MyTestInvitationShow: React.FC<IResourceComponentsProps> = () => {
           questionText: "",
           answer: "",
           questionId: "",
+          exampleAnswer: "",
         },
       ],
     },
@@ -57,6 +58,7 @@ export const MyTestInvitationShow: React.FC<IResourceComponentsProps> = () => {
     const updatedAnswers = record?.testPaper?.questionList?.map(
       (question: any) => ({
         questionText: question.question,
+        exampleAnswer: question.standardAnswer,
         key: randomId(),
         answer: "",
         questionId: question.id,
@@ -93,6 +95,10 @@ export const MyTestInvitationShow: React.FC<IResourceComponentsProps> = () => {
                 />
                 <Textarea
                   {...form.getInputProps(`answers.${index}.questionText`)}
+                  hidden={true}
+                />
+                <Textarea
+                  {...form.getInputProps(question.standardAnswer)}
                   hidden={true}
                 />
               </Stack>

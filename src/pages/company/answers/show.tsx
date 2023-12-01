@@ -4,7 +4,7 @@ import {
   useTranslate,
 } from "@refinedev/core";
 import { Show, NumberField, TextField } from "@refinedev/mantine";
-import { Table, Title } from "@mantine/core";
+import { Divider, Table, Title } from "@mantine/core";
 import { IconPencilQuestion } from "@tabler/icons-react";
 
 export const TestResultShow: React.FC<IResourceComponentsProps> = () => {
@@ -30,24 +30,33 @@ export const TestResultShow: React.FC<IResourceComponentsProps> = () => {
       <TextField value={record?.applicant} />
 
       <Table highlightOnHover mt={20}>
-        {record?.answers?.map((answer: any) => {
-          return (
-            <tbody key={answer.id} style={{ marginBottom: 30 }}>
-              <tr>
-                <td>
-                  <IconPencilQuestion color="#F06418" size={20} />{" "}
-                </td>
-                <td>
-                  <TextField value={answer.questionText}></TextField>
-                </td>
-              </tr>
-              <tr>
-                <td>Answer: </td>
-                <td style={{ fontWeight: "bold" }}>{answer.answer}</td>
-              </tr>
-            </tbody>
-          );
-        })}
+        <tbody style={{ marginBottom: 30 }}>
+          {record?.answers?.map((answer: any) => {
+            return (
+              <div key={answer.id}>
+                <Divider size={5} />
+                <tr>
+                  <td>
+                    <IconPencilQuestion color="#F06418" size={20} />{" "}
+                  </td>
+                  <td>
+                    <TextField value={answer.questionText}></TextField>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Answer: </td>
+                  <td style={{ fontWeight: "bold" }}>{answer.answer}</td>
+                </tr>
+                <tr>
+                  <td>AI Score: </td>
+                  <td style={{ fontWeight: "bold", color: "red" }}>
+                    {answer.score}
+                  </td>
+                </tr>
+              </div>
+            );
+          })}
+        </tbody>
       </Table>
     </Show>
   );

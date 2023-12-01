@@ -2,19 +2,12 @@ import React from "react";
 import {
   IResourceComponentsProps,
   useTranslate,
-  GetManyResponse,
   useMany,
 } from "@refinedev/core";
 import { useTable } from "@refinedev/react-table";
 import { ColumnDef, flexRender } from "@tanstack/react-table";
 import { ScrollArea, Table, Pagination, Group } from "@mantine/core";
-import {
-  List,
-  EditButton,
-  ShowButton,
-  DeleteButton,
-  TagField,
-} from "@refinedev/mantine";
+import { List, ShowButton } from "@refinedev/mantine";
 
 export const AnswerSheetList: React.FC<IResourceComponentsProps> = () => {
   const translate = useTranslate();
@@ -35,6 +28,12 @@ export const AnswerSheetList: React.FC<IResourceComponentsProps> = () => {
         id: "user",
         header: translate("User Email"),
         accessorKey: "user.email",
+      },
+
+      {
+        id: "score",
+        header: translate("Score"),
+        accessorKey: "score",
       },
 
       {
