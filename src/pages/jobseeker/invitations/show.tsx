@@ -106,7 +106,7 @@ export const MyTestInvitationShow: React.FC<IResourceComponentsProps> = () => {
             </Stack>
           )
         )}
-        <Button w="100%" type="submit" hidden={true}>
+        <Button w="100%" type="submit" hidden={record?.status === "FINISHED"}>
           Submit
         </Button>
       </form>
