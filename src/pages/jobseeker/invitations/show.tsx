@@ -87,11 +87,12 @@ export const MyTestInvitationShow: React.FC<IResourceComponentsProps> = () => {
               </Stack>
               <Stack>
                 <Textarea
-                  label="Answer"
+                  // label="Answer"
                   minRows={4}
                   autosize
                   placeholder="Your Answer"
                   {...form.getInputProps(`answers.${index}.answer`)}
+                  hidden={record?.status === "FINISHED"}
                 />
                 <Textarea
                   {...form.getInputProps(`answers.${index}.questionText`)}
@@ -105,7 +106,7 @@ export const MyTestInvitationShow: React.FC<IResourceComponentsProps> = () => {
             </Stack>
           )
         )}
-        <Button w="100%" type="submit">
+        <Button w="100%" type="submit" hidden={true}>
           Submit
         </Button>
       </form>
