@@ -3,11 +3,13 @@ import {
   Divider,
   Drawer,
   Group,
-  TextInput,
+  PasswordInput,
   Title,
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import React from "react";
+import axiosInstance, { API_URL } from "../../services/axios-instance";
+import { useNotification } from "@refinedev/core";
 
 interface Props {
   opened: boolean;
@@ -17,19 +19,47 @@ interface Props {
 const SettingComponent = ({ opened, setOpened }: Props) => {
   const form = useForm({
     initialValues: {
-      email: "",
+      password: "",
+      rePassword: "",
       termsOfService: false,
     },
 
     validate: {
-      email: (value) => (/^\S+@\S+$/.test(value) ? null : "Invalid email"),
+      password: (value) =>
+        value.length < 8
+          ? "The length of password must be longer or equals 8"
+          : null,
+      rePassword: (value) =>
+        value != form.values.password ? "Password doesn't match." : null,
     },
   });
+
+  // Notification
+  const { open } = useNotification();
+
+  const handleResetPassword = () => {
+    axiosInstance
+      .post(`${API_URL}/users/reset_password`, form.values)
+      .then(() => {
+        open?.({
+          type: "success",
+          message: "Reset password successfully!",
+        });
+        setOpened(false);
+      })
+      .catch((err) => {
+        open?.({
+          type: "error",
+          message: err.message,
+        });
+        setOpened(false);
+      });
+  };
   return (
     <Drawer
       opened={opened}
       onClose={() => setOpened(false)}
-      title={<Title order={4}>Accounting Setting</Title>}
+      title={<Title order={4}>Reset Password</Title>}
       padding="xl"
       size="md"
       position="right"
@@ -37,13 +67,20 @@ const SettingComponent = ({ opened, setOpened }: Props) => {
       <Divider />
       <form
         style={{ marginTop: 30 }}
-        onSubmit={form.onSubmit((values) => console.log(values))}
+        onSubmit={form.onSubmit(handleResetPassword)}
       >
-        <TextInput
+        <PasswordInput
           withAsterisk
-          label="Email"
-          placeholder="your@email.com"
-          {...form.getInputProps("email")}
+          label="Password"
+          placeholder="type your new password"
+          {...form.getInputProps("password")}
+        />
+
+        <PasswordInput
+          withAsterisk
+          label="Repeat Password"
+          placeholder="repeat your new password"
+          {...form.getInputProps("rePassword")}
         />
 
         <Group position="right" mt="md">
