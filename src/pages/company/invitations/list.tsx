@@ -36,6 +36,20 @@ export const TestInvitationList: React.FC<IResourceComponentsProps> = () => {
         },
       },
       {
+        id: "testScore",
+        accessorKey: "testScore",
+        header: translate("Test Score"),
+        cell: function render({ getValue }) {
+          return getValue<any>() ? (
+            <Badge color="red" style={{ fontSize: 16 }}>
+              {getValue<any>()}
+            </Badge>
+          ) : (
+            "No Data"
+          );
+        },
+      },
+      {
         id: "actions",
         accessorKey: "id",
         header: translate("table.actions"),

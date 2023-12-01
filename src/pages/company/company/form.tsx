@@ -1,24 +1,18 @@
 import {
-  ActionIcon,
   Button,
   TextInput,
   Card,
   Flex,
-  Space,
   Title,
-  Affix,
   Autocomplete,
-  Code,
   Text,
   NumberInput,
   Stack,
 } from "@mantine/core";
-import { isEmail, useForm } from "@mantine/form";
+import { useForm } from "@mantine/form";
 import { useNotification } from "@refinedev/core";
 import axiosInstance, { API_URL } from "../../../services/axios-instance";
-import { IconEdit } from "@tabler/icons";
 import { useEffect, useState } from "react";
-import { AiOutlineSave } from "react-icons/ai";
 import MDEditor from "@uiw/react-md-editor";
 
 const CompanyForm = () => {

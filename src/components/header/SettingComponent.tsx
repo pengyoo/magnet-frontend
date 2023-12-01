@@ -21,7 +21,6 @@ const SettingComponent = ({ opened, setOpened }: Props) => {
     initialValues: {
       password: "",
       rePassword: "",
-      termsOfService: false,
     },
 
     validate: {
@@ -29,8 +28,8 @@ const SettingComponent = ({ opened, setOpened }: Props) => {
         value.length < 8
           ? "The length of password must be longer or equals 8"
           : null,
-      rePassword: (value) =>
-        value != form.values.password ? "Password doesn't match." : null,
+      rePassword: (value, values) =>
+        value != values.password ? "Password doesn't match." : null,
     },
   });
 

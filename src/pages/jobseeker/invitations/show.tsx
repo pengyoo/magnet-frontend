@@ -11,7 +11,7 @@ import axiosInstance, { API_URL } from "../../../services/axios-instance";
 
 export const MyTestInvitationShow: React.FC<IResourceComponentsProps> = () => {
   const { queryResult } = useShow();
-  const { data, isLoading } = queryResult;
+  const { data } = queryResult;
 
   const record = data?.data;
 
