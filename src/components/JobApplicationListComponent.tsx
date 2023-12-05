@@ -126,7 +126,7 @@ export const JobApplicationListComponent: React.FC<
             >
               {getValue<any>() ? (
                 <Badge color="red" style={{ fontSize: 16 }}>
-                  {getValue<any>().overall * 100 + "%"}
+                  {Math.round(getValue<any>().overall * 100) + "%"}
                 </Badge>
               ) : (
                 "No Data"
@@ -142,7 +142,7 @@ export const JobApplicationListComponent: React.FC<
         cell: function render({ getValue }) {
           return getValue<any>() ? (
             <Badge color="red" style={{ fontSize: 16 }}>
-              {getValue<any>()}
+              {getValue<number>().toFixed(2)}
             </Badge>
           ) : (
             "No Data"

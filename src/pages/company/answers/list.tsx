@@ -32,7 +32,7 @@ export const TestResultList: React.FC<IResourceComponentsProps> = () => {
         cell: function render({ getValue }) {
           return getValue<any>() ? (
             <Badge color="red" style={{ fontSize: 16 }}>
-              {getValue<any>()}
+              {getValue<number>().toFixed(2)}
             </Badge>
           ) : (
             "No Data"
