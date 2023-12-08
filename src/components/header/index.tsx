@@ -25,17 +25,13 @@ import {
 import i18n from "i18next";
 import React, { useState } from "react";
 import SettingComponent from "./SettingComponent";
-
-type IUser = {
-  id: number;
-  name: string;
-  avatar: string;
-};
+import { API_URL } from "../../services/axios-instance";
+import { User } from "../../interfaces";
 
 export const Header: React.FC<RefineThemedLayoutV2HeaderProps> = ({
   sticky,
 }) => {
-  const { data: user } = useGetIdentity<IUser>();
+  const { data: user } = useGetIdentity<User>();
 
   const changeLanguage = useSetLocale();
   const locale = useGetLocale();
@@ -59,6 +55,8 @@ export const Header: React.FC<RefineThemedLayoutV2HeaderProps> = ({
 
   const [opened, setOpened] = useState(false);
 
+  const [headShotName, setHeadShotName] = useState(user?.headShotName);
+
   return (
     <MantineHeader
       zIndex={199}
@@ -79,7 +77,7 @@ export const Header: React.FC<RefineThemedLayoutV2HeaderProps> = ({
       >
         <HamburgerMenu />
         <Group>
-          <Menu shadow="md">
+          {/* <Menu shadow="md">
             <Menu.Target>
               <ActionIcon variant="outline">
                 <IconLanguage size={18} />
@@ -107,7 +105,7 @@ export const Header: React.FC<RefineThemedLayoutV2HeaderProps> = ({
                 </Menu.Item>
               ))}
             </Menu.Dropdown>
-          </Menu>
+          </Menu> */}
 
           <ActionIcon
             variant="outline"
@@ -118,13 +116,17 @@ export const Header: React.FC<RefineThemedLayoutV2HeaderProps> = ({
             {dark ? <IconSun size={18} /> : <IconMoonStars size={18} />}
           </ActionIcon>
 
-          {(user?.name || user?.avatar) && (
+          {(user?.email || user?.headShotName) && (
             <Group spacing="xs">
               {/* {user?.name && <Title order={6}>{user?.name}</Title>} */}
               <Menu shadow="md">
                 <Menu.Target>
                   <ActionIcon variant="outline" onClick={() => setOpened(true)}>
-                    <Avatar src={user?.avatar} alt={user?.name} radius="xl" />
+                    <Avatar
+                      src={`${API_URL}/images/${user?.email}/${headShotName}`}
+                      alt={user?.email}
+                      radius="xl"
+                    />
                   </ActionIcon>
                 </Menu.Target>
                 <Menu.Dropdown>
@@ -137,7 +139,12 @@ export const Header: React.FC<RefineThemedLayoutV2HeaderProps> = ({
           )}
         </Group>
       </Flex>
-      <SettingComponent opened={opened} setOpened={setOpened} />
+      <SettingComponent
+        headShot={headShotName}
+        setHeadShot={setHeadShotName}
+        opened={opened}
+        setOpened={setOpened}
+      />
     </MantineHeader>
   );
 };

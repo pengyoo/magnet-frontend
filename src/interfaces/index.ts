@@ -78,6 +78,7 @@ export interface User {
     profile: string;
     role: string;
     terms: boolean;
+    headShotName:string;
 
   }
 

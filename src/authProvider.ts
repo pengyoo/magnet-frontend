@@ -74,14 +74,7 @@ export const authProvider: AuthBindings = {
     const userString = localStorage.getItem(LOGIN_USER);
     if (token && userString) {
       const user: User = JSON.parse(userString);
-      return {
-        id: user?.id,
-        name: user?.email,
-        avatar: "https://i.pravatar.cc/300",
-        email: user?.email,
-        profile: user?.profile,
-        role: user?.role
-      };
+      return user;
     }
     return null;
   },

@@ -19,6 +19,7 @@ import {
   useMantineTheme,
   Image,
   Indicator,
+  Spoiler,
 } from "@mantine/core";
 import { BsCurrencyExchange } from "react-icons/bs";
 import dayjs from "dayjs";
@@ -117,13 +118,17 @@ export const Jobseeker_JobShow: React.FC<IResourceComponentsProps> = () => {
                     />
                   </Flex>
                 </Box>
-                <Image
-                  src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/800px-Google_%22G%22_Logo.svg.png"
-                  width={50}
-                />
+                {record?.company?.logoUrl && (
+                  <Image
+                    src={`${API_URL}${record?.company?.logoUrl}`}
+                    width={60}
+                  />
+                )}
               </Flex>
               <Divider />
-              <MarkdownField value={record?.company?.description} />
+              <Spoiler maxHeight={120} showLabel="Show more" hideLabel="Hide">
+                <MarkdownField value={record?.company?.description} />
+              </Spoiler>
             </Box>
           </Card>
         </Grid.Col>

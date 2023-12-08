@@ -1,22 +1,38 @@
 import {
+  Avatar,
   Button,
   Divider,
   Drawer,
+  FileButton,
   Group,
   PasswordInput,
+  Space,
   Title,
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
-import React from "react";
+import React, { useState } from "react";
 import axiosInstance, { API_URL } from "../../services/axios-instance";
-import { useNotification } from "@refinedev/core";
+import { useGetIdentity, useNotification } from "@refinedev/core";
+import { User } from "../../interfaces";
+import { LOGIN_USER } from "../../authProvider";
+
+import { LoadingOverlay } from "@mantine/core";
 
 interface Props {
   opened: boolean;
   setOpened: (boo: boolean) => void;
+  headShot: string | undefined;
+  setHeadShot: (headShotName: string) => void;
 }
 
-const SettingComponent = ({ opened, setOpened }: Props) => {
+const SettingComponent = ({
+  opened,
+  setOpened,
+  headShot,
+  setHeadShot,
+}: Props) => {
+  const [isLoading, setIsLoading] = useState(false);
+
   const form = useForm({
     initialValues: {
       password: "",
@@ -36,7 +52,10 @@ const SettingComponent = ({ opened, setOpened }: Props) => {
   // Notification
   const { open } = useNotification();
 
+  const { data: user } = useGetIdentity<User>();
+
   const handleResetPassword = () => {
+    setIsLoading(true);
     axiosInstance
       .post(`${API_URL}/users/reset_password`, form.values)
       .then(() => {
@@ -44,6 +63,7 @@ const SettingComponent = ({ opened, setOpened }: Props) => {
           type: "success",
           message: "Reset password successfully!",
         });
+        setIsLoading(false);
         setOpened(false);
       })
       .catch((err) => {
@@ -54,18 +74,71 @@ const SettingComponent = ({ opened, setOpened }: Props) => {
         setOpened(false);
       });
   };
+
+  const handleUpload = (file: File) => {
+    setIsLoading(true);
+    const formData = new FormData();
+    formData.append("file", file);
+
+    axiosInstance
+      .post(`${API_URL}/images`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      })
+      .then((resp) => {
+        open?.({
+          type: "success",
+          message: "Image uploaded successfully!",
+        });
+        const userString = localStorage.getItem(LOGIN_USER);
+        if (userString) {
+          const user: User = JSON.parse(userString);
+          user.headShotName = resp.data.imageName;
+          setHeadShot(user.headShotName);
+          const jsonUser = JSON.stringify(user);
+          localStorage.setItem(LOGIN_USER, jsonUser);
+        }
+        setIsLoading(false);
+        setOpened(false);
+      });
+  };
+
   return (
     <Drawer
       opened={opened}
       onClose={() => setOpened(false)}
-      title={<Title order={4}>Reset Password</Title>}
+      title={<Title order={4}>Setting</Title>}
       padding="xl"
       size="md"
       position="right"
+      zIndex={100000}
     >
+      <LoadingOverlay visible={isLoading} overlayBlur={2} />
+      <Title order={6}>Upload Profile Image </Title>
+      <Divider />
+      <FileButton
+        onChange={(file: File) => handleUpload(file)}
+        accept="image/png,image/jpeg"
+      >
+        {(props) => (
+          <Avatar
+            {...props}
+            component="a"
+            radius="xl"
+            src={`${API_URL}/images/${user?.email}/${headShot}`}
+            alt="it's me"
+            size="xl"
+          ></Avatar>
+        )}
+      </FileButton>
+
+      <Title mt={30} order={6}>
+        Reset Password
+      </Title>
       <Divider />
       <form
-        style={{ marginTop: 30 }}
+        style={{ marginTop: 10 }}
         onSubmit={form.onSubmit(handleResetPassword)}
       >
         <PasswordInput
@@ -83,7 +156,9 @@ const SettingComponent = ({ opened, setOpened }: Props) => {
         />
 
         <Group position="right" mt="md">
-          <Button type="submit">Submit</Button>
+          <Button type="submit" disabled={!form.isValid()}>
+            Submit
+          </Button>
         </Group>
       </form>
     </Drawer>

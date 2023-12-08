@@ -1,5 +1,6 @@
 
 import {axiosInstance} from "@refinedev/simple-rest"; 
+import axios from "axios";
 
 
 // const API_URL = "http://localhost:8081/api/v1";
@@ -22,6 +23,7 @@ axiosInstance.interceptors.request.use((request) => {
 
     return request;
 });
+
 
 export default axiosInstance;
 export { API_URL };
