@@ -10,16 +10,16 @@ const container = document.getElementById("root") as HTMLElement;
 const root = createRoot(container);
 
 root.render(
-  // <React.StrictMode>
-  <React.Suspense
-    fallback={
-      <Center>
-        <Loader size="xs" />
-      </Center>
-    }
-  >
-    <App />
-    <Analytics />
-  </React.Suspense>
-  // </React.StrictMode>
+  <React.StrictMode>
+    <React.Suspense
+      fallback={
+        <Center>
+          <Loader size="xs" />
+        </Center>
+      }
+    >
+      <App />
+      <Analytics />
+    </React.Suspense>
+  </React.StrictMode>
 );

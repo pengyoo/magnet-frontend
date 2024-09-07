@@ -28,25 +28,13 @@ import routerBindings, {
 } from "@refinedev/react-router-v6";
 import dataProvider from "@refinedev/simple-rest";
 import { useTranslation } from "react-i18next";
-import {
-  BrowserRouter,
-  HashRouter,
-  Outlet,
-  Route,
-  Routes,
-} from "react-router-dom";
+import { BrowserRouter, Outlet, Route, Routes } from "react-router-dom";
 import { authProvider } from "./authProvider";
 import { AppIcon } from "./components/app-icon";
 import { Header } from "./components/header";
 import { ForgotPassword } from "./pages/forgotPassword";
 import { Login } from "./pages/login";
 import { Register } from "./pages/register";
-import {
-  MantineCreateInferencer,
-  MantineEditInferencer,
-  MantineListInferencer,
-  MantineShowInferencer,
-} from "@refinedev/inferencer/mantine";
 
 import { CompanyEdit, CompanyList, CompanyShow } from "./pages/admin/companies";
 import { JobEdit, JobList, JobShow } from "./pages/admin/jobs";
@@ -104,7 +92,7 @@ function App() {
   const user = getLoginUser();
 
   return (
-    <HashRouter>
+    <BrowserRouter>
       {/* <GitHubBanner /> */}
       <RefineKbarProvider>
         <ColorSchemeProvider
@@ -350,7 +338,7 @@ function App() {
           </MantineProvider>
         </ColorSchemeProvider>
       </RefineKbarProvider>
-    </HashRouter>
+    </BrowserRouter>
   );
 }
 
