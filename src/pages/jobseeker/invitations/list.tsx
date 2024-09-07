@@ -52,7 +52,19 @@ export const MyTestInvitationList: React.FC<IResourceComponentsProps> = () => {
         accessorKey: "status",
         header: "Status",
         cell: function render({ getValue }) {
-          return <Badge>{getValue<any>()}</Badge>;
+          return (
+            <Badge
+              color={
+                getValue<string>() === "FINISHED"
+                  ? "green"
+                  : getValue<string>() === "PENDING"
+                  ? "blue"
+                  : "red"
+              }
+            >
+              {getValue<any>()}
+            </Badge>
+          );
         },
       },
       {
